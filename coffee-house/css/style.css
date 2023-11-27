@@ -234,10 +234,6 @@ body {
   color: #403f3d;
 }
 
-/* .header_link.active {
-   color: #b0907a; 
-} */
-
 .header_menu {
   margin-bottom: 4px;
 }
@@ -263,6 +259,12 @@ body {
   margin: auto;
   display: block;
   transition: width 0.5s, background-color 0.5s, opacity 0.5s;
+}
+
+.header_link.active {
+  border-bottom: 3px solid;
+  background-color: rgba(64, 63, 61, 0);
+  margin-top: 3px;
 }
 
 /* Introduction section  ///////////////////// ///////  */
@@ -625,4 +627,119 @@ body {
 
 .contact_item:hover a {
   color: #b0907a;
+}
+
+/* Offer section ////////////////// */
+.offer {
+  margin-top: 20px;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+.offer_title {
+  width: 800px;
+  color: #403f3d;
+  text-align: center;
+  font-size: 60px;
+  font-weight: 600;
+  line-height: 125%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.menu_items {
+  margin-top: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 11px;
+}
+
+.menu_item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  border: 1px solid #c1b6ad;
+  margin-right: 13px;
+}
+
+.menu_item_img {
+  display: flex;
+  padding: 7px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  border: 1px solid #c1b6ad;
+}
+
+.menu_item_desc {
+  color: #403f3d;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 150%;
+  padding: 10px;
+}
+
+.drinks_menu {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.card {
+  height: 506px;
+  width: 310px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 40px;
+  border: 1px solid #c1b6ad;
+  margin-bottom: 31px;
+}
+
+.card img {
+  /* width: 340px; */
+  height: 310px;
+  width: 100%;
+  /* ;
+  height: auto; */
+  border-radius: 40px;
+  display: flex;
+  /* height: 506px;
+  max-width: 340px; */
+  flex-direction: column;
+  align-items: center;
+}
+
+.card h3 {
+  color: #403f3d;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 125%; /* 30px */
+  /* padding: 20px; */
+
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+}
+
+.card p {
+  color: #403f3d;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 150%;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.card .price {
+  color: #403f3d;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 125%; /* 30px */
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-bottom: 20px; /* 24px */
+  padding-bottom: 20px; /* 24px */
 }
