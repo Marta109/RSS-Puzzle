@@ -449,3 +449,83 @@ body {
   height: 430px;
   margin-bottom: 36px;
 }
+
+/* Mobile App  section //////////////// */
+
+.mobile_app {
+  /* padding: 14px; */
+  margin-left: 40px;
+  margin-right: 40px;
+  display: flex;
+  padding-bottom: 20px;
+}
+.mobile_app_desc {
+  height: 342px;
+  width: 620px;
+  padding-top: 204px;
+  margin-right: 110px;
+}
+.mobile_app_title {
+  color: #403f3d;
+  font-size: 60px;
+  font-weight: 600;
+  line-height: 125%;
+}
+
+.mobile_app_sub {
+  color: #403f3d;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 150%;
+  padding: 40px 0;
+}
+
+.mobile_app_button_container {
+  display: flex;
+
+}
+
+.download_btn {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  background-color: #e1d4c9;
+  color: #403f3d;
+  padding: 11px 20px;
+  border-radius: 100px;
+  border: 1px solid #665f55;
+  cursor: pointer;
+  width: 200px;
+}
+
+.download_btn_icon {
+  width: 36px;
+  height: 36px;
+  margin-right: 8px;
+}
+
+.download_btn_desc {
+  display: flex;
+  flex-direction: column;
+}
+
+.app_desc {
+  color: #403f3d;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 140%;
+  text-align: left;
+}
+
+.app_title {
+  color: #403f3d;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 150%;
+  padding-top: 2px;
+}
+
+.mobile_app_img{
+  padding-top: 60px;
+}
