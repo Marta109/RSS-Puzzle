@@ -181,11 +181,9 @@ body {
 
 .wrapper {
   width: 1440px;
-  /* margin-right: 40px;
-  margin-left: 40px; */
 }
 
-/* header section  ///////////////////////// */
+/* Header section  ///////////////////////// */
 .header {
   margin-top: 20px;
 }
@@ -227,15 +225,10 @@ body {
 
 .header_menu {
   margin-bottom: 4px;
-  /* margin-bottom: 9px;new comm*/
-  /* display: flex; */
-  /* align-items: center; */
-  /* margin-left: 40px; */
 }
 
 .header_menu_title {
   padding-right: 4px;
-  /* padding-top: 10px; */
 }
 .header_menu:hover::after,
 .header_list_item:hover::after {
@@ -256,29 +249,12 @@ body {
   transition: width 0.5s, background-color 0.5s, opacity 0.5s;
 }
 
-/* .header_list_item::after {
-  content: "";
-  width: 0;
-  height: 3px;
-  background-color: rgba(64, 63, 61, 0);
-  margin: auto;
-  display: block;
-  transition: width 0.5s, background-color 0.5s, opacity 0.5s;
-}
-
-.header_list_item:hover::after {
-  width: 100%;
-  background-color: #403f3d;
-  transition: width 0.5s linear;
-  opacity: 1;
-} */
-
-/* Enjoy section  /////////////////////   */
-.enjoy {
+/* Introduction section  ///////////////////// ///////  */
+.intro {
   max-width: 1440px;
   min-height: 100vh;
   border-radius: 40px;
-  background: url(../img/enjoy-bg.jpg);
+  background: url(../img/intro-bg.jpg);
   background-size: 100% auto;
   background-position: 0px -27px;
   background-repeat: no-repeat;
@@ -289,14 +265,13 @@ body {
   margin-left: 40px;
 }
 
-.enjoy_title {
+.intro_title {
   font-size: 72px;
   font-weight: 600;
   line-height: 105%;
   color: #e1d4c9;
   max-width: 530px;
   margin-bottom: 40px;
-  /* padding-left: 1px; */
 }
 
 .italic_text_accent {
@@ -305,7 +280,7 @@ body {
   margin-left: -5px;
 }
 
-.enjoy_subtitle {
+.intro_subtitle {
   color: #e1d4c9;
   font-size: 16px;
   font-weight: 400;
@@ -314,7 +289,7 @@ body {
   margin-bottom: 40px;
 }
 
-.enjoy_menu_btn {
+.intro_menu_btn {
   border-radius: 100px;
   border: none;
   background: #e1d4c9;
@@ -327,7 +302,7 @@ body {
   cursor: pointer;
 }
 
-/* Favorite Coffee section */
+/* Favorite Coffee section ////////////////////////// */
 
 .favorite_coffee {
   margin-top: 100px;
@@ -433,4 +408,44 @@ body {
   background-repeat: no-repeat;
   background-position: 50% 50%;
   padding-right: 1px;
+}
+
+/* About section ////////////////////////////// */
+
+.about {
+  margin-top: 102px;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.about_title {
+  font-size: 61px;
+  font-weight: 500;
+  line-height: 125%;
+}
+
+.about_container {
+  margin-top: 34px;
+  display: flex;
+}
+
+.left-column,
+.right-column {
+  padding-right: 40px;
+}
+
+.about_container_img_first,
+.about_container_img_fourth {
+  border-radius: 20px;
+  width: 660px;
+  height: 590px;
+  margin-bottom: 36px;
+}
+
+.about_container_img_second,
+.about_container_img_third {
+  border-radius: 20px;
+  width: 660px;
+  height: 430px;
+  margin-bottom: 36px;
 }
