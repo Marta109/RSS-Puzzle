@@ -8,12 +8,13 @@
     <link rel="stylesheet" href="./css/style.css" />
     <title>Coffee House</title>
   </head>
+
   <body>
     <header class="header">
       <div class="wrapper">
         <div class="header_wrapper">
           <div class="header_logo">
-            <a href="./home.html" class="header_logo_link">
+            <a href="./" class="header_logo_link">
               <img
                 src="./img/svg/logo.svg"
                 alt="Resource logo"
@@ -23,7 +24,7 @@
           <nav class="header_nav">
             <ul class="header_list">
               <li class="header_list_item">
-                <a href="#" class="header_link">Favorite coffee</a>
+                <a href="#" class="header_link active">Favorite coffee</a>
               </li>
               <li class="header_list_item">
                 <a href="#" class="header_link">About</a>
@@ -38,8 +39,8 @@
           </nav>
 
           <div class="header_menu">
-            <a href="./menu.html" class="header_link header_list_item">
-              <span>Menu</span>
+            <a href="./menu.html" class="header_link">
+              <span class="header_menu_title">Menu</span>
               <img
                 src="./img/svg/coffee-cup.svg"
                 alt="coffee cup img"
@@ -52,15 +53,46 @@
 
     <main class="main">
       <div class="wrapper">
-        <section class="intro">
-          <h1 class="intro_title">
-            <span class="intro_title_first_word">Enjoy</span> premium coffee
-            at our charming cafe
+        <section class="enjoy">
+          <h1 class="enjoy_title">
+            <span class="italic_text_accent">Enjoy</span> premium coffee at
+            our charming cafe
           </h1>
-          <p class="intro_subtitle">
-            With its inviting atmosphere and delicious coffee options, the Coffee House Resource is a popular destination for coffee lovers and those seeking a warm and inviting space to enjoy their favorite beverage.
+          <p class="enjoy_subtitle">
+            With its inviting atmosphere and delicious coffee options, the
+            Coffee House Resource is a popular destination for coffee
+            lovers and those seeking a warm and inviting space to enjoy
+            their favorite beverage.
           </p>
-          <button class="intro_menu_btn" type="button">Menu</button>
+          <button class="enjoy_menu_btn" type="button">Menu</button>
+        </section>
+
+        <section class="favorite_coffee">
+          <h2 class="favorite_coffee_title">
+            Choose your
+            <span class="italic_text_accent">favorite</span> coffee
+          </h2>
+          <div class="favorite_coffee_slider">
+            <div class="slider-arrow left"></div>
+            <div class="slider-track">
+              <img src="./img/coffee-slider-1.png" alt="coffee-slider-1" />
+              <div class="favorite_coffee_slid_description">
+                <p class="coffee_title">S&rsquo;mores Frappuccino</p>
+                <p class="coffee_description">
+                  This new drink takes an espresso and mixes it with brown
+                  sugar and cinnamon before being topped with oat milk.
+                </p>
+                <p class="coffee_prise">$5.50</p>
+              </div>
+
+              <div class="slider-bars">
+                <div class="bar active-bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+              </div>
+            </div>
+            <div class="slider-arrow right"></div>
+          </div>
         </section>
       </div>
     </main>
