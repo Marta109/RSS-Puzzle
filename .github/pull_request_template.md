@@ -1,4 +1,4 @@
-1. Task: [link](https://github.com/)
+1. Task: [https://github.com/rolling-scopes-school/tasks/blob/master/tasks/coffee-house/coffee-house-week1.md]
 2. Screenshot:
 3. Deploy: [link](https://github.com/)
 4. Done 28.05.2020 / deadline 31.05.2020
