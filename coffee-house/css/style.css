@@ -563,6 +563,17 @@ body {
   /* object-position: 50% 50%; */
 }
 
+.about_container img {
+  width: 100%;
+  /* height: auto; */
+  transition: transform 0.5s ease;
+}
+
+.left-column:hover img,
+.right-column:hover img {
+  transform: scale(0.8) translateZ(-10px);
+}
+
 
 
 
@@ -820,6 +831,20 @@ body {
   border-radius: 100px;
   border: 1px solid #c1b6ad;
   margin-right: 13px;
+  cursor: pointer;
+
+  &.selected {
+    background-color: #665F55;
+    color: #E1D4C9;
+    cursor: not-allowed;
+  }
+
+  &:not(.selected):hover {
+    background-color: #665F55;
+
+    color: #E1D4C9;
+
+  }
 }
 
 .menu_item_img {
@@ -829,10 +854,11 @@ body {
   align-items: center;
   border-radius: 100px;
   border: 1px solid #c1b6ad;
+  background: #E1D4C9
 }
 
 .menu_item_desc {
-  color: #403f3d;
+  color: #403F3D;
   font-size: 16px;
   font-weight: 600;
   line-height: 150%;
@@ -859,18 +885,29 @@ body {
 }
 
 .card img {
-  /* width: 340px; */
   height: 310px;
   width: 100%;
-  /* ;
-  height: auto; */
   border-radius: 40px;
   display: flex;
-  /* height: 506px;
-  max-width: 340px; */
   flex-direction: column;
   align-items: center;
+  transition: transform 0.3s ease;
+  overflow: hidden;
 }
+
+.card:hover img {
+  transform-origin: 50% 50%;
+  transform: scale(1.1);
+}
+
+.card:hover {
+  overflow: hidden;
+}
+
+
+
+
+
 
 .drink_descr {
   display: flex;
