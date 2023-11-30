@@ -174,6 +174,7 @@ table {
 /* General styles  /////////////////////////////////*/
 html {
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 *,
@@ -265,6 +266,7 @@ body {
   margin-top: 3px;
 }
 
+
 /* Introduction section  ///////////////////// ///////  */
 .intro {
   border-radius: 41px;
@@ -305,7 +307,7 @@ body {
   background: #e1d4c9;
   /* color: #403f3d; */
   max-width: 201px;
-  padding: 24px 80px; 
+  padding: 24px 80px;
   /* text-align: center;
   font-size: 16px;
   font-weight: 600; */
@@ -329,15 +331,15 @@ body {
   font-size: 16px;
   font-weight: 600;
   color: #403f3d;
-  margin-right: 10px; 
+  margin-right: 10px;
   transition: transform 0.3s;
 }
 
 .enjoy_menu_img_container {
   overflow: hidden;
-  width: 16px; 
-  height: 16px; 
-  margin-right: 5px; 
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
   transition: opacity 0.3s;
 }
 
@@ -462,10 +464,29 @@ body {
   background-size: 60% 60%;
   background-repeat: no-repeat;
   background-position: 50% 50%;
+  transition: color 0.3s ease;
 }
 
 .right {
   right: 3px;
+  background-image: url("../img/svg/arrow-right.svg");
+  background-size: 60% 60%;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  padding-right: 1px;
+  transition: color 0.3s ease;
+}
+
+.left:hover {
+  background: #665F55;
+  background-image: url("../img/svg/arrow-left.svg");
+  background-size: 60% 60%;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+.right:hover {
+  background: #665F55;
   background-image: url("../img/svg/arrow-right.svg");
   background-size: 60% 60%;
   background-repeat: no-repeat;
@@ -542,6 +563,10 @@ body {
   /* object-position: 50% 50%; */
 }
 
+
+
+
+
 /* Mobile App  section //////////////// */
 
 .mobile_app {
@@ -590,10 +615,21 @@ body {
   width: 200px;
 }
 
+.download_btn:hover {
+  background-color: #665F55;
+  color: #E1D4C9;
+}
+
+.download_btn:hover .download_btn_icon {
+  filter: invert(1);
+}
+
+
 .download_btn_icon {
   width: 36px;
   height: 36px;
   margin-right: 8px;
+  transition: filter 0.3s ease;
 }
 
 .download_btn_desc {
@@ -651,6 +687,7 @@ body {
   display: flex;
   flex-direction: row;
   margin-right: 12px;
+  cursor: pointer;
 }
 
 .social_icon_item {
@@ -694,11 +731,62 @@ body {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  color: #e1d4c9;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 150%;
 }
 
-.contact_item:hover a {
-  color: #b0907a;
+.contact_item a:hover,
+.social_icon_item:hover {
+  color: hsl(24, 25%, 58%);
 }
+
+
+
+.social_icon_item:hover {
+  background-color: #B0907A;
+}
+
+.social_icon_item:hover a img {
+  filter: grayscale(0%);
+
+}
+
+.contact_item a {
+  text-decoration: none;
+  color: #e1d4c9;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 150%;
+  position: relative;
+
+}
+
+.contact_item a:hover {
+  color: #b0907a;
+
+}
+
+.contact_item a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 3px;
+  background-color: #403f3d;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: width 0.3s ease-in-out;
+}
+
+.contact_item a:hover::after {
+  width: 100%;
+}
+
+
 
 /* Offer section ////////////////// */
 .offer {
