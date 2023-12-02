@@ -1,0 +1,139 @@
+/* Offer section ////////////////// */
+.offer {
+    margin-top: 15px;
+
+}
+
+.offer_title {
+    width: 800px;
+    color: #403f3d;
+    text-align: center;
+    font-size: 60px;
+    font-weight: 600;
+    line-height: 125%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.menu_items {
+    margin-top: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 11px;
+}
+
+.menu_item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    border: 1px solid #c1b6ad;
+    margin-right: 13px;
+    cursor: pointer;
+
+    &.selected {
+        background-color: #665F55;
+        color: #E1D4C9;
+        cursor: not-allowed;
+    }
+
+    &:not(.selected):hover {
+        background-color: #665F55;
+
+        color: #E1D4C9;
+
+    }
+}
+
+.menu_item:not(.selected):hover .menu_item_desc {
+    color: #E1D4C9;
+}
+
+.menu_item_img {
+    display: flex;
+    padding: 7px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    border: 1px solid #c1b6ad;
+    background: #E1D4C9
+}
+
+.menu_item_desc {
+    color: #403F3D;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 150%;
+    padding: 10px;
+}
+
+.drinks_menu {
+    margin-top: 39px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    cursor: pointer;
+    height: 507px;
+    width: 310px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 40px;
+    border: 1px solid #c1b6ad;
+    margin-bottom: 40px;
+    overflow: hidden;
+}
+
+.card img {
+    height: 310px;
+    width: 100%;
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease;
+    overflow: hidden;
+}
+
+.card:hover img {
+    transform-origin: 50% 50%;
+    transform: scale(1.1);
+}
+
+.card:hover {
+    overflow: hidden;
+}
+
+.drink_descr {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 20px 20px 18px;
+    height: 197px;
+}
+
+.card h3 {
+    color: #403f3d;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 125%;
+    padding-bottom: 10px;
+}
+
+.card p {
+    color: #403f3d;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+.card .price {
+    color: #403f3d;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 125%;
+    margin-top: auto;
+}
