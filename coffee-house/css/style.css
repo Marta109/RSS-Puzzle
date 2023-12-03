@@ -405,7 +405,7 @@ body {
 
 .mobile_app {
   display: flex;
-  margin-top: 41px;
+  margin-top: 40px;
 }
 
 .mobile_app_desc {
@@ -501,7 +501,7 @@ body {
 /*Footer section ////////////// */
 .footer {
   display: flex;
-  margin-top: 93px;
+  margin-top: 94px;
   margin-bottom: 40px;
   background-color: #665f55;
   border-radius: 40px;
