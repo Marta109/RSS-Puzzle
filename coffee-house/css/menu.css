@@ -16,7 +16,7 @@
 }
 
 .menu_items {
-    margin-top: 38px;
+    margin-top: 41px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -69,42 +69,46 @@
 }
 
 .drinks_menu {
-    margin-top: 39px;
+    margin-top: 40px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    gap: 40px;
+    margin-bottom: 100px;
 }
 
 .card {
     cursor: pointer;
-    height: 507px;
     width: 310px;
-    display: flex;
-    flex-direction: column;
-    border-radius: 40px;
+    height: 506px;
     border: 1px solid #c1b6ad;
-    margin-bottom: 40px;
-    overflow: hidden;
+    border-radius: 40px;
 }
 
-.card img {
-    height: 310px;
-    width: 100%;
+.card .card_img_container {
+    width: 310px;
+    height: 309px;
     border-radius: 40px;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    transition: transform 0.3s ease;
     overflow: hidden;
+    transition: transform 0.5s ease;
 }
 
-.card:hover img {
-    transform-origin: 50% 50%;
+.card .card_img_item {
+    overflow: hidden;
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 100%;
     transform: scale(1.1);
+    transition: transform 0.5s ease;
+
 }
 
-.card:hover {
-    overflow: hidden;
+.card:hover .card_img_item {
+    transform: scale(1);
+    transition: transform 0.5s ease;
 }
 
 .drink_descr {
