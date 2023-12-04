@@ -91,7 +91,7 @@ body {
 
 .burger_line_first {
   position: absolute;
-  top: calc(50% - 6px);
+  top: calc(50% - 5px);
 }
 
 .burger_line_second {
@@ -173,7 +173,6 @@ body {
   transition: width 0.5s linear, background-color 0.5s, opacity 0.5s;
   opacity: 1;
 }
-
 
 
 /* Introduction section  ///////////////////// ///////  */
@@ -307,7 +306,8 @@ body {
     width: 22px;
     height: auto;
     opacity: 1;
-    margin-left: 5px;
+    /* margin-left: 5px; */
+    margin-left: 8px;
   }
 
 
@@ -317,7 +317,32 @@ body {
 
 }
 
+@media screen and (max-width: 380px) {
+  .wrapper {
+    padding: 0 16px
+  }
 
+  .burger_menu_btn {
+    margin-bottom: 7px;
+  }
+
+  .intro {
+    padding: 59px 16px;
+    margin-top: 13px;
+  }
+
+  .intro_title {
+    font-size: 42px;
+    font-weight: 600;
+    line-height: 115%;
+  }
+
+  .intro_subtitle {
+    padding-top: 40px;
+    text-align: left;
+  }
+
+}
 
 /* Favorite Coffee section ////////////////////////// */
 
@@ -451,6 +476,35 @@ body {
 
 }
 
+@media screen and (max-width: 380px) {
+  .favorite_coffee {
+    margin-top: 102px;
+  }
+
+  .favorite_coffee_title {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 125%;
+  }
+
+  .left {
+    display: none;
+  }
+
+  .right {
+    display: none;
+  }
+
+  .slider-track img {
+    width: 100%;
+  }
+
+  .slider-bars {
+    padding-top: 1px;
+    padding-left: 14px;
+  }
+}
+
 /* About section /////////////////////////////////// */
 
 .about {
@@ -546,6 +600,30 @@ body {
     display: none;
   }
 }
+
+@media screen and (max-width: 380px) {
+  .about_title {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 125%;
+  }
+
+  .about_container {
+    margin-top: 42px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+  }
+
+  .about_img_box {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+
+}
+
 
 /* Mobile App  section //////////////// */
 
@@ -819,8 +897,9 @@ body {
   .footer_connect_us {
     padding-top: 102px;
   }
+
   .contact_item a:hover::after {
     width: 0%;
   }
-  
+
 }
