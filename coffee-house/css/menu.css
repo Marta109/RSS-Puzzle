@@ -199,3 +199,28 @@
     }
 
 }
+
+@media screen and (max-width: 380px) {
+    .offer_title {
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 125%;
+    }
+
+    .menu_items {
+        margin-top: 29px;
+        gap: 8px;
+        justify-content: space-between;
+    }
+
+    .menu_item {
+        padding: 8px 16px 8px 8px;
+        margin-right: 0;
+    }
+
+    .menu_item_img {
+        padding-left: 10px;
+        margin-left: 10px;
+    }
+}
