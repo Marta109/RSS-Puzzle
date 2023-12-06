@@ -1,0 +1,238 @@
+/* Offer section ////////////////// */
+.offer {
+    margin-top: 15px;
+
+}
+
+.offer_title {
+    width: 800px;
+    color: #403f3d;
+    text-align: center;
+    font-size: 60px;
+    font-weight: 600;
+    line-height: 125%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.menu_items {
+    margin-top: 39px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 11px;
+}
+
+.menu_item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    border: 1px solid #c1b6ad;
+    margin-right: 13px;
+    cursor: pointer;
+    background: #E1D4C9;
+
+    &.selected {
+        background-color: #665F55;
+        color: #E1D4C9;
+        cursor: not-allowed;
+
+        .menu_item_img {
+            background-color: #E1D4C9;
+        }
+    }
+
+    &:not(.selected):hover {
+        background-color: #665F55;
+        color: #E1D4C9;
+
+    }
+}
+
+.menu_item:not(.selected):hover .menu_item_desc {
+    color: #E1D4C9;
+}
+
+.menu_item_img {
+    display: flex;
+    padding: 7px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    border: 1px solid #c1b6ad;
+    background: #C1B6AD
+}
+
+
+
+
+
+.menu_item_desc {
+    color: #403F3D;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 150%;
+    padding: 10px;
+}
+
+.drinks_menu {
+    margin-top: 39px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-bottom: 100px;
+}
+
+.card {
+    cursor: pointer;
+    width: 310px;
+    height: 506px;
+    border: 1px solid #c1b6ad;
+    border-radius: 40px;
+}
+
+.card .card_img_container {
+    width: 308px;
+    height: 309px;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: transform 0.5s ease;
+}
+
+.card .card_img_item {
+    overflow: hidden;
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 100%;
+    transform: scale(1.1);
+    transition: transform 0.5s ease;
+
+}
+
+.card:hover .card_img_item {
+    transform: scale(1);
+    transition: transform 0.5s ease;
+}
+
+.drink_descr {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 21px 20px 20px 19px;
+    height: 197px;
+    width: 300px;
+}
+
+.card h3 {
+    color: #403f3d;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 125%;
+    padding-bottom: 12px;
+}
+
+.card p {
+    color: #403f3d;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+.card .price {
+    color: #403f3d;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 125%;
+    margin-top: auto;
+}
+
+.refresh_btn {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .card:hover .card_img_item {
+        transform: none;
+        transition: none
+    }
+
+    .card .card_img_item {
+        transform: none;
+        transition: none
+    }
+
+    .drink_descr {
+        width: 100%;
+    }
+
+    .drinks_menu {
+        margin-left: 15px;
+    }
+
+    .offer_title {
+        width: auto
+    }
+
+    .card:nth-child(n+5) {
+        display: none;
+    }
+
+    .refresh_btn {
+        display: flex;
+        width: 60px;
+        height: 60px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 100px;
+        border: 1px solid #665F55;
+        margin: 0 auto;
+    }
+
+    .menu_item:not(.selected):hover .menu_item_desc {
+        color: #403F3D;
+    }
+
+    .menu_item {
+        &:not(.selected):hover {
+            background-color: #E1D4C9;
+        }
+    }
+
+}
+
+@media screen and (max-width: 380px) {
+    .offer_title {
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 125%;
+    }
+
+    .menu_items {
+        margin-top: 37px;
+        margin-left: -10px;
+        gap: 8px;
+        justify-content: space-between;
+    }
+
+    .menu_item {
+        padding: 8px 16px 8px 8px;
+        margin-right: 0;
+    }
+
+    .menu_item_img {
+        padding: 6px;
+    }
+
+    .menu_item_desc {
+        padding: 0;
+        margin-left: 8px;
+    }
+
+
+}
