@@ -10,6 +10,7 @@
     line-height: 125%;
     text-align: center;
     margin: 0 auto;
+    width: 100%;
 }
 
 .menu_items {
@@ -90,11 +91,11 @@
     justify-content: center;
 }
 
-@media screen and (max-width: 1440px) {
+/* @media screen and (max-width: 1440px) {
     .drinks_menu {
         width: 1360px;
     }
-}
+} */
 
 .card {
     cursor: pointer;
