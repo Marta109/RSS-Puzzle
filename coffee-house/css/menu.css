@@ -20,7 +20,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-left: 11px;
+    padding-left: 28px;
 }
 
 .menu_item {
@@ -76,12 +76,21 @@
     padding: 10px;
 }
 
+
 .drinks_menu {
     margin-top: 39px;
     display: flex;
     flex-wrap: wrap;
     gap: 40px;
     margin-bottom: 100px;
+    width: 100%;
+    justify-content: center;
+}
+
+@media screen and (max-width: 1440px) {
+    .drinks_menu {
+        width: 1360px;
+    }
 }
 
 .card {
@@ -125,7 +134,7 @@
     justify-content: space-between;
     padding: 21px 20px 20px 19px;
     height: 197px;
-    width: 300px;
+    /* width: 300px; */
 }
 
 .card h3 {
@@ -155,7 +164,12 @@
     display: none;
 }
 
+
 @media screen and (max-width: 768px) {
+    .menu_items {
+        padding-left: 13px;
+    }
+
     .card:hover .card_img_item {
         transform: none;
         transition: none
@@ -171,7 +185,15 @@
     }
 
     .drinks_menu {
-        margin-left: 15px;
+        /* margin-left: 15px; */
+        padding: 0 14px;
+        width: 100%;
+        margin-top: 36px;
+    }
+
+    .offer {
+
+        margin-bottom: -102px;
     }
 
     .offer_title {
@@ -190,7 +212,9 @@
         align-items: center;
         border-radius: 100px;
         border: 1px solid #665F55;
+        margin-top: 202px;
         margin: 0 auto;
+        margin-top: -60px
     }
 
     .menu_item:not(.selected):hover .menu_item_desc {
@@ -206,6 +230,10 @@
 }
 
 @media screen and (max-width: 380px) {
+    .offer {
+        margin-bottom: -102px;
+    }
+
     .offer_title {
         font-size: 32px;
         font-style: normal;
@@ -234,5 +262,10 @@
         margin-left: 8px;
     }
 
+    .drinks_menu {
+        /* margin-left: 15px; */
+        padding: 0 19px;
+        margin-top: 38px;
+    }
 
 }
