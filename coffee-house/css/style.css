@@ -501,6 +501,23 @@ body {
   }
 }
 
+@media screen and (max-width: 482px) {
+  .slider-track img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .intro {
+    padding: 59px 16px;
+  }
+
+  .intro_title {
+    font-size: 42px;
+    font-weight: 600;
+    line-height: 115%;
+  }
+}
+
 @media screen and (max-width: 380px) {
   .favorite_coffee {
     margin-top: 102px;
