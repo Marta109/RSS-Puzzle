@@ -1,8 +1,5 @@
 /* Offer section ////////////////// */
-.offer {
-    margin-top: 15px;
 
-}
 
 .offer_title {
     width: 800px;
@@ -20,7 +17,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-left: 28px;
+    padding-left: 11px;
 }
 
 .menu_item {
@@ -43,15 +40,24 @@
         }
     }
 
-    &:not(.selected):hover {
-        background-color: #665F55;
-        color: #E1D4C9;
 
-    }
 }
 
-.menu_item:not(.selected):hover .menu_item_desc {
-    color: #E1D4C9;
+@media (hover: hover) {
+
+    .menu_item {
+        &:not(.selected):hover {
+            background-color: #665F55;
+            color: #E1D4C9;
+
+        }
+    }
+
+    .menu_item:not(.selected):hover .menu_item_desc {
+        color: #E1D4C9;
+    }
+
+
 }
 
 .menu_item_img {
@@ -63,9 +69,6 @@
     border: 1px solid #c1b6ad;
     background: #C1B6AD
 }
-
-
-
 
 
 .menu_item_desc {
@@ -123,9 +126,11 @@
 
 }
 
-.card:hover .card_img_item {
-    transform: scale(1);
-    transition: transform 0.5s ease;
+@media (hover: hover) {
+    .card:hover .card_img_item {
+        transform: scale(1);
+        transition: transform 0.5s ease;
+    }
 }
 
 .drink_descr {
@@ -134,7 +139,6 @@
     justify-content: space-between;
     padding: 21px 20px 20px 19px;
     height: 197px;
-    /* width: 300px; */
 }
 
 .card h3 {
@@ -185,10 +189,9 @@
     }
 
     .drinks_menu {
-        /* margin-left: 15px; */
         padding: 0 14px;
         width: 100%;
-        margin-top: 36px;
+        margin-top: 39px;
     }
 
     .offer {
@@ -197,7 +200,8 @@
     }
 
     .offer_title {
-        width: auto
+        width: auto;
+        margin-top: -2px
     }
 
     .card:nth-child(n+5) {
@@ -217,7 +221,7 @@
         margin-top: -60px
     }
 
-    .menu_item:not(.selected):hover .menu_item_desc {
+    /* .menu_item:not(.selected):hover .menu_item_desc {
         color: #403F3D;
     }
 
@@ -225,7 +229,7 @@
         &:not(.selected):hover {
             background-color: #E1D4C9;
         }
-    }
+    } */
 
 }
 
@@ -239,6 +243,7 @@
         font-style: normal;
         font-weight: 600;
         line-height: 125%;
+        margin-top: 0;
     }
 
     .menu_items {
@@ -263,7 +268,6 @@
     }
 
     .drinks_menu {
-        /* margin-left: 15px; */
         padding: 0 19px;
         margin-top: 38px;
     }
