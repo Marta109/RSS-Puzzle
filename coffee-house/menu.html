@@ -14,14 +14,16 @@
 </head>
 
 <body>
-  <header class="header">
-    <div class="wrapper">
+  <div class="wrapper">
+    <header class="header">
       <div class="header_wrapper">
+
         <div class="header_logo">
           <a href="./home.html" class="header_logo_link">
             <img src="./img/svg/logo.svg" alt="Resource logo" class="header_logo_img" />
           </a>
         </div>
+
         <nav class="header_nav">
           <ul class="header_list">
             <li class="header_list_item">
@@ -37,22 +39,24 @@
               <a href="#contact_us" class="header_link">Contact us</a>
             </li>
           </ul>
+
+
+          <div class="header_menu">
+            <a href="./menu.html" class="header_link">
+              <span class="header_menu_title">Menu</span>
+              <img src="./img/svg/coffee-cup.svg" alt="coffee cup img" class="header_menu_img" />
+            </a>
+          </div>
         </nav>
 
-        <div class="header_menu active">
-          <a href="./menu.html" class="header_link active">
-            <span class="header_menu_title">Menu</span>
-            <img src="./img/svg/coffee-cup.svg" alt="coffee cup img" class="header_menu_img" />
-          </a>
+        <div class="burger_menu_btn">
+          <div class="burger_menu_btn_line"></div>
+          <div class="burger_menu_btn_line"></div>
         </div>
 
-        <div class="burger_menu_btn">
-          <div class="burger_menu_btn_line burger_line_first"></div>
-          <div class="burger_menu_btn_line burger_line_second"></div>
-        </div>
       </div>
-    </div>
-  </header>
+    </header>
+  </div>
 
   <main class="main">
     <div class="wrapper">
@@ -224,6 +228,8 @@
       </div>
     </footer>
   </div>
+
+  <script src="./script/index.js"></script>
 </body>
 
 </html>
