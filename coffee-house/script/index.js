@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const burgerMenuBtn = document.querySelector(".burger_menu_btn");
-  const navMenu = document.querySelector(".header_nav");
+  const burgerMenuBtn = document.querySelector(".burger_menu_btn"),
+    navMenu = document.querySelector(".header_nav");
 
   burgerMenuBtn.addEventListener("click", () => {
     // burgerMenuBtn.classList.toggle("burger_menu_active");

@@ -16,13 +16,11 @@
   <div class="wrapper">
     <header class="header">
       <div class="header_wrapper">
-
         <div class="header_logo">
           <a href="./home.html" class="header_logo_link">
             <img src="./img/svg/logo.svg" alt="Resource logo" class="header_logo_img" />
           </a>
         </div>
-
         <nav class="header_nav">
           <ul class="header_list">
             <li class="header_list_item">
@@ -38,7 +36,6 @@
               <a href="#contact_us" class="header_link">Contact us</a>
             </li>
           </ul>
-
           <div class="header_menu">
             <a href="./menu.html" class="header_link">
               <span class="header_menu_title">Menu</span>
@@ -46,13 +43,10 @@
             </a>
           </div>
         </nav>
-
         <div class="burger_menu_btn">
           <div class="burger_menu_btn_line"></div>
           <div class="burger_menu_btn_line"></div>
         </div>
-
-
       </div>
     </header>
   </div>
@@ -60,26 +54,34 @@
   <main class="main">
     <div class="wrapper">
       <section class="intro">
-        <div class="intro_descr">
-          <h1 class="intro_title">
-            <span class="italic_text_accent">Enjoy</span> premium coffee
-            at our charming cafe
-          </h1>
-          <p class="intro_subtitle">
-            With its inviting atmosphere and delicious coffee options,
-            the Coffee House Resource is a popular destination for coffee
-            lovers and those seeking a warm and inviting space to enjoy
-            their favorite beverage.
-          </p>
-          <div class="intro_menu_btn">
-            <a href="./menu.html" class="header_link_for_btn_menu">
-              <div class="button-content">
-                <span class="enjoy_menu_btn">Menu</span>
-                <div class="enjoy_menu_img_container">
-                  <img src="./img/svg/coffee-cup.svg" alt="coffee cup img" class="header_menu_imgs fade-in-out" />
+        <div class="intro_video">
+          <video autoplay loop muted class="intro_bg_video">
+            <source src="./img/enjoy_video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="intro_descr_wrapper">
+          <div class="intro_descr">
+            <h1 class="intro_title">
+              <span class="italic_text_accent">Enjoy</span> premium coffee
+              at our charming cafe
+            </h1>
+            <p class="intro_subtitle">
+              With its inviting atmosphere and delicious coffee options,
+              the Coffee House Resource is a popular destination for coffee
+              lovers and those seeking a warm and inviting space to enjoy
+              their favorite beverage.
+            </p>
+            <div class="intro_menu_btn">
+              <a href="./menu.html" class="header_link_for_btn_menu">
+                <div class="button-content">
+                  <span class="enjoy_menu_btn">Menu</span>
+                  <div class="enjoy_menu_img_container">
+                    <img src="./img/svg/coffee-cup.svg" alt="coffee cup img" class="header_menu_imgs fade-in-out" />
+                  </div>
                 </div>
-              </div>
-            </a>
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -89,21 +91,47 @@
           Choose your
           <span class="italic_text_accent">favorite</span> coffee
         </h2>
+
         <div class="favorite_coffee_slider">
           <div class="slider-arrow left">
             <img src="./img/svg/arrow-left.svg" alt="Left Arrow" />
           </div>
-          <div class="slider-track">
-            <img src="./img/slider_img/coffee-slider-1.png" alt="coffee-slider-1" />
-            <div class="favorite_coffee_slid_description">
-              <p class="coffee_title">S&rsquo;mores Frappuccino</p>
-              <p class="coffee_description">
-                This new drink takes an espresso and mixes it with brown
-                sugar and cinnamon before being topped with oat milk.
-              </p>
-              <p class="coffee_prise">$5.50</p>
-            </div>
 
+          <div class="slider-track">
+            <div class="slider_list">
+              <div class="slider_item">
+                <img src="./img/slider_img/coffee-slider-1.png" alt="coffee-slider-1" />
+                <div class="favorite_coffee_slid_description">
+                  <p class="coffee_title">S&rsquo;mores Frappuccino</p>
+                  <p class="coffee_description">
+                    This new drink takes an espresso and mixes it with brown
+                    sugar and cinnamon before being topped with oat milk.
+                  </p>
+                  <p class="coffee_prise">$5.50</p>
+                </div>
+              </div>
+              <div class="slider_item">
+                <img src="./img/slider_img/coffee-slider-2.png" alt="coffee-slider-2" />
+                <div class="favorite_coffee_slid_description">
+                  <p class="coffee_title">Caramel Macchiato</p>
+                  <p class="coffee_description">
+                    Fragrant and unique classic espresso with rich caramel-peanut syrup, with cream under whipped thick
+                    foam.
+                  </p>
+                  <p class="coffee_prise">$5.50</p>
+                </div>
+              </div>
+              <div class="slider_item">
+                <img src="./img/slider_img/coffee-slider-3.png" alt="coffee-slider-3" />
+                <div class="favorite_coffee_slid_description">
+                  <p class="coffee_title">Ice coffee</p>
+                  <p class="coffee_description">
+                    A popular summer drink that tones and invigorates. Prepared from coffee, milk and ice.
+                  </p>
+                  <p class="coffee_prise">$4.50</p>
+                </div>
+              </div>
+            </div>
             <div class="slider-bars">
               <div class="bar active-bar"></div>
               <div class="bar"></div>
@@ -230,6 +258,7 @@
   </div>
 
   <script src="./script/index.js"></script>
+  <script src="./script/slider.js"></script>
 </body>
 
 </html>
