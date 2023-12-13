@@ -66,18 +66,69 @@
           <span class="italic_text_accent">amazing surprise</span>
         </h1>
         <div class="menu_items">
-          <button class="menu_item selected">
+          <button class="menu_item selected" value="coffee">
             <img src="./img/coffee.png" alt="coffee icon" class="menu_item_img" />
             <span class="menu_item_desc">Coffee</span>
           </button>
-          <button class="menu_item">
+          <button class="menu_item" value="tea">
             <img src="./img/tea.png" alt="tea icon" class="menu_item_img" />
             <span class="menu_item_desc">Tea</span>
           </button>
-          <button class="menu_item">
+          <button class="menu_item" value="dessert">
             <img src="./img/dessert.png" class="menu_item_img" alt="dessert icon" />
             <span class="menu_item_desc">Dessert</span>
           </button>
+        </div>
+
+
+        <div class="backdrop">
+          <div id="modal" class="modal">
+            <!-- <div class="modal-content">
+              <div class="modal_img"> <img src="./img/menu/coffee-1.png" alt="Product 1" /></div>
+              <div class="modal_descr">
+                <h2 id="modal_title" class="modal_title">Irish coffee</h3>
+                  <p id="modal_drink_descr" class="modal_drink_descr">Fragrant black coffee with Jameson Irish whiskey
+                    and whipped milk</p>
+                  <div class="modal_drink_size">
+                    <p class="modal_drink_descr">Size</p>
+                    <div class="size_btn">
+                      <button class="size_btn_item active">
+                        <span class="size_icon">S</span>
+                        <span>200 ml</span>
+                      </button>
+                      <button class="size_btn_item"> <span class="size_icon">M</span>
+                        <span>300 ml</span></button>
+                      <button class="size_btn_item"> <span class="size_icon">L</span>
+                        <span>400 ml</span></button>
+                    </div>
+                  </div>
+                  <div class="modal_drink_size">
+                    <p class="modal_drink_descr">Additives</p>
+                    <div class="size_btn">
+                      <button class="size_btn_item">
+                        <span class="size_icon">1</span>
+                        <span>Sugar</span>
+                      </button>
+                      <button class="size_btn_item"> <span class="size_icon">2</span>
+                        <span>Cinnamon</span></button>
+                      <button class="size_btn_item"> <span class="size_icon">3</span>
+                        <span>Syrup</span></button>
+                    </div>
+                  </div>
+                  <div class="total">
+                    <span>Total:</span>
+                    <span>$7.00</span>
+                  </div>
+                  <div class="modal_info">
+                    <img src="./img/svg/info-empty.svg" alt="info-empty">
+                    <span class="modal_info_descr">The cost is not final. Download our mobile app to see the final price
+                      and place your order. Earn loyalty points and enjoy your favorite coffee with up to 20%
+                      discount.</span>
+                  </div>
+                  <button class="modal_close">Close</button>
+              </div>
+            </div> -->
+          </div>
         </div>
 
         <div class="drinks_menu">
@@ -118,7 +169,7 @@
               <div class="price">$5.50</div>
             </div>
           </div>
-          <div class="card">
+          <!-- <div class="card">
             <div class="card_img_container">
               <img class="card_img_item" src="./img/menu/coffee-4.png" alt="Product 4" />
             </div>
@@ -174,7 +225,7 @@
               <p>Fragrant black coffee with cognac and whipped cream</p>
               <div class="price">$6.50</div>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="refresh_btn">
           <img src="./img/svg/refresh.svg" alt="refresh_btn" class="refresh_btn_icon" />
@@ -230,6 +281,7 @@
   </div>
 
   <script src="./script/index.js"></script>
+  <script type="module" src="./script/menu.js"></script>
 </body>
 
 </html>

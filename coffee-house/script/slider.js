@@ -1,19 +1,48 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const leftSlide = document.querySelector(".left"),
-    rightSlide = document.querySelector(".right"),
-    sliderList = document.querySelector(".slider_list"),
-    slideWidth = document.querySelector(".slider_item").offsetWidth,
-    totalSlides = document.querySelectorAll(".slider_item").length;
-
-  let currentIndex = 0,
+document.addEventListener("DOMContentLoaded", function () {
+  const totalSlides = document.querySelectorAll(".slider_item").length;
+  let currentSlide = 0,
+    intervalId,
     touchStartX = 0,
-    touchEndX = 0,
-    intervalId;
+    touchEndX = 0;
+
+  function updateSlide() {
+    const track = document.querySelector(".slider_list"),
+      bars = document.querySelectorAll(".bar"),
+      innerBars = document.querySelectorAll(".inner-bar"),
+      slideWidth = document.querySelector(".slider_item").offsetWidth;
+
+    track.style.transform = `translateX(${-slideWidth * currentSlide}px)`;
+
+    bars.forEach((bar, index) => {
+      bar.classList.toggle("active-bar", index === currentSlide);
+      innerBars[index].classList.toggle("active", index === currentSlide);
+    });
+
+    innerBars.forEach((innerBar, index) => {
+      if (index === currentSlide) {
+        innerBar.style.width = "100%";
+        innerBar.style.animation = "innerBarProgress 5s linear forwards";
+      } else {
+        innerBar.style.width = "0";
+        innerBar.style.animation = "none";
+      }
+    });
+  }
+
+  function prevSlide() {
+    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+    updateSlide();
+  }
+
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    updateSlide();
+  }
 
   function startAutoSlide() {
-    intervalId = setInterval(() => {
-      startProgressBar();
-      moveSlider("right");
+    intervalId = setInterval(function () {
+      updateSlide();
+      nextSlide();
     }, 5000);
   }
 
@@ -21,116 +50,57 @@ document.addEventListener("DOMContentLoaded", () => {
     clearInterval(intervalId);
   }
 
-  function resetProgressBar() {
-    const progressBar = document.querySelector(".progress-bar");
-    if (progressBar) {
-      progressBar.parentNode.removeChild(progressBar);
-    }
-  }
-
-  function startProgressBar() {
-    resetProgressBar();
-
-    const activeBar = document.querySelector(".active-bar");
-    const progressBar = document.createElement("div");
-    progressBar.classList.add("progress-bar");
-    activeBar.appendChild(progressBar);
-
-    progressBar.addEventListener("animationend", () => {
-      resetProgressBar();
-      moveSlider("right");
+  document
+    .querySelector(".slider-arrow.left")
+    .addEventListener("click", function () {
+      stopAutoSlide();
+      prevSlide();
     });
-  }
 
-  function updateBars() {
-    const bars = document.querySelectorAll(".bar");
-    bars.forEach((bar, index) => {
-      bar.classList.remove("active-bar");
-      if (index === currentIndex) {
-        bar.classList.add("active-bar");
-      }
+  document
+    .querySelector(".slider-arrow.right")
+    .addEventListener("click", function () {
+      stopAutoSlide();
+      nextSlide();
     });
-  }
 
-  leftSlide.addEventListener("click", () => {
-    moveSlider("left");
-  });
+  const sliderList = document.querySelector(".slider_list");
 
-  rightSlide.addEventListener("click", () => {
-    moveSlider("right");
-  });
-
-  sliderList.addEventListener("mouseover", () => {
-    stopAutoSlide();
-    resetProgressBar();
-    sliderList.style.animationPlayState = "paused";
-  });
-
-  sliderList.addEventListener("mouseout", () => {
-    startAutoSlide();
-    startProgressBar();
-    sliderList.style.animationPlayState = "running";
-  });
-
-  sliderList.addEventListener("touchstart", (event) => {
+  sliderList.addEventListener("touchstart", function (event) {
     touchStartX = event.touches[0].clientX;
-    stopAutoSlide();
-    resetProgressBar();
-    sliderList.style.animationPlayState = "paused";
   });
 
-  sliderList.addEventListener("touchmove", (event) => {
+  sliderList.addEventListener("touchmove", function (event) {
     touchEndX = event.touches[0].clientX;
   });
 
-  sliderList.addEventListener("touchend", () => {
+  sliderList.addEventListener("touchend", function () {
     const swipeDistance = touchStartX - touchEndX;
 
     if (swipeDistance > 50) {
-      moveSlider("right");
+      stopAutoSlide();
+      nextSlide();
     } else if (swipeDistance < -50) {
-      moveSlider("left");
+      stopAutoSlide();
+      prevSlide();
     }
+    // if (swipeDistance > 50) {
+    //   stopAutoSlide();
+    //   prevSlide();
+    // } else if (swipeDistance < -50) {
+    //   stopAutoSlide();
+    //   nextSlide();
+    // }
 
     startAutoSlide();
-    startProgressBar();
-    sliderList.style.animationPlayState = "running";
   });
 
-  function moveSlider(direction) {
-    resetProgressBar();
-    const offsetChange = direction === "right" ? -slideWidth : slideWidth;
-
-    sliderList.style.transition = "transform 0.5s ease-in-out";
-    sliderList.style.transform = `translateX(${offsetChange}px)`;
-
-    sliderList.addEventListener("transitionend", function handler() {
-      sliderList.style.transition = "none";
-      if (direction === "right") {
-        currentIndex = (currentIndex + 1) % totalSlides;
-        sliderList.appendChild(sliderList.firstElementChild);
-      } else {
-        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-        sliderList.insertBefore(
-          sliderList.lastElementChild,
-          sliderList.firstElementChild
-        );
-      }
-
-      sliderList.style.transform = "translateX(0)";
-
-      sliderList.removeEventListener("transitionend", handler);
-      updateBars();
-      startProgressBar();
-    });
-  }
-
-  startProgressBar();
-
   startAutoSlide();
-  updateBars();
+
+  document
+    .querySelector(".favorite_coffee_slider")
+    .addEventListener("mouseover", stopAutoSlide);
+  document
+    .querySelector(".favorite_coffee_slider")
+    .addEventListener("mouseout", startAutoSlide);
 });
-
-
-
-
