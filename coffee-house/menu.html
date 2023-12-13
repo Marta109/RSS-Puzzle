@@ -14,14 +14,16 @@
 </head>
 
 <body>
-  <header class="header">
-    <div class="wrapper">
+  <div class="wrapper">
+    <header class="header">
       <div class="header_wrapper">
+
         <div class="header_logo">
           <a href="./home.html" class="header_logo_link">
             <img src="./img/svg/logo.svg" alt="Resource logo" class="header_logo_img" />
           </a>
         </div>
+
         <nav class="header_nav">
           <ul class="header_list">
             <li class="header_list_item">
@@ -37,22 +39,24 @@
               <a href="#contact_us" class="header_link">Contact us</a>
             </li>
           </ul>
+
+
+          <div class="header_menu">
+            <a href="./menu.html" class="header_link">
+              <span class="header_menu_title">Menu</span>
+              <img src="./img/svg/coffee-cup.svg" alt="coffee cup img" class="header_menu_img" />
+            </a>
+          </div>
         </nav>
 
-        <div class="header_menu active">
-          <a href="./menu.html" class="header_link active">
-            <span class="header_menu_title">Menu</span>
-            <img src="./img/svg/coffee-cup.svg" alt="coffee cup img" class="header_menu_img" />
-          </a>
+        <div class="burger_menu_btn">
+          <div class="burger_menu_btn_line"></div>
+          <div class="burger_menu_btn_line"></div>
         </div>
 
-        <div class="burger_menu_btn">
-          <div class="burger_menu_btn_line burger_line_first"></div>
-          <div class="burger_menu_btn_line burger_line_second"></div>
-        </div>
       </div>
-    </div>
-  </header>
+    </header>
+  </div>
 
   <main class="main">
     <div class="wrapper">
@@ -62,18 +66,73 @@
           <span class="italic_text_accent">amazing surprise</span>
         </h1>
         <div class="menu_items">
-          <button class="menu_item selected">
+          <button class="menu_item selected" value="coffee">
             <img src="./img/coffee.png" alt="coffee icon" class="menu_item_img" />
             <span class="menu_item_desc">Coffee</span>
           </button>
-          <button class="menu_item">
+          <button class="menu_item" value="tea">
             <img src="./img/tea.png" alt="tea icon" class="menu_item_img" />
             <span class="menu_item_desc">Tea</span>
           </button>
-          <button class="menu_item">
+          <button class="menu_item" value="dessert">
             <img src="./img/dessert.png" class="menu_item_img" alt="dessert icon" />
             <span class="menu_item_desc">Dessert</span>
           </button>
+        </div>
+
+
+        <div class="backdrop">
+          <div id="modal" class="modal">
+            <div class="modal-content">
+              <div class="modal_img">
+                <img id="modal_image" src="" alt="" />
+              </div>
+              <div class="modal_descr">
+                <div class="modal_descr_titl">
+                  <h2 id="modal_title" class="modal_title">
+                    </h2>
+                    <p id="modal_drink_descr" class="modal_drink_descr"></p>
+                </div>
+                <div class="modal_drink_size">
+                  <p class="modal_drink_descr">Size</p>
+                  <div class="size_btn" id="size_buttons_container">
+                    <!-- <button class="size_btn_item active">
+                        <span class="size_icon">S</span>
+                        <span></span>
+                      </button>
+                      <button class="size_btn_item"> <span class="size_icon">M</span>
+                        <span></span></button>
+                      <button class="size_btn_item"> <span class="size_icon">L</span>
+                        <span></span></button> -->
+                  </div>
+                </div>
+                <div class="modal_drink_size">
+                  <p class="modal_drink_descr">Additives</p>
+                  <div class="size_btn" id="additive_buttons_container">
+                    <!-- <button class="size_btn_item">
+                        <span class="size_icon">1</span>
+                        <span></span>
+                      </button>
+                      <button class="size_btn_item"> <span class="size_icon">2</span>
+                        <span></span></button>
+                      <button class="size_btn_item"> <span class="size_icon">3</span>
+                        <span></span></button> -->
+                  </div>
+                </div>
+                <div class="total">
+                  <span>Total:</span>
+                  <span id="total_price"></span>
+                </div>
+                <div class="modal_info">
+                  <img src="./img/svg/info-empty.svg" alt="info-empty">
+                  <span class="modal_info_descr">The cost is not final. Download our mobile app to see the final price
+                    and place your order. Earn loyalty points and enjoy your favorite coffee with up to 20%
+                    discount.</span>
+                </div>
+                <button class="modal_close">Close</button>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="drinks_menu">
@@ -114,7 +173,7 @@
               <div class="price">$5.50</div>
             </div>
           </div>
-          <div class="card">
+          <!-- <div class="card">
             <div class="card_img_container">
               <img class="card_img_item" src="./img/menu/coffee-4.png" alt="Product 4" />
             </div>
@@ -170,7 +229,7 @@
               <p>Fragrant black coffee with cognac and whipped cream</p>
               <div class="price">$6.50</div>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="refresh_btn">
           <img src="./img/svg/refresh.svg" alt="refresh_btn" class="refresh_btn_icon" />
@@ -224,6 +283,9 @@
       </div>
     </footer>
   </div>
+
+  <script src="./script/index.js"></script>
+  <script type="module" src="./script/menu.js"></script>
 </body>
 
 </html>
