@@ -42,12 +42,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (selectMenu == "coffee") {
         createMenu(coffeeMenu, selectMenu);
+        loadMoreBtn.style.display = "";
       } else if (selectMenu == "tea") {
         createMenu(teaMenu, selectMenu);
+        loadMoreBtn.style.display = "none";
       } else if (selectMenu == "dessert") {
         createMenu(dessertMenu, selectMenu);
+        loadMoreBtn.style.display = "";
       }
-      loadMoreBtn.style.display = "";
       addCardEventListeners();
     });
   });
@@ -183,6 +185,9 @@ document.addEventListener("DOMContentLoaded", function () {
       additiveButtonsContainer.appendChild(additiveButton);
     });
     addModalEventListeners(data);
+    if (data.length <= 4) {
+      loadMoreBtn.style.display = "none";
+    }
   }
 
   modal_backdrop.addEventListener("click", function (e) {
