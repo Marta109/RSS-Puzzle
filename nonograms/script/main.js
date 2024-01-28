@@ -1,20 +1,24 @@
 document.addEventListener("DOMContentLoaded", () => {
   const nonogramItems = document.querySelectorAll(".nonogram-item");
+
+
   nonogramItems.forEach((el) => {
     el.addEventListener("mousedown", (e) => {
-      console.log(e.target);
-      // e.preventDefault();
       if (e.button === 0) {
-        console.log("Левая кнопка мыши нажата");
+        e.target.classList.toggle("checked");
+        e.target.classList.contains("cross")
+          ? e.target.classList.remove("cross")
+          : "";
       } else if (e.button === 2) {
-        console.log("Правая кнопка мыши нажата");
+        e.target.classList.toggle("cross");
       }
     });
 
     el.addEventListener("contextmenu", (event) => {
       event.preventDefault();
-      console.log("Контекстное меню отменено");
     });
   });
-  //   console.log(nonogramItems);
+
+
+  
 });
