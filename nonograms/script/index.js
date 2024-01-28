@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
   wrapper.appendChild(container);
 
   // ----------- nonograms line and columns
-
   for (let i = 0; i < 5; i++) {
     const divColumns = document.createElement("div");
     divColumns.classList.add("nonogram-columns");
