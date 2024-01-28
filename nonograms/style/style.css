@@ -20,7 +20,7 @@
   align-items: center;
   justify-content: center;
   background-color: #f4f3ee;
-  border: 4mm ridge #7161ef;
+  border: 2mm ridge #7161ef;
   margin: 16px;
   /* min-height: 100vh; */
   /* border-radius: 20px; */
@@ -28,6 +28,49 @@
   gap: 50px;
   padding: 40px;
   margin: 0 auto; */
+}
+
+.nonogram-prompt {
+  background-color: #a499f3;
+  display: flex;
+  /* height: 60px; */
+  width: 300px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.nonogram-prompt-item {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  /* background-color: white; */
+  border: 0.6mm solid grey;
+  cursor: pointer;
+  text-align: center;
+  justify-content: space-evenly;
+}
+.nonogram-prompt-item_span {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  /* background-color: white; */
+  cursor: pointer;
+  text-align: center;
+  justify-content: space-evenly;
+  border: 0.6mm solid rgb(227 237 237 / 0%);
+}
+.nonogram-prompt-item-column {
+  display: flex;
+  /* flex-direction: column; */
+  height: 100%;
+  width: 100%;
+  /* background-color: white; */
+  border: 0.6mm solid grey;
+  cursor: pointer;
+  text-align: center;
+  /* justify-content: space-evenly; */
 }
 
 .nonogram-columns {
@@ -42,10 +85,10 @@
 .nonogram-item {
   display: flex;
   flex-direction: column;
-  height: 55px;
-  width: 55px;
+  height: 100%;
+  width: 100%;
   background-color: white;
-  border: solid grey;
+  border: 0.6mm solid grey;
   cursor: pointer;
 }
 .nonogram-item.checked {
