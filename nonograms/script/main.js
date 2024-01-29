@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const nonogramItems = document.querySelectorAll(".nonogram-item");
-  
+
   const gameData = {
     tower: {
       solution: [
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   };
 
-  const playerData = [
+  let playerData = [
     [0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0],
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
   createNonogramPromptColumn();
 
   // -------------   restart game  -------------'
-  const gameRestart = (gameModal, modalContent) => {
+  const gameRestart = (gameModal, modalContent, dataAtt) => {
     gameModal.classList.remove("show");
     modalContent.classList.remove("show");
     playerData = [
@@ -82,16 +82,25 @@ document.addEventListener("DOMContentLoaded", () => {
       [0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0],
     ];
+    // console.log(document.querySelectorAll(".nonogram-item"));
+    document.querySelectorAll(".nonogram-item").forEach((el) => {
+      el.setAttribute(dataAtt, "0");
+      el.classList.remove("cross");
+      el.classList.remove("checked");
+    });
   };
 
   // -------------   check game status -------------'
-  const checkGameStatus = (playerData, gameData) => {
+  const checkGameStatus = (playerData, gameData, dataAtt) => {
     const gameModal = document.querySelector(".modal_container"),
-      modalContent = document.querySelector(".modal_content");
+      modalContent = document.querySelector(".modal_content"),
+      modalButton = document.querySelector(".modal-btn");
     if (JSON.stringify(playerData) === JSON.stringify(gameData)) {
       gameModal.classList.add("show");
       modalContent.classList.add("show");
-      modalButton.addEventListener("click", gameRestart);
+      modalButton.addEventListener("click", () =>
+        gameRestart(gameModal, modalContent, dataAtt)
+      );
     }
   };
 
@@ -104,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
       playerData[index][itemIndex - 5 * index] = +el.getAttribute(dataAtt);
     }
     console.log(playerData);
-    checkGameStatus(playerData, gameData.tower.solution);
+    checkGameStatus(playerData, gameData.tower.solution, dataAtt);
   };
 
   /// ------------- change data attribute -------------'
