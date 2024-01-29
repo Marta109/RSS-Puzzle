@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const nonogramItems = document.querySelectorAll(".nonogram-item");
+  
   const gameData = {
     tower: {
       solution: [
@@ -24,6 +26,14 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
   };
+
+  const playerData = [
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+  ];
 
   //  ------------- create nonogram prompt Row
   const createNonogramPromptRow = () => {
@@ -61,33 +71,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
   createNonogramPromptColumn();
 
-  // -------------   check game status -------------'
-  const checkGameStatus = (gameData, playerData) => {
-    let status = true;
-    for (const arr of playerData) {
-      // console.log(arr);
-      for (const value of arr) {
-        console.log(value);
-      }
-    }
-  };
-
-  // -------------   change  player data -------------'
-  const changePlayerData = (el, itemIndex, dataAtt) => {
-    const playerData = [
+  // -------------   restart game  -------------'
+  const gameRestart = (gameModal, modalContent) => {
+    gameModal.classList.remove("show");
+    modalContent.classList.remove("show");
+    playerData = [
       [0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0],
     ];
+  };
 
+  // -------------   check game status -------------'
+  const checkGameStatus = (playerData, gameData) => {
+    const gameModal = document.querySelector(".modal_container"),
+      modalContent = document.querySelector(".modal_content");
+    if (JSON.stringify(playerData) === JSON.stringify(gameData)) {
+      gameModal.classList.add("show");
+      modalContent.classList.add("show");
+      modalButton.addEventListener("click", gameRestart);
+    }
+  };
+
+  // -------------   change  player data -------------'
+  const changePlayerData = (el, itemIndex, dataAtt) => {
     const index = +el.parentNode.getAttribute("nonogram-column-data");
     if (index === 0) {
-      playerData[index][itemIndex] = el.getAttribute(dataAtt);
+      playerData[index][itemIndex] = +el.getAttribute(dataAtt);
     } else {
-      playerData[index][itemIndex - 5 * index] = el.getAttribute(dataAtt);
+      playerData[index][itemIndex - 5 * index] = +el.getAttribute(dataAtt);
     }
+    console.log(playerData);
     checkGameStatus(playerData, gameData.tower.solution);
   };
 
@@ -116,8 +132,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // -------------   select items -------------'
-  const nonogramItems = document.querySelectorAll(".nonogram-item");
-
   nonogramItems.forEach((el, i) => {
     el.addEventListener("mousedown", (e) => {
       if (e.button === 0) {
@@ -133,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
         changeDataAtt(
           e.target,
           "nonogram-item-data",
-          2,
+          0,
           "cross",
           "checked",
           i

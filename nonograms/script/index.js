@@ -13,6 +13,23 @@ document.addEventListener("DOMContentLoaded", () => {
   container.classList.add("container");
   wrapper.appendChild(container);
 
+  // ------------- add game modal-----------
+  const gameModal = document.createElement("div");
+  gameModal.classList.add("modal_container");
+  const modalContent = document.createElement("div");
+  modalContent.classList.add("modal_content");
+  const modalTitle = document.createElement("h3");
+  modalTitle.classList.add("modal-title");
+  modalTitle.textContent = "Great! You have solved the nonogram!";
+  const modalButton = document.createElement("button");
+  modalButton.classList.add("modal-btn");
+  modalButton.textContent = "Play Again";
+  gameModal.appendChild(modalContent);
+  modalContent.appendChild(modalTitle);
+  modalContent.appendChild(modalButton);
+
+
+  container.appendChild(gameModal);
   // ----------- nonograms line and columns
   for (let i = 0; i < 5; i++) {
     const divPrompt = document.createElement("div");
@@ -46,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // ------------- add game board-----------
       const div = document.createElement("div");
       div.classList.add("nonogram-item");
-      div.setAttribute("nonogram-item-data", "-");
+      div.setAttribute("nonogram-item-data", "0");
       divColumns.appendChild(div);
     }
   }
