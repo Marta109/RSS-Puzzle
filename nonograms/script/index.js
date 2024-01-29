@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // ----------- wrapper
+  // ----------- wrapper ------------------
   const wrapper = document.createElement("div");
   wrapper.classList.add("wrapper");
   document.body.appendChild(wrapper);
@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   gameTitle.textContent = "Nonograms";
   wrapper.appendChild(gameTitle);
 
-  // ----------  container
+  // ----------  container -----------------
   const container = document.createElement("div");
   container.classList.add("container");
   wrapper.appendChild(container);
@@ -18,13 +18,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const divPrompt = document.createElement("div");
     if (i === 0) {
       divPrompt.classList.add("nonogram-prompt");
-      divPrompt.setAttribute("nonogram-prompt", `${i + 1}`);
       container.appendChild(divPrompt);
     }
 
     const divColumns = document.createElement("div");
     divColumns.classList.add("nonogram-columns");
-    divColumns.setAttribute("nonogram-columns", "");
+    divColumns.setAttribute("nonogram-column-data", `${i}`);
 
     // divColumns.textContent = i;
     container.appendChild(divColumns);
@@ -33,34 +32,21 @@ document.addEventListener("DOMContentLoaded", () => {
     divPromptItem.classList.add("nonogram-prompt-item_empty");
     divPrompt.appendChild(divPromptItem);
     for (let j = 0; j < 5; j++) {
+      // ------------- add prompt for game start
       const divPromptItem = document.createElement("div");
       divPromptItem.classList.add("nonogram-prompt-item");
-      // divPromptItem.textContent = `${j + 1}`; 
-      // for (let k = 0; k < 3; k++) {
-      //   const span = document.createElement("span");
-      //   span.textContent = k;
-      //   divPromptItem.appendChild(span);
-      // }
-      // div.textContent = j;
       divPrompt.appendChild(divPromptItem);
-      // }
 
-      //create div
       if (j === 0) {
         const divPromptItem = document.createElement("div");
         divPromptItem.classList.add("nonogram-prompt-item-column");
         divColumns.appendChild(divPromptItem);
-        // divPromptItem.textContent = `${j + 1}  2 3 4 5`;
-        // for (let k = 0; k < 5; k++) {
-        //   const p = document.createElement("p");
-        //   p.textContent = k;
-        //   divPromptItem.appendChild(p);
-        // }
       }
+
+      // ------------- add game board-----------
       const div = document.createElement("div");
       div.classList.add("nonogram-item");
-      div.setAttribute("nonogram-line", "");
-      // div.textContent = j;
+      div.setAttribute("nonogram-item-data", "-");
       divColumns.appendChild(div);
     }
   }
