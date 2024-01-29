@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const promptData = {
+  const gameData = {
     tower: {
       solution: [
         [1, 0, 1, 0, 1],
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     nonogramPromptItems.forEach((el, i) => {
-      for (const data of promptData.tower.row[i]) {
+      for (const data of gameData.tower.row[i]) {
         const span = document.createElement("span");
         span.classList.add("prompt-span");
         span.textContent = data;
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     nonogramPromptItems.forEach((el, i) => {
-      for (const data of promptData.tower.column[i]) {
+      for (const data of gameData.tower.column[i]) {
         const span = document.createElement("span");
         span.classList.add("prompt-span-column");
         span.textContent = data;
@@ -61,9 +61,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
   createNonogramPromptColumn();
 
-  /// ------------- change data attributes -------------'
+  // -------------   check game status -------------'
+  const checkGameStatus = (gameData, playerData) => {
+    let status = true;
+    for (const arr of playerData) {
+      // console.log(arr);
+      for (const value of arr) {
+        console.log(value);
+      }
+    }
+  };
 
-  const changeDataAtt = (el, dataAtt, value, className, lastClassName) => {
+  // -------------   change  player data -------------'
+  const changePlayerData = (el, itemIndex, dataAtt) => {
+    const playerData = [
+      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+    ];
+
+    const index = +el.parentNode.getAttribute("nonogram-column-data");
+    if (index === 0) {
+      playerData[index][itemIndex] = el.getAttribute(dataAtt);
+    } else {
+      playerData[index][itemIndex - 5 * index] = el.getAttribute(dataAtt);
+    }
+    checkGameStatus(playerData, gameData.tower.solution);
+  };
+
+  /// ------------- change data attribute -------------'
+  const changeDataAtt = (
+    el,
+    dataAtt,
+    value,
+    className,
+    lastClassName,
+    i
+  ) => {
     el.classList.contains(lastClassName)
       ? el.classList.remove(lastClassName)
       : "";
@@ -75,51 +111,34 @@ document.addEventListener("DOMContentLoaded", () => {
       el.classList.add(className);
       el.setAttribute(dataAtt, value);
     }
+
+    changePlayerData(el, i, dataAtt);
   };
 
-  // -------------  item select
-
+  // -------------   select items -------------'
   const nonogramItems = document.querySelectorAll(".nonogram-item");
 
-  nonogramItems.forEach((el) => {
+  nonogramItems.forEach((el, i) => {
     el.addEventListener("mousedown", (e) => {
       if (e.button === 0) {
-        // e.target.classList.toggle("checked");
-
-        // if (e.target.classList.contains("checked")) {
-        //   e.target.classList.remove("checked");
-        //   e.target.setAttribute("nonogram-item-data", "0");
-        // } else {
-        //   e.target.classList.add("checked");
-        //   e.target.setAttribute("nonogram-item-data", "1");
-        // }
-
-        // e.target.classList.contains("cross")
-        //   ? e.target.classList.remove("cross")
-        //   : "";
-
         changeDataAtt(
           e.target,
           "nonogram-item-data",
           1,
           "checked",
-          "cross"
+          "cross",
+          i
         );
       } else if (e.button === 2) {
-        // e.target.classList.toggle("cross");
-        // e.target.classList.contains("checked")
-        //   ? e.target.classList.remove("checked")
-        //   : "";
         changeDataAtt(
           e.target,
           "nonogram-item-data",
           2,
           "cross",
-          "checked"
+          "checked",
+          i
         );
       }
-
-      console.log(e.target.getAttribute("nonogram-item-data"));
     });
 
     el.addEventListener("contextmenu", (event) => {
