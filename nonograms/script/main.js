@@ -14,20 +14,24 @@ document.addEventListener("DOMContentLoaded", () => {
   // select form for nonograms
   const selectNonogram = (data) => {
     const selectNonogram = document.querySelector("#select-nonogram");
-    // console.log(e.target.value);
-    //     console.log(gameData[`${e.target.value}`]);
-    //     console.log(Object.keys(gameData[`${e.target.value}`]));
-    //     Object.keys(gameData[`${e.target.value}`]).forEach((el, i) => {
+
     console.log(data);
-    // console.log(gameData[`${e.target.value}`]);
-    console.log(Object.keys(data));
     Object.keys(data).forEach((el, i) => {
-      console.log(el);
       const selectOptions = document.createElement("option");
       selectOptions.classList.add("select-options");
       selectOptions.text = el;
-      selectOptions.value = data.el;
+      selectOptions.value = el;
+      // console.log(data);
+      // console.log(el);
+      // console.log(data[el]);
       selectNonogram.appendChild(selectOptions);
+    });
+
+    selectNonogram.addEventListener("change", (e) => {
+      console.log(data[e.target.value]);
+      // selectNonogram(gameData[`${e.target.value}`]);
+      createNonogramPromptRow(data[e.target.value]);
+      createNonogramPromptColumn(data[e.target.value]);
     });
   };
 
@@ -75,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     nonogramPromptItems.forEach((el, i) => {
-      for (const data of gameData.tower.row[i]) {
+      for (const data of gameData.row[i]) {
         const span = document.createElement("span");
         span.classList.add("prompt-span");
         span.textContent = data;
@@ -87,13 +91,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // createNonogramPromptRow();
 
   // ------------- create nonogram prompt column
-  const createNonogramPromptColumn = () => {
+  const createNonogramPromptColumn = (gameData) => {
     const nonogramPromptItems = document.querySelectorAll(
       ".nonogram-prompt-item-column"
     );
 
     nonogramPromptItems.forEach((el, i) => {
-      for (const data of gameData.tower.column[i]) {
+      for (const data of gameData.column[i]) {
         const span = document.createElement("span");
         span.classList.add("prompt-span-column");
         span.textContent = data;
