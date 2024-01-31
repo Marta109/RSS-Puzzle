@@ -11,8 +11,65 @@ document.addEventListener("DOMContentLoaded", () => {
     [0, 0, 0, 0, 0],
   ];
 
+  // select form for nonograms
+  const selectNonogram = (data) => {
+    const selectNonogram = document.querySelector("#select-nonogram");
+    // console.log(e.target.value);
+    //     console.log(gameData[`${e.target.value}`]);
+    //     console.log(Object.keys(gameData[`${e.target.value}`]));
+    //     Object.keys(gameData[`${e.target.value}`]).forEach((el, i) => {
+    console.log(data);
+    // console.log(gameData[`${e.target.value}`]);
+    console.log(Object.keys(data));
+    Object.keys(data).forEach((el, i) => {
+      console.log(el);
+      const selectOptions = document.createElement("option");
+      selectOptions.classList.add("select-options");
+      selectOptions.text = el;
+      selectOptions.value = data.el;
+      selectNonogram.appendChild(selectOptions);
+    });
+  };
+
+  //  ------------- start game modal
+  const gameStart = () => {
+    const gameModal = document.querySelector(".modal_container"),
+      modalContent = document.querySelector(".modal_content"),
+      modalTitle = document.querySelector(".modal-title"),
+      selectLevel = document.querySelector(".select-level");
+    // selectNonogram = document.querySelector("#select-nonogram");
+
+    gameModal.classList.add("show");
+    modalContent.classList.add("show");
+    modalTitle.textContent = "Welcome to the game!";
+
+    Object.keys(gameData).forEach((el, i) => {
+      const selectOptions = document.createElement("option");
+      selectOptions.classList.add("select-options");
+      selectOptions.text = el;
+      selectOptions.value = el;
+      selectLevel.appendChild(selectOptions);
+    });
+
+    selectLevel.addEventListener("change", (e) => {
+      selectNonogram(gameData[`${e.target.value}`]);
+    });
+
+    // Object.keys(gameData[`${e.target.value}`]).forEach((difficulty) => {
+    // const difficultyOptions = document.createElement("option");
+    // difficultyOptions.classList.add("difficulty-options");
+    // difficultyOptions.value = difficulty;
+    // difficultyOptions.text = difficulty;
+    // selectDifficulty.appendChild(difficultyOptions);
+    // });
+
+    // createNonogramPromptRow(gameData[`${e.target.value}`]);
+  };
+
+  gameStart();
+
   //  ------------- create nonogram prompt Row
-  const createNonogramPromptRow = () => {
+  const createNonogramPromptRow = (gameData) => {
     const nonogramPromptItems = document.querySelectorAll(
       ".nonogram-prompt-item"
     );
@@ -27,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  createNonogramPromptRow();
+  // createNonogramPromptRow();
 
   // ------------- create nonogram prompt column
   const createNonogramPromptColumn = () => {
@@ -45,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  createNonogramPromptColumn();
+  // createNonogramPromptColumn();
 
   // -------------   restart game  -------------'
   const gameRestart = (gameModal, modalContent, dataAtt) => {
@@ -67,6 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // -------------   check game status -------------'
+
   const checkGameStatus = (playerData, gameData, dataAtt) => {
     const gameModal = document.querySelector(".modal_container"),
       modalContent = document.querySelector(".modal_content"),

@@ -24,10 +24,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalButton = document.createElement("button");
   modalButton.classList.add("modal-btn");
   modalButton.textContent = "Play Again";
+  // modalContent.appendChild(modalButton);
   gameModal.appendChild(modalContent);
   modalContent.appendChild(modalTitle);
-  modalContent.appendChild(modalButton);
+  //  *******form options*******
+  const selectLevel = document.createElement("select");
+  selectLevel.classList.add("select-level");
+  modalContent.appendChild(selectLevel);
+  const selectMessageOption = document.createElement("option");
+  selectMessageOption.value = "Easy - 5x5";
+  selectMessageOption.text = "Please select the difficulty level";
+  selectMessageOption.disabled = true;
+  selectMessageOption.selected = true;
+  selectLevel.appendChild(selectMessageOption);
 
+  const selectNonogram = document.createElement("select");
+  selectNonogram.id = "select-nonogram";
+  selectNonogram.classList.add("select-level");
+  modalContent.appendChild(selectNonogram);
+  const selectMessageOptionSecond = document.createElement("option");
+  selectMessageOptionSecond.value = "";
+  selectMessageOptionSecond.text = "Please select nonogram";
+  selectMessageOptionSecond.disabled = true;
+  selectMessageOptionSecond.selected = true;
+  selectNonogram.appendChild(selectMessageOptionSecond);
 
   container.appendChild(gameModal);
   // ----------- nonograms line and columns

@@ -161,8 +161,11 @@
   justify-content: center;
   /* gap: 10px; */
   font-weight: 500;
-  border-radius: 10px;
   display: none;
+  transition: 0.5s;
+  border: 6px solid #bfe2ff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), 0 16px 20px rgba(0, 0, 0, 0.2);
 }
 
 .modal_container.show,
@@ -258,4 +261,26 @@
   letter-spacing: 1px;
   font-style: italic;
   text-align: center;
+}
+
+/*  select level form */
+
+.select-level {
+  appearance: none;
+  border: 0;
+  outline: 0;
+  width: 20rem;
+  padding: 1rem 4rem 1rem 1rem;
+  background: #5455ac;
+  color: white;
+  border-radius: 0.25em;
+  box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  margin-bottom: 20px;
+  &::-ms-expand {
+    display: none;
+  }
+  &:focus {
+    outline: none;
+  }
 }
