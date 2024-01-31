@@ -1,31 +1,7 @@
+import {gameData} from "./data.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   const nonogramItems = document.querySelectorAll(".nonogram-item");
-
-  const gameData = {
-    tower: {
-      solution: [
-        [1, 0, 1, 0, 1],
-        [1, 1, 1, 1, 1],
-        [0, 1, 1, 1, 0],
-        [0, 1, 0, 1, 0],
-        [0, 1, 1, 1, 0],
-      ],
-      row: {
-        0: [2],
-        1: [4],
-        2: [3, 1],
-        3: [4],
-        4: [2],
-      },
-      column: {
-        0: [1, 1, 1],
-        1: [5],
-        2: [3],
-        3: [1, 1],
-        4: [3],
-      },
-    },
-  };
 
   let playerData = [
     [0, 0, 0, 0, 0],
