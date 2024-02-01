@@ -16,21 +16,23 @@ document.addEventListener("DOMContentLoaded", () => {
   // ------------- add game modal-----------
   const gameModal = document.createElement("div");
   gameModal.classList.add("modal_container");
+  container.appendChild(gameModal);
+
   const modalContent = document.createElement("div");
   modalContent.classList.add("modal_content");
+  gameModal.appendChild(modalContent);
+
   const modalTitle = document.createElement("h3");
   modalTitle.classList.add("modal-title");
-  modalTitle.textContent = "Great! You have solved the nonogram!";
-  const modalButton = document.createElement("button");
-  modalButton.classList.add("modal-btn");
-  modalButton.textContent = "Play Again";
-  // modalContent.appendChild(modalButton);
-  gameModal.appendChild(modalContent);
+  modalTitle.textContent = "Welcome to the game! Nonogram";
+  // modalTitle.textContent = "Great! You have solved the nonogram!";
   modalContent.appendChild(modalTitle);
+  
   //  *******form options*******
   const selectLevel = document.createElement("select");
   selectLevel.classList.add("select-level");
   modalContent.appendChild(selectLevel);
+
   const selectMessageOption = document.createElement("option");
   selectMessageOption.value = "Easy - 5x5";
   selectMessageOption.text = "Please select the difficulty level";
@@ -42,14 +44,25 @@ document.addEventListener("DOMContentLoaded", () => {
   selectNonogram.id = "select-nonogram";
   selectNonogram.classList.add("select-level");
   modalContent.appendChild(selectNonogram);
-  const selectMessageOptionSecond = document.createElement("option");
-  selectMessageOptionSecond.value = "";
-  selectMessageOptionSecond.text = "Please select nonogram";
-  selectMessageOptionSecond.disabled = true;
-  selectMessageOptionSecond.selected = true;
-  selectNonogram.appendChild(selectMessageOptionSecond);
+  // const selectMessageOptionSecond = document.createElement("option");
+  // selectMessageOptionSecond.value = "";
+  // selectMessageOptionSecond.text = "Select nonogram";
+  // selectMessageOptionSecond.disabled = true;
+  // selectMessageOptionSecond.selected = true;
+  // selectNonogram.appendChild(selectMessageOptionSecond);
+  const selectNonogramInfo = document.createElement("p");
+  selectNonogramInfo.classList.add("select-nonogram-info");
+  modalContent.appendChild(selectNonogramInfo);
 
-  container.appendChild(gameModal);
+  const waring = document.createElement("span");
+  waring.classList.add("waring");
+  modalContent.appendChild(waring);
+
+  const modalButton = document.createElement("button");
+  modalButton.classList.add("modal-btn");
+  modalButton.textContent = "Play";
+  modalContent.appendChild(modalButton);
+
   // ----------- nonograms line and columns
   for (let i = 0; i < 5; i++) {
     const divPrompt = document.createElement("div");

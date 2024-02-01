@@ -1,8 +1,9 @@
-import {gameData} from "./data.js";
+import {gameData as allGameData} from "./data.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const nonogramItems = document.querySelectorAll(".nonogram-item");
 
+  let gameData = {};
   let playerData = [
     [0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0],
@@ -11,66 +12,65 @@ document.addEventListener("DOMContentLoaded", () => {
     [0, 0, 0, 0, 0],
   ];
 
-  // select form for nonograms
-  const selectNonogram = (data) => {
-    const selectNonogram = document.querySelector("#select-nonogram");
+  // // select  nonogram for start game
+  // const selectNonogram = (data, level, selectNonogramInfo) => {
+  //   const selectNonogram = document.querySelector("#select-nonogram"),
+  //     modalButton = document.querySelector(".modal-btn");
 
-    console.log(data);
-    Object.keys(data).forEach((el, i) => {
-      const selectOptions = document.createElement("option");
-      selectOptions.classList.add("select-options");
-      selectOptions.text = el;
-      selectOptions.value = el;
-      // console.log(data);
-      // console.log(el);
-      // console.log(data[el]);
-      selectNonogram.appendChild(selectOptions);
-    });
+  //   selectNonogram.innerHTML =
+  //     '<option value="" disabled="" selected>Select nonogram</option>';
 
-    selectNonogram.addEventListener("change", (e) => {
-      console.log(data[e.target.value]);
-      // selectNonogram(gameData[`${e.target.value}`]);
-      createNonogramPromptRow(data[e.target.value]);
-      createNonogramPromptColumn(data[e.target.value]);
-    });
-  };
+  //   Object.keys(data).forEach((el, i) => {
+  //     const selectOptions = document.createElement("option");
+  //     selectOptions.classList.add("select-options");
+  //     selectOptions.text = el;
+  //     selectOptions.value = el;
+  //     selectNonogram.appendChild(selectOptions);
+  //   });
 
-  //  ------------- start game modal
-  const gameStart = () => {
-    const gameModal = document.querySelector(".modal_container"),
-      modalContent = document.querySelector(".modal_content"),
-      modalTitle = document.querySelector(".modal-title"),
-      selectLevel = document.querySelector(".select-level");
-    // selectNonogram = document.querySelector("#select-nonogram");
+  //   selectNonogram.addEventListener("change", (e) => {
+  //     selectNonogramInfo.textContent = `You chose the level ${level}, nonogram - ${e.target.value}`;
+  //     gameData = data[e.target.value];
+  //     console.log(gameData);
+  //     createNonogramPromptRow(gameData);
+  //     createNonogramPromptColumn(gameData);
+  //   });
+  //   modalButton.addEventListener("click", () => {
+  //     document.querySelector(".modal_container").classList.remove("show");
+  //     document.querySelector(".modal_content").classList.remove("show");
+  //   });
+  // };
 
-    gameModal.classList.add("show");
-    modalContent.classList.add("show");
-    modalTitle.textContent = "Welcome to the game!";
+  // //  ------------- open modal start game
+  // const gameStart = () => {
+  //   const gameModal = document.querySelector(".modal_container"),
+  //     modalContent = document.querySelector(".modal_content"),
+  //     selectNonogramInfo = document.querySelector(".select-nonogram-info"),
+  //     selectLevel = document.querySelector(".select-level");
 
-    Object.keys(gameData).forEach((el, i) => {
-      const selectOptions = document.createElement("option");
-      selectOptions.classList.add("select-options");
-      selectOptions.text = el;
-      selectOptions.value = el;
-      selectLevel.appendChild(selectOptions);
-    });
+  //   gameModal.classList.add("show");
+  //   modalContent.classList.add("show");
+  //   // modalTitle.textContent = "Welcome to the game! Nonogram";
 
-    selectLevel.addEventListener("change", (e) => {
-      selectNonogram(gameData[`${e.target.value}`]);
-    });
+  //   Object.keys(allGameData).forEach((el, i) => {
+  //     const selectOptions = document.createElement("option");
+  //     selectOptions.classList.add("select-options");
+  //     selectOptions.text = el;
+  //     selectOptions.value = el;
+  //     selectLevel.appendChild(selectOptions);
+  //   });
 
-    // Object.keys(gameData[`${e.target.value}`]).forEach((difficulty) => {
-    // const difficultyOptions = document.createElement("option");
-    // difficultyOptions.classList.add("difficulty-options");
-    // difficultyOptions.value = difficulty;
-    // difficultyOptions.text = difficulty;
-    // selectDifficulty.appendChild(difficultyOptions);
-    // });
+  //   selectLevel.addEventListener("change", (e) => {
+  //     selectNonogramInfo.textContent = "";
+  //     selectNonogram(
+  //       allGameData[`${e.target.value}`],
+  //       e.target.value,
+  //       selectNonogramInfo
+  //     );
+  //   });
+  // };
 
-    // createNonogramPromptRow(gameData[`${e.target.value}`]);
-  };
-
-  gameStart();
+  // gameStart();
 
   //  ------------- create nonogram prompt Row
   const createNonogramPromptRow = (gameData) => {
@@ -129,11 +129,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // -------------   check game status -------------'
 
-  const checkGameStatus = (playerData, gameData, dataAtt) => {
+  const checkGameStatus = (playerData, dataAtt) => {
     const gameModal = document.querySelector(".modal_container"),
       modalContent = document.querySelector(".modal_content"),
       modalButton = document.querySelector(".modal-btn");
-    if (JSON.stringify(playerData) === JSON.stringify(gameData)) {
+    if (JSON.stringify(playerData) === JSON.stringify(gameData.solution)) {
       gameModal.classList.add("show");
       modalContent.classList.add("show");
       modalButton.addEventListener("click", () =>
@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
       playerData[index][itemIndex - 5 * index] = +el.getAttribute(dataAtt);
     }
     console.log(playerData);
-    checkGameStatus(playerData, gameData.tower.solution, dataAtt);
+    checkGameStatus(playerData, gameData.solution, dataAtt);
   };
 
   /// ------------- change data attribute -------------'
@@ -178,7 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
     changePlayerData(el, i, dataAtt);
   };
 
-  // -------------   select items -------------'
+  // -------------  game start -------------'
   nonogramItems.forEach((el, i) => {
     el.addEventListener("mousedown", (e) => {
       if (e.button === 0) {
@@ -188,7 +188,8 @@ document.addEventListener("DOMContentLoaded", () => {
           1,
           "checked",
           "cross",
-          i
+          i,
+          gameData
         );
       } else if (e.button === 2) {
         changeDataAtt(
