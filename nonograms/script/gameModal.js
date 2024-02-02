@@ -1,10 +1,13 @@
 import {gameData as allGameData} from "./data.js";
+import {createBoard} from "./main.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   const modalButton = document.querySelector(".modal-btn"),
     waring = document.querySelector(".waring");
 
   let gameData = {};
-  // select  nonogram for start game
+
+  // select  -------------nonogram for game start
   const selectNonogram = (data, level, selectNonogramInfo) => {
     const selectNonogram = document.querySelector("#select-nonogram");
 
@@ -20,11 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     selectNonogram.addEventListener("change", (e) => {
-      selectNonogramInfo.textContent = `You chose the level ${level}, nonogram - ${e.target.value}`;
-      gameData = data[e.target.value];
       waring.textContent = "";
-      createNonogramPromptRow(gameData);
-      createNonogramPromptColumn(gameData);
+      gameData = data[e.target.value];
+      selectNonogramInfo.textContent = `You chose the level ${level}, nonogram - ${e.target.value}`;
     });
   };
 
@@ -58,11 +59,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //   close modal and start game
   modalButton.addEventListener("click", () => {
-    console.log(Object.keys(gameData).length > 0);
     if (Object.keys(gameData).length > 0) {
       waring.textContent = "";
       document.querySelector(".modal_container").classList.remove("show");
       document.querySelector(".modal_content").classList.remove("show");
+      createBoard(gameData);
+      // createNonogramPromptColumn(gameData);
     } else {
       waring.textContent =
         "Please select a nonogram and level to start the game!";
@@ -70,4 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   gameStart();
+
+  // createBoard(allGameData['Easy - 5x5'].tower);
 });

@@ -9,14 +9,14 @@ document.addEventListener("DOMContentLoaded", () => {
   wrapper.appendChild(gameTitle);
 
   // ----------  container -----------------
-  const container = document.createElement("div");
-  container.classList.add("container");
-  wrapper.appendChild(container);
+  // const container = document.createElement("div");
+  // container.classList.add("container");
+  // wrapper.appendChild(container);
 
   // ------------- add game modal-----------
   const gameModal = document.createElement("div");
   gameModal.classList.add("modal_container");
-  container.appendChild(gameModal);
+  wrapper.appendChild(gameModal);
 
   const modalContent = document.createElement("div");
   modalContent.classList.add("modal_content");
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
   modalTitle.textContent = "Welcome to the game! Nonogram";
   // modalTitle.textContent = "Great! You have solved the nonogram!";
   modalContent.appendChild(modalTitle);
-  
+
   //  *******form options*******
   const selectLevel = document.createElement("select");
   selectLevel.classList.add("select-level");
@@ -64,40 +64,86 @@ document.addEventListener("DOMContentLoaded", () => {
   modalContent.appendChild(modalButton);
 
   // ----------- nonograms line and columns
-  for (let i = 0; i < 5; i++) {
-    const divPrompt = document.createElement("div");
-    if (i === 0) {
-      divPrompt.classList.add("nonogram-prompt");
-      container.appendChild(divPrompt);
-    }
+  // for (let i = 0; i < 5; i++) {
+  //   const divPrompt = document.createElement("div");
+  //   if (i === 0) {
+  //     divPrompt.classList.add("nonogram-prompt");
+  //     container.appendChild(divPrompt);
+  //   }
 
-    const divColumns = document.createElement("div");
-    divColumns.classList.add("nonogram-columns");
-    divColumns.setAttribute("nonogram-column-data", `${i}`);
+  //   const divColumns = document.createElement("div");
+  //   divColumns.classList.add("nonogram-columns");
+  //   divColumns.setAttribute("nonogram-column-data", `${i}`);
 
-    // divColumns.textContent = i;
-    container.appendChild(divColumns);
+  //   // divColumns.textContent = i;
+  //   container.appendChild(divColumns);
 
-    const divPromptItem = document.createElement("div");
-    divPromptItem.classList.add("nonogram-prompt-item_empty");
-    divPrompt.appendChild(divPromptItem);
-    for (let j = 0; j < 5; j++) {
-      // ------------- add prompt for game start
-      const divPromptItem = document.createElement("div");
-      divPromptItem.classList.add("nonogram-prompt-item");
-      divPrompt.appendChild(divPromptItem);
+  //   const divPromptItem = document.createElement("div");
+  //   divPromptItem.classList.add("nonogram-prompt-item_empty");
+  //   divPrompt.appendChild(divPromptItem);
+  //   for (let j = 0; j < 5; j++) {
+  //     // ------------- add prompt for game start
+  //     const divPromptItem = document.createElement("div");
+  //     divPromptItem.classList.add("nonogram-prompt-item");
+  //     divPrompt.appendChild(divPromptItem);
 
-      if (j === 0) {
-        const divPromptItem = document.createElement("div");
-        divPromptItem.classList.add("nonogram-prompt-item-column");
-        divColumns.appendChild(divPromptItem);
-      }
+  //     if (j === 0) {
+  //       const divPromptItem = document.createElement("div");
+  //       divPromptItem.classList.add("nonogram-prompt-item-column");
+  //       divColumns.appendChild(divPromptItem);
+  //     }
 
-      // ------------- add game board-----------
-      const div = document.createElement("div");
-      div.classList.add("nonogram-item");
-      div.setAttribute("nonogram-item-data", "0");
-      divColumns.appendChild(div);
-    }
-  }
+  // ------------- add game board-----------
+
+  //     const div = document.createElement("div");
+  //     div.classList.add("nonogram-item");
+  //     div.setAttribute("nonogram-item-data", "0");
+  //     divColumns.appendChild(div);
+  //   }
+  // }
+
+  // ------------- add game board-----------
+  const gameContainer = document.createElement("div");
+  gameContainer.classList.add("game-board-container");
+  wrapper.appendChild(gameContainer);
+
+  const gameGridPromptRow = document.createElement("div");
+  gameGridPromptRow.classList.add("game-board-grid-prompt-row");
+  gameContainer.appendChild(gameGridPromptRow);
+
+  const gameBoardItem = document.createElement("div");
+  // gameBoardItem.setAttribute("nonogram-item-data", "0");
+  gameBoardItem.classList.add("game-board-cell");
+  gameGridPromptRow.appendChild(gameBoardItem);
+
+  const gameGridPromptColumn = document.createElement("div");
+  gameGridPromptColumn.classList.add("game-board-grid-prompt-column");
+  gameContainer.appendChild(gameGridPromptColumn);
+
+  // const nonogramItem = document.createElement("div");
+  // nonogramItem.classList.add("game-board-grid");
+  // gameContainer.appendChild(nonogramItem);
+
+  // const gameBoardItem = document.createElement("div");
+  // gameBoardItem.setAttribute("nonogram-item-data", "0");
+  // gameBoardItem.classList.add("game-board-cell");
+  // gameGrid.appendChild(gameBoardItem);
+
+  // const gameBoardItem = document.createElement("div");
+  // gameBoardItem.setAttribute("nonogram-item-data", "0");
+  // gameBoardItem.classList.add("game-board-cell");
+  // gameGrid.appendChild(gameBoardItem);
+
+  // const gameBoardItem = document.createElement("div");
+  // gameBoardItem.setAttribute("nonogram-item-data", "0");
+  // gameBoardItem.classList.add("game-board-cell");
+  // gameGrid.appendChild(gameBoardItem);
+
+  // const divPrompt = document.createElement("div");
+  // divPrompt.classList.add("nonogram-prompt");
+  // gameContainer.appendChild(divPrompt);
+
+  // const divPromptItem = document.createElement("div");
+  // divPromptItem.classList.add("nonogram-prompt-item_empty");
+  // divPrompt.appendChild(divPromptItem);
 });
