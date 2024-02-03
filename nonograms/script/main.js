@@ -127,12 +127,22 @@ const createBoard = (gameData) => {
     ),
     gameGridPromptColumn = document.querySelector(
       ".game-board-grid-prompt-column"
-    );
+    ),
+    leftColumn = document.querySelector(".left-column");
 
-  // gameGrid.style.gridTemplateColumns = `repeat(${nonogramSize}, 80px)`;
-  // gameGrid.style.gridTemplateRows = `repeat(${nonogramSize}, 80px)`;
+  console.log(nonogramSize);
+  gameGridPromptRow.style.gridTemplateColumns = `repeat(${
+    nonogramSize + 1
+  },  minmax(5%, 1fr)`;
+  gameGridPromptRow.style.gridTemplateRows = `repeat(1,  minmax(5%, 1fr)`;
+
+  gameGridPromptColumn.style.gridTemplateColumns = `repeat(${nonogramSize},minmax(5%, 1fr)`;
+  gameGridPromptColumn.style.gridTemplateRows = `repeat(${nonogramSize}, minmax(5%, 1fr)`;
+
+  leftColumn.style.gridTemplateColumns = `repeat(${1},  minmax(5%, 1fr)`;
+  leftColumn.style.gridTemplateRows = `repeat(${nonogramSize},  minmax(5%, 1fr)`;
+
   for (let i = 0; i < nonogramSize; i++) {
-    //  ------------- create nonogram prompt Row
     const gamePromptRowItem = document.createElement("div");
     gamePromptRowItem.classList.add("game-board-cell");
     gameGridPromptRow.appendChild(gamePromptRowItem);
@@ -143,23 +153,44 @@ const createBoard = (gameData) => {
       gamePromptRowItem.appendChild(span);
     }
 
-    // ------------- create nonogram prompt column
-    const gamePromptColumnItem = document.createElement("div");
-    gamePromptColumnItem.classList.add("game-board-cell", "cell-column");
-    // gamePromptColumnItem.setAttribute("nonogram-column-data", i);
-    gameGridPromptColumn.appendChild(gamePromptColumnItem);
-    for (const data of gameData.column[i]) {
-      const span = document.createElement("span");
-      span.textContent = data;
-      gamePromptColumnItem.appendChild(span);
-    }
-
     for (let j = 0; j < nonogramSize; j++) {
       const nonogramItem = document.createElement("div");
       nonogramItem.classList.add("game-board-cell", "nonogram-item");
       nonogramItem.setAttribute("nonogram-item-data", [i, 0]);
       gameGridPromptColumn.appendChild(nonogramItem);
     }
+
+    const leftColumnItem = document.createElement("div");
+    leftColumnItem.classList.add(
+      "game-board-cell",
+      "game-board-left-prompt"
+    );
+    leftColumn.appendChild(leftColumnItem);
+    for (const data of gameData.column[i]) {
+      const span = document.createElement("span");
+      span.textContent = data;
+      leftColumnItem.appendChild(span);
+    }
+  }
+
+  const leftWidth = leftColumn
+    .querySelector(".game-board-left-prompt")
+    .getBoundingClientRect().width;
+  const emptyItemWidth = document
+    .querySelector(".game-board-cell-empty")
+    .getBoundingClientRect().width;
+
+  if (leftWidth > 30 && leftWidth > emptyItemWidth) {
+    document.querySelector(".game-board-cell-empty").style.width =
+      leftWidth + "px";
+  } else if (emptyItemWidth > 30) {
+    document.querySelector(".game-board-left-prompt").style.width =
+      emptyItemWidth + "px";
+  } else {
+    document.querySelector(".game-board-left-prompt").style.width =
+      40 + "px";
+    document.querySelector(".game-board-cell-empty").style.width =
+      40 + "px";
   }
 
   startGame(gameData);
