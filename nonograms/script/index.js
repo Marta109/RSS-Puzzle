@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.appendChild(wrapper);
   const gameTitle = document.createElement("h1");
   gameTitle.classList.add("game-title");
-  gameTitle.textContent = "Nonograms";
+  gameTitle.textContent = "Nonogram";
   wrapper.appendChild(gameTitle);
 
   // ------------- add game modal-----------
@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalTitle = document.createElement("h3");
   modalTitle.classList.add("modal-title");
   modalTitle.textContent = "Welcome to the game! Nonogram";
-  // modalTitle.textContent = "Great! You have solved the nonogram!";
   modalContent.appendChild(modalTitle);
 
   //  *******form options*******
@@ -59,28 +58,22 @@ document.addEventListener("DOMContentLoaded", () => {
   wrapper.appendChild(gameContainer);
 
   const gameGridPromptRow = document.createElement("div");
-  gameGridPromptRow.classList.add("game-board-grid-prompt-row");
+  gameGridPromptRow.classList.add("game-prompt-top");
   gameContainer.appendChild(gameGridPromptRow);
 
   const gameBoardItem = document.createElement("div");
-  // gameBoardItem.setAttribute("nonogram-item-data", "0");
-  gameBoardItem.classList.add("game-board-cell-empty");
+  gameBoardItem.classList.add("game-board-empty-item");
   gameGridPromptRow.appendChild(gameBoardItem);
 
-
-  // const boardGridWrapper = document.createElement("div");
-  // boardGridWrapper.classList.add("board-grid-wrapper");
-  // gameContainer.appendChild(boardGridWrapper);
-
   const boardGridContainer = document.createElement("div");
-  boardGridContainer.classList.add("board-grid-container");
+  boardGridContainer.classList.add("main-grid-container");
   gameContainer.appendChild(boardGridContainer);
 
   const leftColumn = document.createElement("div");
-  leftColumn.classList.add("left-column");
+  leftColumn.classList.add("game-prompt-left");
   boardGridContainer.appendChild(leftColumn);
 
   const gameGridPromptColumn = document.createElement("div");
-  gameGridPromptColumn.classList.add("game-board-grid-prompt-column");
+  gameGridPromptColumn.classList.add("main-game-board");
   boardGridContainer.appendChild(gameGridPromptColumn);
 });

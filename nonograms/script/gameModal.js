@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //   close modal and start game
   modalButton.addEventListener("click", () => {
+    console.log("Modal work");
     if (Object.keys(gameData).length > 0) {
       waring.textContent = "";
       document.querySelector(".modal_container").classList.remove("show");

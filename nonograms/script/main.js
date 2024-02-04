@@ -1,46 +1,30 @@
 // document.addEventListener("DOMContentLoaded", () => {
 
-let playerData = [
-  [0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0],
-];
+let playerData = [];
 
 // -------------   restart game  -------------'
-const gameRestart = (gameModal, modalContent, dataAtt) => {
-  gameModal.classList.remove("show");
-  modalContent.classList.remove("show");
-  playerData = [
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-  ];
-  // console.log(document.querySelectorAll(".nonogram-item"));
-  document.querySelectorAll(".nonogram-item").forEach((el) => {
-    el.setAttribute(dataAtt, "0");
-    el.classList.remove("cross");
-    el.classList.remove("checked");
-  });
+const gameRestart = () => {
+  document.querySelector(".game-prompt-top").innerHTML =
+    '<div class="game-board-empty-item"></div>';
+  document.querySelector(".main-grid-container").innerHTML =
+    '<div class="game-prompt-left"></div><div class="main-game-board"></div>';
 };
 
 // -------------   check game status -------------'
 
 const checkGameStatus = (playerData, solution, dataAtt) => {
+  console.log("check status");
   console.log("playerData=", playerData);
   console.log("solution=", solution);
-  const gameModal = document.querySelector(".modal_container"),
-    modalContent = document.querySelector(".modal_content"),
-    modalButton = document.querySelector(".modal-btn");
   if (JSON.stringify(playerData) === JSON.stringify(solution)) {
+    gameRestart();
+    const gameModal = document.querySelector(".modal_container"),
+      modalContent = document.querySelector(".modal_content"),
+      modalTitle = document.querySelector(".modal-title");
+
     gameModal.classList.add("show");
     modalContent.classList.add("show");
-    modalButton.addEventListener("click", () =>
-      gameRestart(gameModal, modalContent, dataAtt)
-    );
+    modalTitle.textContent = "Great! You have solved the nonogram!";
   }
 };
 
@@ -53,7 +37,6 @@ const changePlayerData = (el, itemIndex, dataAtt, gameData) => {
     playerData[index][itemIndex - 5 * index] =
       +el.getAttribute(dataAtt)[2];
   }
-
   checkGameStatus(playerData, gameData.solution, dataAtt);
 };
 
@@ -88,30 +71,33 @@ const changeDataAtt = (
 
 const startGame = (gameData) => {
   const nonogramItems = document.querySelectorAll(".nonogram-item");
-  nonogramItems.forEach((el, i) => {
-    el.addEventListener("mousedown", (e) => {
-      if (e.button === 0) {
-        changeDataAtt(
-          e.target,
-          "nonogram-item-data",
-          1,
-          "checked",
-          "cross",
-          i,
-          gameData
-        );
-      } else if (e.button === 2) {
-        changeDataAtt(
-          e.target,
-          "nonogram-item-data",
-          0,
-          "cross",
-          "checked",
-          i,
-          gameData
-        );
-      }
-    });
+
+  const handleClick = (e, index) => {
+    if (e.button === 0) {
+      changeDataAtt(
+        e.target,
+        "nonogram-item-data",
+        1,
+        "checked",
+        "cross",
+        index,
+        gameData
+      );
+    } else if (e.button === 2) {
+      changeDataAtt(
+        e.target,
+        "nonogram-item-data",
+        0,
+        "cross",
+        "checked",
+        index,
+        gameData
+      );
+    }
+  };
+
+  nonogramItems.forEach((el, index) => {
+    el.addEventListener("mousedown", (e) => handleClick(e, index));
 
     el.addEventListener("contextmenu", (event) => {
       event.preventDefault();
@@ -121,16 +107,21 @@ const startGame = (gameData) => {
 
 //  -------------------- create game board -------------------------------
 const createBoard = (gameData) => {
-  const nonogramSize = Object.keys(gameData.row).length;
-  const gameGridPromptRow = document.querySelector(
-      ".game-board-grid-prompt-row"
-    ),
-    gameGridPromptColumn = document.querySelector(
-      ".game-board-grid-prompt-column"
-    ),
-    leftColumn = document.querySelector(".left-column");
+  console.log("gameData=", gameData);
+  console.log("i create board");
 
-  console.log(nonogramSize);
+  const nonogramSize = Object.keys(gameData.top).length;
+  const gameGridPromptRow = document.querySelector(".game-prompt-top"),
+    gameGridPromptColumn = document.querySelector(".main-game-board"),
+    leftColumn = document.querySelector(".game-prompt-left");
+
+  playerData = Array.from({length: nonogramSize}, () =>
+    Array(nonogramSize).fill(0)
+  );
+
+  console.log("playerData=", playerData);
+  // console.log(gameGridPromptColumn);
+  // console.log(leftColumn);
   gameGridPromptRow.style.gridTemplateColumns = `repeat(${
     nonogramSize + 1
   },  minmax(5%, 1fr)`;
@@ -147,7 +138,7 @@ const createBoard = (gameData) => {
     gamePromptRowItem.classList.add("game-board-cell");
     gameGridPromptRow.appendChild(gamePromptRowItem);
 
-    for (const data of gameData.row[i]) {
+    for (const data of gameData.top[i]) {
       const span = document.createElement("span");
       span.textContent = data;
       gamePromptRowItem.appendChild(span);
@@ -161,12 +152,9 @@ const createBoard = (gameData) => {
     }
 
     const leftColumnItem = document.createElement("div");
-    leftColumnItem.classList.add(
-      "game-board-cell",
-      "game-board-left-prompt"
-    );
+    leftColumnItem.classList.add("game-board-cell", "left-prompt-item");
     leftColumn.appendChild(leftColumnItem);
-    for (const data of gameData.column[i]) {
+    for (const data of gameData.left[i]) {
       const span = document.createElement("span");
       span.textContent = data;
       leftColumnItem.appendChild(span);
@@ -174,22 +162,21 @@ const createBoard = (gameData) => {
   }
 
   const leftWidth = leftColumn
-    .querySelector(".game-board-left-prompt")
+    .querySelector(".left-prompt-item")
     .getBoundingClientRect().width;
   const emptyItemWidth = document
-    .querySelector(".game-board-cell-empty")
+    .querySelector(".game-board-empty-item")
     .getBoundingClientRect().width;
 
   if (leftWidth > 30 && leftWidth > emptyItemWidth) {
-    document.querySelector(".game-board-cell-empty").style.width =
+    document.querySelector(".game-board-empty-item").style.width =
       leftWidth + "px";
   } else if (emptyItemWidth > 30) {
-    document.querySelector(".game-board-left-prompt").style.width =
+    document.querySelector(".left-prompt-item").style.width =
       emptyItemWidth + "px";
   } else {
-    document.querySelector(".game-board-left-prompt").style.width =
-      40 + "px";
-    document.querySelector(".game-board-cell-empty").style.width =
+    document.querySelector(".left-prompt-item").style.width = 40 + "px";
+    document.querySelector(".game-board-empty-item").style.width =
       40 + "px";
   }
 
