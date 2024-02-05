@@ -1,6 +1,9 @@
 // document.addEventListener("DOMContentLoaded", () => {
+import {timer} from "./timer.js";
 
 let playerData = [];
+let nonogramSize = 5;
+let timerStart = false;
 
 // -------------   restart game  -------------'
 const gameRestart = () => {
@@ -11,20 +14,21 @@ const gameRestart = () => {
 };
 
 // -------------   check game status -------------'
-
-const checkGameStatus = (playerData, solution, dataAtt) => {
-  console.log("check status");
-  console.log("playerData=", playerData);
-  console.log("solution=", solution);
+const checkGameStatus = (playerData, solution) => {
   if (JSON.stringify(playerData) === JSON.stringify(solution)) {
+    timerStart = !timerStart;
+
     gameRestart();
     const gameModal = document.querySelector(".modal_container"),
       modalContent = document.querySelector(".modal_content"),
-      modalTitle = document.querySelector(".modal-title");
+      modalTitle = document.querySelector(".modal-title"),
+      timerTime = document.querySelector(".timer");
 
     gameModal.classList.add("show");
     modalContent.classList.add("show");
-    modalTitle.textContent = "Great! You have solved the nonogram!";
+    modalTitle.textContent = `Great! You have solved the nonogram in ${timerTime.textContent} seconds!`;
+
+    timer(timerStart);
   }
 };
 
@@ -37,7 +41,7 @@ const changePlayerData = (el, itemIndex, dataAtt, gameData) => {
     playerData[index][itemIndex - 5 * index] =
       +el.getAttribute(dataAtt)[2];
   }
-  checkGameStatus(playerData, gameData.solution, dataAtt);
+  checkGameStatus(playerData, gameData.solution);
 };
 
 /// ------------- change data attribute -------------'
@@ -67,16 +71,39 @@ const changeDataAtt = (
   changePlayerData(el, i, dataAtt, gameData);
 };
 
-// -------------  game start -------------'
+// -------------  game reset -------------'
+const resetGame = (el, dataAtt) => {
+  const resetBtn = document.querySelector(".reset-game-btn");
 
+  resetBtn.addEventListener("click", () => {
+    playerData = Array.from({length: nonogramSize}, () =>
+      Array(nonogramSize).fill(0)
+    );
+    el.forEach((el) => {
+      const oldData = el.getAttribute(dataAtt);
+      el.setAttribute(dataAtt, [oldData[0], 0]);
+      el.classList.remove("cross");
+      el.classList.remove("checked");
+    });
+  });
+};
+
+// -------------  game start -------------'
 const startGame = (gameData) => {
   const nonogramItems = document.querySelectorAll(".nonogram-item");
+  const dataAtt = "nonogram-item-data";
+  resetGame(nonogramItems, dataAtt);
 
   const handleClick = (e, index) => {
+    if (!timerStart) {
+      timerStart = !timerStart;
+      timer(timerStart);
+    }
+
     if (e.button === 0) {
       changeDataAtt(
         e.target,
-        "nonogram-item-data",
+        dataAtt,
         1,
         "checked",
         "cross",
@@ -86,7 +113,7 @@ const startGame = (gameData) => {
     } else if (e.button === 2) {
       changeDataAtt(
         e.target,
-        "nonogram-item-data",
+        dataAtt,
         0,
         "cross",
         "checked",
@@ -107,10 +134,7 @@ const startGame = (gameData) => {
 
 //  -------------------- create game board -------------------------------
 const createBoard = (gameData) => {
-  console.log("gameData=", gameData);
-  console.log("i create board");
-
-  const nonogramSize = Object.keys(gameData.top).length;
+  nonogramSize = Object.keys(gameData.top).length;
   const gameGridPromptRow = document.querySelector(".game-prompt-top"),
     gameGridPromptColumn = document.querySelector(".main-game-board"),
     leftColumn = document.querySelector(".game-prompt-left");
@@ -119,9 +143,6 @@ const createBoard = (gameData) => {
     Array(nonogramSize).fill(0)
   );
 
-  console.log("playerData=", playerData);
-  // console.log(gameGridPromptColumn);
-  // console.log(leftColumn);
   gameGridPromptRow.style.gridTemplateColumns = `repeat(${
     nonogramSize + 1
   },  minmax(5%, 1fr)`;

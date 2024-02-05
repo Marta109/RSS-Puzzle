@@ -3,10 +3,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const wrapper = document.createElement("div");
   wrapper.classList.add("wrapper");
   document.body.appendChild(wrapper);
+
+  const header = document.createElement("header");
+  header.classList.add("header");
+  wrapper.appendChild(header);
+
   const gameTitle = document.createElement("h1");
   gameTitle.classList.add("game-title");
   gameTitle.textContent = "Nonogram";
-  wrapper.appendChild(gameTitle);
+  header.appendChild(gameTitle);
+
+  const timer = document.createElement("div");
+  timer.classList.add("timer", "game-board-cell");
+  timer.textContent = "00:00";
+  header.appendChild(timer);
+  // const gameDecr = document.createElement("p");
+  // gameDecr.classList.add("game-decr");
+  // // gameDecr.textContent = ;
+  // header.appendChild(gameDecr);
+
+  //  ------------- Reset game button-----------
+  const resetBtn = document.createElement("button");
+  resetBtn.textContent = "Reset game";
+  resetBtn.classList.add("reset-game-btn", "modal-btn");
+  header.appendChild(resetBtn);
 
   // ------------- add game modal-----------
   const gameModal = document.createElement("div");
@@ -48,6 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
   modalContent.appendChild(waring);
 
   const modalButton = document.createElement("button");
+  modalButton.id = "modal-btn";
   modalButton.classList.add("modal-btn");
   modalButton.textContent = "Play";
   modalContent.appendChild(modalButton);

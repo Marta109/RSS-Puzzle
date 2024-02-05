@@ -2,7 +2,7 @@ import {gameData as allGameData} from "./data.js";
 import {createBoard} from "./main.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const modalButton = document.querySelector(".modal-btn"),
+  const modalButton = document.querySelector("#modal-btn"),
     waring = document.querySelector(".waring");
 
   let gameData = {};
@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // select  -------------nonogram for game start
   const selectNonogram = (data, level, selectNonogramInfo) => {
     const selectNonogram = document.querySelector("#select-nonogram");
+    const gameTitle = document.querySelector(".game-title");
+    // const gameDecr = document.querySelector(".game-decr");
 
     selectNonogram.innerHTML =
       '<option value="" disabled="" selected>Select nonogram</option>';
@@ -26,6 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
       waring.textContent = "";
       gameData = data[e.target.value];
       selectNonogramInfo.textContent = `You chose the level ${level}, nonogram - ${e.target.value}`;
+      gameTitle.textContent = `Level ${level} Nonogram - ${e.target.value} `;
+      // gameDecr.textContent = `Level ${level} `;
     });
   };
 
@@ -59,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //   close modal and start game
   modalButton.addEventListener("click", () => {
-    console.log("Modal work");
     if (Object.keys(gameData).length > 0) {
       waring.textContent = "";
       document.querySelector(".modal_container").classList.remove("show");
