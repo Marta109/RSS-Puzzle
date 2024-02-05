@@ -38,7 +38,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const gameModal = document.querySelector(".modal_container"),
       modalContent = document.querySelector(".modal_content"),
       selectNonogramInfo = document.querySelector(".select-nonogram-info"),
-      selectLevel = document.querySelector(".select-level");
+      selectLevel = document.querySelector(".select-level"),
+      audio = document.querySelector("#audio");
 
     gameModal.classList.add("show");
     modalContent.classList.add("show");
@@ -67,6 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
       waring.textContent = "";
       document.querySelector(".modal_container").classList.remove("show");
       document.querySelector(".modal_content").classList.remove("show");
+      audio.pause();
       createBoard(gameData);
       // createNonogramPromptColumn(gameData);
     } else {

@@ -16,9 +16,10 @@ const gameRestart = () => {
 // -------------   check game status -------------'
 const checkGameStatus = (playerData, solution) => {
   if (JSON.stringify(playerData) === JSON.stringify(solution)) {
-    timerStart = !timerStart;
+    const audio = document.querySelector("#audio");
+    audio.src = "./sound/win.mp3";
+    audio.play();
 
-    gameRestart();
     const gameModal = document.querySelector(".modal_container"),
       modalContent = document.querySelector(".modal_content"),
       modalTitle = document.querySelector(".modal-title"),
@@ -28,6 +29,8 @@ const checkGameStatus = (playerData, solution) => {
     modalContent.classList.add("show");
     modalTitle.textContent = `Great! You have solved the nonogram in ${timerTime.textContent} seconds!`;
 
+    gameRestart();
+    timerStart = !timerStart;
     timer(timerStart);
   }
 };
@@ -54,7 +57,8 @@ const changeDataAtt = (
   i,
   gameData
 ) => {
-  const oldData = el.getAttribute(dataAtt);
+  const oldData = el.getAttribute(dataAtt),
+    audio = document.querySelector("#audio");
 
   el.classList.contains(lastClassName)
     ? el.classList.remove(lastClassName)
@@ -67,6 +71,16 @@ const changeDataAtt = (
     el.classList.add(className);
     el.setAttribute(dataAtt, [oldData[0], value]);
   }
+
+ //  ---- add audio ---------
+  audio.src =
+    !el.classList.contains("checked") && !el.classList.contains("cross")
+      ? "./sound/blank.mp3"
+      : el.classList.contains("cross")
+      ? "./sound/cross.mp3"
+      : "./sound/checked.mp3";
+
+  audio.play();
 
   changePlayerData(el, i, dataAtt, gameData);
 };

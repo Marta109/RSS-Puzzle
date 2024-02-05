@@ -28,6 +28,13 @@ document.addEventListener("DOMContentLoaded", () => {
   resetBtn.classList.add("reset-game-btn", "modal-btn");
   header.appendChild(resetBtn);
 
+  // -------------  game audio -----------
+  const audio = new Audio();
+  audio.id = "audio";
+  header.appendChild(audio);
+  // audio.src = '';
+  // audio.autoplay = true;
+
   // ------------- add game modal-----------
   const gameModal = document.createElement("div");
   gameModal.classList.add("modal_container");
