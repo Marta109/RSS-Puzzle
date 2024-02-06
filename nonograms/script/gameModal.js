@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector(".modal_content").classList.remove("show");
     const gameTitle = document.querySelector(".game-title");
     gameData = allGameData["Easy - 5x5"].tower;
-    gameTitle.textContent = "Level Easy - 5x5 | Nonogram - tower ";
+    gameTitle.textContent = "Level Easy - 5x5 Nonogram - tower ";
     createBoard(allGameData["Easy - 5x5"].tower);
     firstStart = !firstStart;
   }

@@ -1,19 +1,29 @@
 .wrapper {
   font-family: Arial, sans-serif;
-  background: #957fef;
+  /* background: #957fef; */
+  /* background: linear-gradient(45deg, #1043ff, #d2379b); */
+  background: linear-gradient(45deg, #4010ff, #d2379b);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 0 40px;
+  justify-content: start;
+  padding: 0 30px;
 }
 
-.header {
-  display: flex;
-  justify-content: space-around;
+.nav {
   width: 100%;
+  /* position: fixed; */
+  top: 0;
+  left: 0;
+  background-color: #703dcd;
+  display: flex;
+  margin: 0 auto;
+  border-radius: 10px;
 }
+/* .nav-item {
+  /* margin-top: auto; */
+/* } */
 
 .game-title {
   /* display: flex; */
@@ -60,10 +70,13 @@
 
 /* game board  */
 .game-board-container {
-  background: gray;
+  /* background: gray; */
+  background: linear-gradient(45deg, #3510ffed, #d037d2);
   display: inline-block;
   border: 4px solid black;
   margin-bottom: 7px;
+  margin-top: 70px;
+  /* position: fixed; */
   /* width: 50%; */
 }
 
@@ -131,7 +144,7 @@
 }
 
 /* .game-board-empty-item { */
-  /* background: white; */
+/* background: white; */
 /* } */
 
 /* @media (max-width: 500px) {
@@ -139,6 +152,12 @@
     font-size: 1rem;
   }
 } */
+
+@media (max-width: 700px) {
+  .game-title {
+    font-size: 1.5rem;
+  }
+}
 
 /* ------------- Reset game button----------- */
 .reset-game-btn {
@@ -151,6 +170,10 @@
   margin: auto;
   font-weight: bolder;
   background: center;
+  width: 150px;
+  margin-right: 10px;
+  border: none;
+  cursor: auto;
 }
 
 /* _______________ modal window _________-*/
@@ -174,7 +197,7 @@
   max-width: 400px;
   width: 100%;
   /* height: 300px; */
-  padding: 40px;
+  /* padding: 40px; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -206,7 +229,7 @@
   position: relative;
   z-index: 0;
   border-radius: 10px;
-  margin-bottom: 20px;
+  margin-right: 20px;
 }
 
 .modal-btn:before {

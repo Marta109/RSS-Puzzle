@@ -4,19 +4,19 @@ document.addEventListener("DOMContentLoaded", () => {
   wrapper.classList.add("wrapper");
   document.body.appendChild(wrapper);
 
-  const header = document.createElement("header");
-  header.classList.add("header");
-  wrapper.appendChild(header);
+  const nav = document.createElement("nav");
+  nav.classList.add("nav");
+  wrapper.appendChild(nav);
 
   const gameTitle = document.createElement("h1");
   gameTitle.classList.add("game-title");
   gameTitle.textContent = "Nonogram";
-  header.appendChild(gameTitle);
+  nav.appendChild(gameTitle);
 
   const timer = document.createElement("div");
   timer.classList.add("timer", "game-board-cell");
-  timer.textContent = "00:00";
-  header.appendChild(timer);
+  timer.textContent = "00 : 00";
+  nav.appendChild(timer);
   // const gameDecr = document.createElement("p");
   // gameDecr.classList.add("game-decr");
   // // gameDecr.textContent = ;
@@ -25,13 +25,13 @@ document.addEventListener("DOMContentLoaded", () => {
   //  ------------- Reset game button-----------
   const resetBtn = document.createElement("button");
   resetBtn.textContent = "Reset game";
-  resetBtn.classList.add("reset-game-btn", "modal-btn");
-  header.appendChild(resetBtn);
+  resetBtn.classList.add("reset-game-btn", "modal-btn", "nav-item");
+  nav.appendChild(resetBtn);
 
   // -------------  game audio -----------
   const audio = new Audio();
   audio.id = "audio";
-  header.appendChild(audio);
+  nav.appendChild(audio);
   // audio.src = '';
   // audio.autoplay = true;
 
