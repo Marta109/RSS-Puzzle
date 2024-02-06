@@ -7,10 +7,11 @@ let timerStart = false;
 
 // -------------   restart game  -------------'
 const gameRestart = () => {
-  document.querySelector(".game-prompt-top").innerHTML =
-    '<div class="game-board-empty-item"></div>';
-  document.querySelector(".main-grid-container").innerHTML =
-    '<div class="game-prompt-left"></div><div class="main-game-board"></div>';
+  document.querySelector(".game-board-container").innerHTML =
+    '<div class="game-board-empty-item"></div><div class="game-prompt-top"></div><div class="game-prompt-left"></div><div class="main-game-board"></div>';
+
+  // document.querySelector(".main-grid-container").innerHTML =
+  //   '<div class="game-prompt-left"></div><div class="main-game-board"></div>';
 };
 
 // -------------   check game status -------------'
@@ -153,23 +154,29 @@ const startGame = (gameData) => {
 //  -------------------- create game board -------------------------------
 const createBoard = (gameData) => {
   nonogramSize = Object.keys(gameData.top).length;
-  const gameGridPromptRow = document.querySelector(".game-prompt-top"),
-    mainGameBoard = document.querySelector(".main-game-board"),
-    leftColumn = document.querySelector(".game-prompt-left");
+  const gameBoardContainer = document.querySelector(
+      ".game-board-container"
+    ),
+    gameGridPromptRow = document.querySelector(".game-prompt-top"),
+    leftColumn = document.querySelector(".game-prompt-left"),
+    mainGameBoard = document.querySelector(".main-game-board");
 
   playerData = Array.from({length: nonogramSize}, () =>
     Array(nonogramSize).fill(0)
   );
-
-  gameGridPromptRow.style.gridTemplateColumns = `repeat(${
+  gameBoardContainer.style.gridTemplateColumns = `repeat(${
     nonogramSize + 1
   },  minmax(5%, 1fr)`;
+
+  gameGridPromptRow.style.gridTemplateColumns = `repeat(${nonogramSize},  minmax(5%, 1fr)`;
   gameGridPromptRow.style.gridTemplateRows = `repeat(1,  minmax(5%, 1fr)`;
+  gameGridPromptRow.style.gridColumn = `2/${nonogramSize + 2}`;
 
   mainGameBoard.style.gridTemplateColumns = `repeat(${nonogramSize}, 1fr`;
   mainGameBoard.style.gridTemplateRows = `repeat(${nonogramSize},  1fr`;
+  mainGameBoard.style.gridColumn = `2/${nonogramSize + 2}`;
 
-  leftColumn.style.gridTemplateColumns = `repeat(${1},  minmax(5%, 1fr)`;
+  leftColumn.style.gridTemplateColumns = `repeat(1,  minmax(5%, 1fr)`;
   leftColumn.style.gridTemplateRows = `repeat(${nonogramSize},  minmax(5%, 1fr)`;
 
   for (let i = 0; i < nonogramSize; i++) {
@@ -203,24 +210,24 @@ const createBoard = (gameData) => {
     }
   }
 
-  const leftWidth = leftColumn
-    .querySelector(".left-prompt-item")
-    .getBoundingClientRect().width;
-  const emptyItemWidth = document
-    .querySelector(".game-board-empty-item")
-    .getBoundingClientRect().width;
+  // const leftWidth = leftColumn
+  //   .querySelector(".left-prompt-item")
+  //   .getBoundingClientRect().width;
+  // const emptyItemWidth = document
+  //   .querySelector(".game-board-empty-item")
+  //   .getBoundingClientRect().width;
 
-  if (leftWidth > 30 && leftWidth > emptyItemWidth) {
-    document.querySelector(".game-board-empty-item").style.width =
-      leftWidth + "px";
-  } else if (emptyItemWidth > 30) {
-    document.querySelector(".left-prompt-item").style.width =
-      emptyItemWidth + "px";
-  } else {
-    document.querySelector(".left-prompt-item").style.width = 40 + "px";
-    document.querySelector(".game-board-empty-item").style.width =
-      40 + "px";
-  }
+  // if (leftWidth > 30 && leftWidth > emptyItemWidth) {
+  //   document.querySelector(".game-board-empty-item").style.width =
+  //     leftWidth + "px";
+  // } else if (emptyItemWidth > 30) {
+  //   document.querySelector(".left-prompt-item").style.width =
+  //     emptyItemWidth + "px";
+  // } else {
+  //   document.querySelector(".left-prompt-item").style.width = 40 + "px";
+  //   document.querySelector(".game-board-empty-item").style.width =
+  //     40 + "px";
+  // }
 
   startGame(gameData);
 };

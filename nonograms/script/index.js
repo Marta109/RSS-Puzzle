@@ -85,23 +85,23 @@ document.addEventListener("DOMContentLoaded", () => {
   gameContainer.classList.add("game-board-container");
   wrapper.appendChild(gameContainer);
 
+  const gameBoardItem = document.createElement("div");
+  gameBoardItem.classList.add("game-board-empty-item");
+  gameContainer.appendChild(gameBoardItem);
+
   const gameGridPromptRow = document.createElement("div");
   gameGridPromptRow.classList.add("game-prompt-top");
   gameContainer.appendChild(gameGridPromptRow);
 
-  const gameBoardItem = document.createElement("div");
-  gameBoardItem.classList.add("game-board-empty-item");
-  gameGridPromptRow.appendChild(gameBoardItem);
-
   const boardGridContainer = document.createElement("div");
   boardGridContainer.classList.add("main-grid-container");
-  gameContainer.appendChild(boardGridContainer);
+  // gameContainer.appendChild(boardGridContainer);
 
   const leftColumn = document.createElement("div");
   leftColumn.classList.add("game-prompt-left");
-  boardGridContainer.appendChild(leftColumn);
+  gameContainer.appendChild(leftColumn);
 
   const gameGridPromptColumn = document.createElement("div");
   gameGridPromptColumn.classList.add("main-game-board");
-  boardGridContainer.appendChild(gameGridPromptColumn);
+  gameContainer.appendChild(gameGridPromptColumn);
 });
