@@ -18,7 +18,9 @@ const checkGameStatus = (playerData, solution) => {
   if (JSON.stringify(playerData) === JSON.stringify(solution)) {
     const audio = document.querySelector("#audio");
     audio.src = "./sound/win.mp3";
-    audio.play();
+    audio.addEventListener("loadeddata", function () {
+      audio.play();
+    });
 
     const gameModal = document.querySelector(".modal_container"),
       modalContent = document.querySelector(".modal_content"),
@@ -72,7 +74,7 @@ const changeDataAtt = (
     el.setAttribute(dataAtt, [oldData[0], value]);
   }
 
- //  ---- add audio ---------
+  //  ---- add audio ---------
   audio.src =
     !el.classList.contains("checked") && !el.classList.contains("cross")
       ? "./sound/blank.mp3"
@@ -80,7 +82,9 @@ const changeDataAtt = (
       ? "./sound/cross.mp3"
       : "./sound/checked.mp3";
 
-  audio.play();
+  audio.addEventListener("loadeddata", function () {
+    audio.play();
+  });
 
   changePlayerData(el, i, dataAtt, gameData);
 };
@@ -150,7 +154,7 @@ const startGame = (gameData) => {
 const createBoard = (gameData) => {
   nonogramSize = Object.keys(gameData.top).length;
   const gameGridPromptRow = document.querySelector(".game-prompt-top"),
-    gameGridPromptColumn = document.querySelector(".main-game-board"),
+    mainGameBoard = document.querySelector(".main-game-board"),
     leftColumn = document.querySelector(".game-prompt-left");
 
   playerData = Array.from({length: nonogramSize}, () =>
@@ -162,8 +166,8 @@ const createBoard = (gameData) => {
   },  minmax(5%, 1fr)`;
   gameGridPromptRow.style.gridTemplateRows = `repeat(1,  minmax(5%, 1fr)`;
 
-  gameGridPromptColumn.style.gridTemplateColumns = `repeat(${nonogramSize},minmax(5%, 1fr)`;
-  gameGridPromptColumn.style.gridTemplateRows = `repeat(${nonogramSize}, minmax(5%, 1fr)`;
+  mainGameBoard.style.gridTemplateColumns = `repeat(${nonogramSize}, 1fr`;
+  mainGameBoard.style.gridTemplateRows = `repeat(${nonogramSize},  1fr`;
 
   leftColumn.style.gridTemplateColumns = `repeat(${1},  minmax(5%, 1fr)`;
   leftColumn.style.gridTemplateRows = `repeat(${nonogramSize},  minmax(5%, 1fr)`;
@@ -181,9 +185,12 @@ const createBoard = (gameData) => {
 
     for (let j = 0; j < nonogramSize; j++) {
       const nonogramItem = document.createElement("div");
-      nonogramItem.classList.add("game-board-cell", "nonogram-item");
+      nonogramItem.classList.add("nonogram-item");
+      if (i < nonogramSize - 1 && (i === 4 || i === 9)) {
+        nonogramItem.classList.add("nonogram-item-divider");
+      }
       nonogramItem.setAttribute("nonogram-item-data", [i, 0]);
-      gameGridPromptColumn.appendChild(nonogramItem);
+      mainGameBoard.appendChild(nonogramItem);
     }
 
     const leftColumnItem = document.createElement("div");

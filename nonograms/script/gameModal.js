@@ -1,6 +1,8 @@
 import {gameData as allGameData} from "./data.js";
 import {createBoard} from "./main.js";
 
+let firstStart = false;
+
 document.addEventListener("DOMContentLoaded", () => {
   const modalButton = document.querySelector("#modal-btn"),
     waring = document.querySelector(".waring");
@@ -27,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     selectNonogram.addEventListener("change", (e) => {
       waring.textContent = "";
       gameData = data[e.target.value];
-      selectNonogramInfo.textContent = `You chose the level ${level}, nonogram - ${e.target.value}`;
+      selectNonogramInfo.textContent = `You chose the level ${level}, Nonogram - ${e.target.value}`;
       gameTitle.textContent = `Level ${level} Nonogram - ${e.target.value} `;
       // gameDecr.textContent = `Level ${level} `;
     });
@@ -38,8 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const gameModal = document.querySelector(".modal_container"),
       modalContent = document.querySelector(".modal_content"),
       selectNonogramInfo = document.querySelector(".select-nonogram-info"),
-      selectLevel = document.querySelector(".select-level"),
-      audio = document.querySelector("#audio");
+      selectLevel = document.querySelector(".select-level");
 
     gameModal.classList.add("show");
     modalContent.classList.add("show");
@@ -68,7 +69,8 @@ document.addEventListener("DOMContentLoaded", () => {
       waring.textContent = "";
       document.querySelector(".modal_container").classList.remove("show");
       document.querySelector(".modal_content").classList.remove("show");
-      audio.pause();
+      document.querySelector("#audio").pause();
+
       createBoard(gameData);
       // createNonogramPromptColumn(gameData);
     } else {
@@ -77,7 +79,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // gameStart();
   gameStart();
 
-  // createBoard(allGameData['Easy - 5x5'].tower);
+  if (!firstStart) {
+    document.querySelector(".modal_container").classList.remove("show");
+    document.querySelector(".modal_content").classList.remove("show");
+    const gameTitle = document.querySelector(".game-title");
+    gameData = allGameData["Easy - 5x5"].tower;
+    gameTitle.textContent = "Level Easy - 5x5 | Nonogram - tower ";
+    createBoard(allGameData["Easy - 5x5"].tower);
+    firstStart = !firstStart;
+  }
 });
