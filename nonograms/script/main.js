@@ -7,6 +7,8 @@ let nonogramSize = 5;
 let timerStart = false;
 let gameSolution = [];
 
+
+
 //  show nonogram solution
 const showNonogram = () => {
   const nonogramItems = document.querySelectorAll(".nonogram-item"),
@@ -31,16 +33,6 @@ const showNonogram = () => {
     });
   });
 
-  // for (let i = 0; i < gameSolution.length; i++) {
-  //   for (let j = 0; j < gameSolution[i].length; j++) {
-  //     if (gameSolution[i][j] == 1) {
-  //       nonogramItems[index].classList.add("checked");
-  //     } else {
-  //       nonogramItems[index].classList.add("cross");
-  //     }
-  //     index++;
-  //   }
-  // }
   showSolutionBtn.removeEventListener("click", showNonogram);
 };
 
@@ -170,41 +162,6 @@ const resetGame = (el, dataAtt) => {
     });
   });
 };
-
-// const showSolution = (gameSolution) => {
-//   const showSolutionBtn = document.querySelector("#solution"),
-//     saveGame = document.querySelector("#saveGame"),
-//     mainBoard = document.querySelector(".main-game-board"),
-//     nonogramItems = document.querySelectorAll(".nonogram-item");
-
-//   showSolutionBtn.addEventListener("click", () => {
-//     saveGame.classList.add("btn-disabled");
-//     mainBoard.classList.add("btn-disabled");
-//     timerStart = false;
-//     timer(timerStart);
-//     gameSolution.forEach((arr, column) => {
-//       arr.forEach((el, index) => {
-//         if (el === 1) {
-//           if (column === 0) {
-//             nonogramItems[index].classList.add("checked");
-//           } else {
-//             nonogramItems[index + nonogramSize * column].classList.add(
-//               "checked"
-//             );
-//           }
-//         } else {
-//           if (column === 0) {
-//             nonogramItems[index].classList.add("cross");
-//           } else {
-//             nonogramItems[index + nonogramSize * column].classList.add(
-//               "cross"
-//             );
-//           }
-//         }
-//       });
-//     });
-//   });
-// };
 
 const showSolution = () => {
   const showSolutionBtn = document.querySelector("#solution");

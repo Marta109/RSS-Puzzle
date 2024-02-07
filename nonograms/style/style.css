@@ -50,7 +50,7 @@
 .game-title {
   /* display: flex; */
   text-align: center;
-  width: 250px;
+  width: 300px;
   /* margin-right: 20px;
   /* justify-content: center; */
 }
@@ -189,9 +189,11 @@
   }
 } */
 
-@media (max-width: 600px) {
+@media (max-width: 620px) {
   .game-title {
     font-size: 1.5rem;
+    width: 200px;
+    margin-right: 80px;
   }
 
   .game-board-cell {
@@ -207,6 +209,7 @@
   padding: 0 20px;
   width: 180px;
   text-align: center;
+  margin-left: -80px;
   /* background: center;
   width: 150px;
   margin-right: 10px;
