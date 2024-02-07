@@ -57,6 +57,12 @@ document.addEventListener("DOMContentLoaded", () => {
   saveGame.classList.add("modal-btn", "nav-item");
   menu.appendChild(saveGame);
 
+  const continueGame = document.createElement("button");
+  continueGame.textContent = "Continue last game";
+  continueGame.id = "continueGame";
+  continueGame.classList.add("modal-btn", "nav-item", "btn-disabled");
+  menu.appendChild(continueGame);
+
   // -------------  game audio -----------
   const audio = new Audio();
   audio.id = "audio";

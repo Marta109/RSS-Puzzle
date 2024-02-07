@@ -1,13 +1,13 @@
 // document.addEventListener("DOMContentLoaded", () => {
-import {gameData} from "./data.js";
+// import {gameData} from "./data.js";
 import {timer} from "./timer.js";
 
 let playerData = [];
 let nonogramSize = 5;
 let timerStart = false;
 let gameSolution = [];
-
-
+let isSaveGame = false;
+let gameDatas = [];
 
 //  show nonogram solution
 const showNonogram = () => {
@@ -62,6 +62,63 @@ const changeNonogram = () => {
       document.querySelector(".modal_content").classList.add("show");
       gameRestart();
     });
+};
+// -------------   continue game  -------------'
+
+const getData = () => {
+  const continueGameBtn = document.querySelector("#continueGame");
+  const gameData = JSON.parse(localStorage.getItem("savedGameData"));
+  const playerData = JSON.parse(localStorage.getItem("savedPlayerData"));
+
+  gameRestart();
+  createBoard(gameData);
+  const nonogramItems = document.querySelectorAll(".nonogram-item");
+  // mainBoard = document.querySelector(".main-game-board"),
+  // showSolutionBtn = document.querySelector("#solution");
+
+  let index = 0;
+  // saveGame.classList.add("btn-disabled");
+  // mainBoard.style.pointerEvents = "none";
+
+  timerStart = false;
+  timer(timerStart);
+
+  playerData.forEach((arr) => {
+    arr.forEach((el) => {
+      if (el === 1) {
+        nonogramItems[index].classList.add("checked");
+      }
+      // else {
+      //   nonogramItems[index].classList.add("cross");
+      // }
+      index++;
+    });
+  });
+
+  // continueGameBtn.removeEventListener("click", getData);
+};
+
+const continueGame = () => {
+  const continueGameBtn = document.querySelector("#continueGame");
+
+  continueGameBtn.addEventListener("click", getData);
+};
+
+// -------------   save game  -------------'
+const saveGame = () => {
+  const saveGameBtn = document.querySelector("#saveGame"),
+    continueGameBtn = document.querySelector("#continueGame");
+
+  saveGameBtn.addEventListener("click", () => {
+    const gameDataString = JSON.stringify(gameDatas);
+    const playerDataString = JSON.stringify(playerData);
+
+    localStorage.setItem("savedGameData", gameDataString);
+    localStorage.setItem("savedPlayerData", playerDataString);
+    continueGameBtn.classList.remove("btn-disabled");
+    isSaveGame = true;
+    continueGame();
+  });
 };
 
 // -------------   check game status -------------'
@@ -176,6 +233,7 @@ const startGame = (gameData) => {
   resetGame(nonogramItems, dataAtt);
   showSolution();
   changeNonogram();
+  saveGame();
 
   const handleClick = (e, index) => {
     if (!timerStart) {
@@ -218,6 +276,8 @@ const startGame = (gameData) => {
 //  -------------------- create game board -------------------------------
 const createBoard = (gameData) => {
   nonogramSize = Object.keys(gameData.top).length;
+  gameDatas = gameData;
+  console.log(gameData);
   const gameBoardContainer = document.querySelector(
       ".game-board-container"
     ),
