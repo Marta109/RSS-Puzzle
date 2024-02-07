@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+  document.body.classList.add("light");
+
   // ----------- wrapper ------------------
   const wrapper = document.createElement("div");
   wrapper.classList.add("wrapper");
@@ -11,6 +13,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const navInfo = document.createElement("nav");
   navInfo.classList.add("navInfo");
   nav.appendChild(navInfo);
+
+  const themeToggleBtn = document.createElement("button");
+  themeToggleBtn.classList.add("modal-btn");
+  themeToggleBtn.id = "modal-toggle";
+  navInfo.appendChild(themeToggleBtn);
+
+  themeToggleBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+  });
+
+  const icon = document.createElement("i");
+  icon.classList.add("fa-solid", "fa-circle-half-stroke");
+  themeToggleBtn.appendChild(icon);
 
   const gameTitle = document.createElement("h1");
   gameTitle.classList.add("game-title");

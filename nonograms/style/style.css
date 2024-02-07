@@ -1,8 +1,39 @@
+body.light {
+  --bg-color: linear-gradient(45deg, #4010ff, #d2379b);
+  --bg-color2: black;
+  --nav-bg-color: #703dcd;
+  --nonogram-item-bg-color: #f4f3ee;
+  --nonogram-item-border: #8a817c;
+  --game-border: #000814;
+  --modal-bg: #6437b9;
+
+  --text-color: black;
+}
+
+body.dark {
+  --bg-color: #03071e;
+  --bg-color2: #03071e;
+  --nav-bg-color: #1b263b;
+  --nonogram-item-bg-color: #dad7cd;
+  --nonogram-item-border: #8a817c;
+  --game-border: #0a1d2f;
+  --modal-bg: #1b263b;
+
+  --text-color: white;
+}
+#modal-toggle {
+  padding: 16px;
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
+}
+
 .wrapper {
   font-family: Arial, sans-serif;
   /* background: #957fef; */
   /* background: linear-gradient(45deg, #1043ff, #d2379b); */
-  background: linear-gradient(45deg, #4010ff, #d2379b);
+  /* background: linear-gradient(45deg, #4010ff, #d2379b); */
+  background: var(--bg-color);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -16,7 +47,7 @@
   /* position: fixed; */
   top: 0;
   left: 0;
-  background-color: #703dcd;
+  background-color: var(--nav-bg-color);
   display: flex;
   flex-direction: column;
   /* margin: 0 auto; */
@@ -51,14 +82,15 @@
   /* display: flex; */
   text-align: center;
   width: 410px;
+  color: var(--text-color);
   /* margin-right: 20px;
   /* justify-content: center; */
 }
 
 .nonogram-item {
-  background-color: white;
+  background-color: var(--nonogram-item-bg-color);
   cursor: pointer;
-  border: 1px solid gray;
+  border: 1px solid var(--nonogram-item-border);
   /* display: flex;
   flex-direction: column;
   height: 100%;
@@ -76,7 +108,7 @@
 }
 
 .nonogram-item:hover {
-  background-color: #957fef;
+  background-color: var(--nav-bg-color);
 }
 
 .nonogram-item:nth-child(5n) {
@@ -93,9 +125,8 @@
 /* game board  */
 .game-board-container {
   /* background: gray; */
-  background: linear-gradient(45deg, #3510ffed, #d037d2);
   /* display: inline-block; */
-  border: 4px solid black;
+  border: 10px solid var(--game-border);
   margin-bottom: 7px;
   margin-top: 20px;
   /* position: fixed; */
@@ -114,13 +145,13 @@
 
 .game-board-cell {
   font-size: 1.5rem;
-  background: white;
+  background: var(--nonogram-item-bg-color);
   display: flex;
   justify-content: end;
   flex-direction: column;
   text-align: center;
   cursor: pointer;
-  border: 1px solid gray;
+  border: 2px solid gray;
 }
 
 .game-prompt-top > .game-board-cell:nth-child(5n) {
@@ -189,7 +220,7 @@
   }
 } */
 
-@media (max-width: 620px) {
+@media (max-width: 680px) {
   .game-title {
     font-size: 1.5rem;
     width: 200px;
@@ -197,7 +228,8 @@
   }
 
   .game-board-cell {
-    font-size: 1.3rem;
+    font-size: 1rem;
+    /* font-size: 1.3rem; */
   }
 }
 
@@ -210,6 +242,7 @@
   width: 180px;
   text-align: center;
   margin-left: -80px;
+  color: var(--text-color);
   /* background: center;
   width: 150px;
   margin-right: 10px;
@@ -228,13 +261,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  /* color: var(--text-color); */
   /* margin: 0 auto; */
   display: none;
 }
 
 .modal_content {
-  background-color: #5455ac;
+  background-color: var(--modal-bg);
+  /* background-color: #5455ac; */
   max-width: 400px;
   width: 100%;
   /* height: 300px; */
@@ -247,7 +281,7 @@
   font-weight: 500;
   display: none;
   transition: 0.5s;
-  border: 6px solid #bfe2ff;
+  border: 6px solid var(--game-border);
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), 0 16px 20px rgba(0, 0, 0, 0.2);
   padding: 0 20px;
@@ -265,7 +299,7 @@
   border: none;
   outline: none;
   color: #fff;
-  background: #111;
+  background: var(--bg-color2);
   cursor: pointer;
   position: relative;
   z-index: 0;
@@ -320,7 +354,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background: #111;
+  background: var(--bg-color2);
   left: 0;
   top: 0;
   border-radius: 10px;
@@ -336,9 +370,9 @@
 }
 
 .modal-title {
-  color: white;
+  /* color: var(--text-color); */
   margin: 1em 0 0.5em 0;
-  /* color: #343434; */
+  color: white;
   font-size: 30px;
   font-weight: 700;
   line-height: 40px;
@@ -351,7 +385,11 @@
 }
 
 /*  select level form */
-
+.select-nonogram-info {
+  color: var(--text-color);
+  font-size: 1.5rem;
+  text-align: center;
+}
 .select-level {
   appearance: none;
   border: 0;
@@ -359,7 +397,7 @@
   width: 20rem;
   padding: 1rem 4rem 1rem 1rem;
   background: #5455ac;
-  color: white;
+  color: var(--text-color);
   border-radius: 0.25em;
   box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
   cursor: pointer;

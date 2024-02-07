@@ -13,7 +13,8 @@ let gameDatas = [];
 const showNonogram = () => {
   const nonogramItems = document.querySelectorAll(".nonogram-item"),
     mainBoard = document.querySelector(".main-game-board"),
-    showSolutionBtn = document.querySelector("#solution");
+    showSolutionBtn = document.querySelector("#solution"),
+    saveGame = document.querySelector("#saveGame");
 
   let index = 0;
   saveGame.classList.add("btn-disabled");
