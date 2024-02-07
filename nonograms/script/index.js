@@ -8,25 +8,54 @@ document.addEventListener("DOMContentLoaded", () => {
   nav.classList.add("nav");
   wrapper.appendChild(nav);
 
+  const navInfo = document.createElement("nav");
+  navInfo.classList.add("navInfo");
+  nav.appendChild(navInfo);
+
   const gameTitle = document.createElement("h1");
   gameTitle.classList.add("game-title");
   gameTitle.textContent = "Nonogram";
-  nav.appendChild(gameTitle);
+  navInfo.appendChild(gameTitle);
 
   const timer = document.createElement("div");
-  timer.classList.add("timer", "game-board-cell");
+  timer.classList.add("timer");
   timer.textContent = "00 : 00";
-  nav.appendChild(timer);
+  navInfo.appendChild(timer);
+
+  const resetBtn = document.createElement("button");
+  resetBtn.textContent = "Reset game";
+  resetBtn.id = "resetBtn";
+  resetBtn.classList.add("modal-btn", "nav-item");
+  navInfo.appendChild(resetBtn);
   // const gameDecr = document.createElement("p");
   // gameDecr.classList.add("game-decr");
   // // gameDecr.textContent = ;
   // header.appendChild(gameDecr);
 
-  //  ------------- Reset game button-----------
-  const resetBtn = document.createElement("button");
-  resetBtn.textContent = "Reset game";
-  resetBtn.classList.add("reset-game-btn", "modal-btn", "nav-item");
-  nav.appendChild(resetBtn);
+  // ------------- menu -----------
+  const menu = document.createElement("div");
+  menu.classList.add("menu");
+  nav.appendChild(menu);
+
+  //  ------------- menu items -----------
+
+  const solution = document.createElement("button");
+  solution.textContent = "Solution";
+  solution.id = "solution";
+  solution.classList.add("modal-btn", "nav-item");
+  menu.appendChild(solution);
+
+  const changeNonogram = document.createElement("button");
+  changeNonogram.textContent = "Change Nonogram";
+  changeNonogram.id = "changeNonogram";
+  changeNonogram.classList.add("modal-btn", "nav-item");
+  menu.appendChild(changeNonogram);
+
+  const saveGame = document.createElement("button");
+  saveGame.textContent = "Save Game";
+  saveGame.id = "saveGame";
+  saveGame.classList.add("modal-btn", "nav-item");
+  menu.appendChild(saveGame);
 
   // -------------  game audio -----------
   const audio = new Audio();

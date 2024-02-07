@@ -18,8 +18,30 @@
   left: 0;
   background-color: #703dcd;
   display: flex;
-  margin: 0 auto;
+  flex-direction: column;
+  /* margin: 0 auto; */
   border-radius: 10px;
+  padding: 0 19px;
+  border-radius: 10px;
+}
+
+.btn-disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.navInfo {
+  display: flex;
+  /* flex-direction: row; */
+  justify-content: space-between;
+  align-items: center;
+}
+.menu {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  gap: 15px;
+  /* margin-left: 20px; */
 }
 /* .nav-item {
   /* margin-top: auto; */
@@ -28,7 +50,7 @@
 .game-title {
   /* display: flex; */
   text-align: center;
-  width: 300px;
+  width: 250px;
   /* margin-right: 20px;
   /* justify-content: center; */
 }
@@ -75,7 +97,7 @@
   /* display: inline-block; */
   border: 4px solid black;
   margin-bottom: 7px;
-  margin-top: 70px;
+  margin-top: 20px;
   /* position: fixed; */
   /* width: 50%; */
   display: grid;
@@ -122,6 +144,7 @@
   width: 100%;
   height: 100%;
   grid-column: 2 / 7;
+  min-width: 300px;
 }
 
 .main-grid-container {
@@ -145,6 +168,7 @@
 .left-prompt-item {
   flex-direction: row;
   justify-content: space-around;
+  align-items: center;
 }
 
 .game-prompt-left > .left-prompt-item:nth-child(5n) {
@@ -165,31 +189,29 @@
   }
 } */
 
-@media (max-width: 700px) {
+@media (max-width: 600px) {
   .game-title {
     font-size: 1.5rem;
   }
 
   .game-board-cell {
-    font-size: 1rem;
+    font-size: 1.3rem;
   }
 }
 
-/* ------------- Reset game button----------- */
-.reset-game-btn {
-  margin-left: auto;
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
 .timer {
-  margin: auto;
+  /* margin-top: auto;
+  margin-bottom: auto; */
   font-weight: bolder;
-  background: center;
+  font-size: 1.5rem;
+  padding: 0 20px;
+  width: 180px;
+  text-align: center;
+  /* background: center;
   width: 150px;
   margin-right: 10px;
   border: none;
-  cursor: auto;
+  cursor: auto; */
 }
 
 /* _______________ modal window _________-*/
@@ -245,7 +267,8 @@
   position: relative;
   z-index: 0;
   border-radius: 10px;
-  margin-right: 20px;
+  /* margin-right: 20px; */
+  margin-bottom: 10px;
 }
 
 .modal-btn:before {

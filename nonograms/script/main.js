@@ -1,17 +1,75 @@
 // document.addEventListener("DOMContentLoaded", () => {
+import {gameData} from "./data.js";
 import {timer} from "./timer.js";
 
 let playerData = [];
 let nonogramSize = 5;
 let timerStart = false;
+let gameSolution = [];
+
+//  show nonogram solution
+const showNonogram = () => {
+  const nonogramItems = document.querySelectorAll(".nonogram-item"),
+    mainBoard = document.querySelector(".main-game-board"),
+    showSolutionBtn = document.querySelector("#solution");
+
+  let index = 0;
+  saveGame.classList.add("btn-disabled");
+  mainBoard.style.pointerEvents = "none";
+
+  timerStart = false;
+  timer(timerStart);
+
+  gameSolution.forEach((arr) => {
+    arr.forEach((el) => {
+      if (el === 1) {
+        nonogramItems[index].classList.add("checked");
+      } else {
+        nonogramItems[index].classList.add("cross");
+      }
+      index++;
+    });
+  });
+
+  // for (let i = 0; i < gameSolution.length; i++) {
+  //   for (let j = 0; j < gameSolution[i].length; j++) {
+  //     if (gameSolution[i][j] == 1) {
+  //       nonogramItems[index].classList.add("checked");
+  //     } else {
+  //       nonogramItems[index].classList.add("cross");
+  //     }
+  //     index++;
+  //   }
+  // }
+  showSolutionBtn.removeEventListener("click", showNonogram);
+};
 
 // -------------   restart game  -------------'
 const gameRestart = () => {
+  const showSolutionBtn = document.querySelector("#solution");
+
+  timerStart = false;
+  timer(timerStart);
+
+  document.querySelector("#saveGame").classList.remove("btn-disabled");
+  document
+    .querySelector(".main-game-board")
+    .classList.remove("btn-disabled");
+
+  showSolutionBtn.addEventListener("click", showNonogram);
+
   document.querySelector(".game-board-container").innerHTML =
     '<div class="game-board-empty-item"></div><div class="game-prompt-top"></div><div class="game-prompt-left"></div><div class="main-game-board"></div>';
+};
 
-  // document.querySelector(".main-grid-container").innerHTML =
-  //   '<div class="game-prompt-left"></div><div class="main-game-board"></div>';
+const changeNonogram = () => {
+  document
+    .querySelector("#changeNonogram")
+    .addEventListener("click", () => {
+      document.querySelector(".modal_container").classList.add("show");
+      document.querySelector(".modal_content").classList.add("show");
+      gameRestart();
+    });
 };
 
 // -------------   check game status -------------'
@@ -33,18 +91,16 @@ const checkGameStatus = (playerData, solution) => {
     modalTitle.textContent = `Great! You have solved the nonogram in ${timerTime.textContent} seconds!`;
 
     gameRestart();
-    timerStart = !timerStart;
-    timer(timerStart);
   }
 };
 
-// -------------   change  player data -------------'
+// -------------   change  player  game data  -------------'
 const changePlayerData = (el, itemIndex, dataAtt, gameData) => {
   const index = +el.getAttribute(dataAtt)[0];
   if (index === 0) {
     playerData[index][itemIndex] = +el.getAttribute(dataAtt)[2];
   } else {
-    playerData[index][itemIndex - 5 * index] =
+    playerData[index][itemIndex - nonogramSize * index] =
       +el.getAttribute(dataAtt)[2];
   }
   checkGameStatus(playerData, gameData.solution);
@@ -92,9 +148,17 @@ const changeDataAtt = (
 
 // -------------  game reset -------------'
 const resetGame = (el, dataAtt) => {
-  const resetBtn = document.querySelector(".reset-game-btn");
+  const resetBtn = document.querySelector("#resetBtn"),
+    mainBoard = document.querySelector(".main-game-board"),
+    showSolutionBtn = document.querySelector("#solution"),
+    saveGameBtn = document.querySelector("#saveGame");
 
   resetBtn.addEventListener("click", () => {
+    saveGameBtn.classList.remove("btn-disabled");
+    mainBoard.style.pointerEvents = "auto";
+
+    showSolutionBtn.addEventListener("click", showNonogram);
+
     playerData = Array.from({length: nonogramSize}, () =>
       Array(nonogramSize).fill(0)
     );
@@ -107,15 +171,58 @@ const resetGame = (el, dataAtt) => {
   });
 };
 
+// const showSolution = (gameSolution) => {
+//   const showSolutionBtn = document.querySelector("#solution"),
+//     saveGame = document.querySelector("#saveGame"),
+//     mainBoard = document.querySelector(".main-game-board"),
+//     nonogramItems = document.querySelectorAll(".nonogram-item");
+
+//   showSolutionBtn.addEventListener("click", () => {
+//     saveGame.classList.add("btn-disabled");
+//     mainBoard.classList.add("btn-disabled");
+//     timerStart = false;
+//     timer(timerStart);
+//     gameSolution.forEach((arr, column) => {
+//       arr.forEach((el, index) => {
+//         if (el === 1) {
+//           if (column === 0) {
+//             nonogramItems[index].classList.add("checked");
+//           } else {
+//             nonogramItems[index + nonogramSize * column].classList.add(
+//               "checked"
+//             );
+//           }
+//         } else {
+//           if (column === 0) {
+//             nonogramItems[index].classList.add("cross");
+//           } else {
+//             nonogramItems[index + nonogramSize * column].classList.add(
+//               "cross"
+//             );
+//           }
+//         }
+//       });
+//     });
+//   });
+// };
+
+const showSolution = () => {
+  const showSolutionBtn = document.querySelector("#solution");
+  showSolutionBtn.addEventListener("click", showNonogram);
+};
+
 // -------------  game start -------------'
 const startGame = (gameData) => {
   const nonogramItems = document.querySelectorAll(".nonogram-item");
   const dataAtt = "nonogram-item-data";
+  gameSolution = gameData.solution;
   resetGame(nonogramItems, dataAtt);
+  showSolution();
+  changeNonogram();
 
   const handleClick = (e, index) => {
     if (!timerStart) {
-      timerStart = !timerStart;
+      timerStart = true;
       timer(timerStart);
     }
 
@@ -209,25 +316,6 @@ const createBoard = (gameData) => {
       leftColumnItem.appendChild(span);
     }
   }
-
-  // const leftWidth = leftColumn
-  //   .querySelector(".left-prompt-item")
-  //   .getBoundingClientRect().width;
-  // const emptyItemWidth = document
-  //   .querySelector(".game-board-empty-item")
-  //   .getBoundingClientRect().width;
-
-  // if (leftWidth > 30 && leftWidth > emptyItemWidth) {
-  //   document.querySelector(".game-board-empty-item").style.width =
-  //     leftWidth + "px";
-  // } else if (emptyItemWidth > 30) {
-  //   document.querySelector(".left-prompt-item").style.width =
-  //     emptyItemWidth + "px";
-  // } else {
-  //   document.querySelector(".left-prompt-item").style.width = 40 + "px";
-  //   document.querySelector(".game-board-empty-item").style.width =
-  //     40 + "px";
-  // }
 
   startGame(gameData);
 };
