@@ -21,7 +21,15 @@ body.dark {
 
   --text-color: white;
 }
+
 #modal-toggle {
+  padding: 16px;
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
+}
+
+#audio-toggle {
   padding: 16px;
   width: 50px;
   height: 50px;
@@ -253,7 +261,7 @@ tr:nth-child(2n) {
   }
 } */
 
-@media (max-width: 680px) {
+@media (max-width: 840px) {
   .game-title {
     font-size: 1.5rem;
     width: 200px;
@@ -272,9 +280,9 @@ tr:nth-child(2n) {
   font-weight: bolder;
   font-size: 1.5rem;
   padding: 0 20px;
-  width: 180px;
+  /* width: 180px; */
   text-align: center;
-  margin-left: -80px;
+  margin-top: 15px;
   color: var(--text-color);
   /* background: center;
   width: 150px;

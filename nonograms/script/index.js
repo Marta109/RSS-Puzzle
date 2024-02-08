@@ -23,19 +23,39 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.toggle("dark");
   });
 
-  const icon = document.createElement("i");
+  let icon = document.createElement("i");
   icon.classList.add("fa-solid", "fa-circle-half-stroke");
   themeToggleBtn.appendChild(icon);
+
+  // -------------  game audio -----------
+  const audio = new Audio();
+  audio.id = "audio";
+  nav.appendChild(audio);
+  // audio.src = '';
+  // audio.autoplay = true;
+
+  const audioToggleBtn = document.createElement("button");
+  audioToggleBtn.classList.add("modal-btn");
+  audioToggleBtn.id = "audio-toggle";
+  navInfo.appendChild(audioToggleBtn);
+
+  icon = document.createElement("i");
+  icon.classList.add("fa-solid", "fa-volume-high");
+  audioToggleBtn.appendChild(icon);
+
+  audioToggleBtn.addEventListener("click", () => {
+    audioToggleBtn.querySelector("i").classList.toggle("fa-volume-off");
+    if (audio.muted) {
+      audio.muted = false;
+    } else {
+      audio.muted = true;
+    }
+  });
 
   const gameTitle = document.createElement("h1");
   gameTitle.classList.add("game-title");
   gameTitle.textContent = "Nonogram";
   navInfo.appendChild(gameTitle);
-
-  const timer = document.createElement("div");
-  timer.classList.add("timer");
-  timer.textContent = "00 : 00";
-  navInfo.appendChild(timer);
 
   const resetBtn = document.createElement("button");
   resetBtn.textContent = "Reset game";
@@ -77,13 +97,6 @@ document.addEventListener("DOMContentLoaded", () => {
   continueGame.id = "continueGame";
   continueGame.classList.add("modal-btn", "nav-item", "btn-disabled");
   menu.appendChild(continueGame);
-
-  // -------------  game audio -----------
-  const audio = new Audio();
-  audio.id = "audio";
-  nav.appendChild(audio);
-  // audio.src = '';
-  // audio.autoplay = true;
 
   // ------------- add game modal-----------
   const gameModal = document.createElement("div");
@@ -133,6 +146,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const main = document.createElement("main");
   main.classList.add("main");
   wrapper.appendChild(main);
+
+  const timer = document.createElement("div");
+  timer.classList.add("timer");
+  timer.textContent = "00 : 00";
+  main.appendChild(timer);
 
   // ------------- add game board-----------
   const gameContainer = document.createElement("div");
