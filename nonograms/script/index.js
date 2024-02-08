@@ -13,6 +13,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const navInfo = document.createElement("nav");
   navInfo.classList.add("navInfo");
   nav.appendChild(navInfo);
+  
+  const randomGameBtn = document.createElement("button");
+  randomGameBtn.classList.add("modal-btn");
+  randomGameBtn.textContent = "Random game";
+  randomGameBtn.id = "random-game";
+  navInfo.appendChild(randomGameBtn);
 
   const themeToggleBtn = document.createElement("button");
   themeToggleBtn.classList.add("modal-btn");
@@ -26,6 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
   let icon = document.createElement("i");
   icon.classList.add("fa-solid", "fa-circle-half-stroke");
   themeToggleBtn.appendChild(icon);
+
+  // icon = document.createElement("i");
+  // icon.classList.add("fa-solid", "fa-circle-half-stroke");
+  // randomGameBtn.appendChild(icon);
 
   // -------------  game audio -----------
   const audio = new Audio();

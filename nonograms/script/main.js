@@ -384,4 +384,4 @@ const createBoard = (gameData) => {
 };
 // });
 
-export {createBoard};
+export {createBoard, gameRestart};

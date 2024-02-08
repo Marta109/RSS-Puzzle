@@ -1,7 +1,18 @@
 import {gameData as allGameData} from "./data.js";
-import {createBoard} from "./main.js";
+import {createBoard, gameRestart} from "./main.js";
 
 let firstStart = false;
+const data = {
+  level: Object.keys(allGameData),
+  //  variants:
+};
+
+Object.keys(allGameData).forEach((el, i) => {
+  data[el] = Object.keys(allGameData[el]);
+  // console.log(i);
+  // console.log(Object.keys(allGameData[el]));
+});
+console.log(data);
 
 document.addEventListener("DOMContentLoaded", () => {
   const modalButton = document.querySelector("#modal-btn"),
@@ -90,4 +101,30 @@ document.addEventListener("DOMContentLoaded", () => {
     createBoard(allGameData["Easy - 5x5"].tower);
     firstStart = !firstStart;
   }
+
+  document.querySelector("#random-game").addEventListener("click", () => {
+    console.log(allGameData);
+    let randomLevel = [Math.floor(Math.random() * data.level.length)];
+    let randomLevelName = data.level[randomLevel].trim();
+
+    let randomNameIndex = [
+      Math.floor(Math.random() * data[randomLevelName].length),
+    ];
+
+    let randomNonogramName = data[randomLevelName][randomNameIndex].trim();
+    console.log(randomLevelName);
+    console.log(randomNameIndex);
+    console.log(randomNonogramName);
+    console.log(allGameData[randomLevelName][randomNonogramName]);
+    // console.log(allGameData["Hard  - 15x15"]["robot "]);
+    gameRestart();
+    createBoard(allGameData[randomLevelName][randomNonogramName]);
+    // console.log("data.level[randomLevel]", data.level[randomLevel]);
+    // console.log(
+    //   "data.level[randomLevel][nonogramNameIndex]",
+    //   data.level[randomLevel][nonogramNameIndex]
+    // );
+    // console.log("nonogramNameIndex", nonogramNameIndex);
+    // console.log("nonogramName=", data[randomLevelName]);
+  });
 });
