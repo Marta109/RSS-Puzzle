@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectNonogram = document.querySelector("#select-nonogram"),
       selectNonogramInfo = document.querySelector(".select-nonogram-info"),
       gameTitle = document.querySelector(".game-title");
-    // const gameDecr = document.querySelector(".game-decr");
 
     selectNonogramInfo.textContent = "";
 
