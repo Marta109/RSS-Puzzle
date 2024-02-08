@@ -1,7 +1,18 @@
 import {gameData as allGameData} from "./data.js";
-import {createBoard} from "./main.js";
+import {createBoard, gameRestart} from "./main.js";
 
 let firstStart = false;
+const data = {
+  level: Object.keys(allGameData),
+  //  variants:
+};
+
+Object.keys(allGameData).forEach((el, i) => {
+  data[el] = Object.keys(allGameData[el]);
+  // console.log(i);
+  // console.log(Object.keys(allGameData[el]));
+});
+console.log(data);
 
 document.addEventListener("DOMContentLoaded", () => {
   const modalButton = document.querySelector("#modal-btn"),
@@ -9,15 +20,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let gameData = {};
 
-  // select  -------------nonogram for game start
-  const selectNonogram = (data, level, selectNonogramInfo) => {
-    const selectNonogram = document.querySelector("#select-nonogram");
-    const gameTitle = document.querySelector(".game-title");
-    // const gameDecr = document.querySelector(".game-decr");
+  // ------------- select  nonogram for  start game
+  const selectNonogram = (level) => {
+    const selectNonogram = document.querySelector("#select-nonogram"),
+      selectNonogramInfo = document.querySelector(".select-nonogram-info"),
+      gameTitle = document.querySelector(".game-title");
+
+    selectNonogramInfo.textContent = "";
 
     selectNonogram.innerHTML =
       '<option value="" disabled="" selected>Select nonogram</option>';
 
+    const data = allGameData[level];
     Object.keys(data).forEach((el, i) => {
       const selectOptions = document.createElement("option");
       selectOptions.classList.add("select-options");
@@ -39,7 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const gameStart = () => {
     const gameModal = document.querySelector(".modal_container"),
       modalContent = document.querySelector(".modal_content"),
-      selectNonogramInfo = document.querySelector(".select-nonogram-info"),
       selectLevel = document.querySelector(".select-level");
 
     gameModal.classList.add("show");
@@ -51,16 +64,12 @@ document.addEventListener("DOMContentLoaded", () => {
       selectOptions.text = el;
       selectOptions.value = el;
       selectLevel.appendChild(selectOptions);
+      // console.log("create options");
     });
 
-    selectLevel.addEventListener("change", (e) => {
-      selectNonogramInfo.textContent = "";
-      selectNonogram(
-        allGameData[`${e.target.value}`],
-        e.target.value,
-        selectNonogramInfo
-      );
-    });
+    selectLevel.addEventListener("change", (e) =>
+      selectNonogram(e.target.value)
+    );
   };
 
   //   close modal and start game
@@ -86,11 +95,36 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector(".modal_container").classList.remove("show");
     document.querySelector(".modal_content").classList.remove("show");
     const gameTitle = document.querySelector(".game-title");
-    gameData = allGameData["Easy - 5x5"].tower;
     gameTitle.textContent = "Level Easy - 5x5 Nonogram - tower ";
+
+    gameData = allGameData["Easy - 5x5"].tower;
     createBoard(allGameData["Easy - 5x5"].tower);
     firstStart = !firstStart;
   }
 
- 
+  document.querySelector("#random-game").addEventListener("click", () => {
+    console.log(allGameData);
+    let randomLevel = [Math.floor(Math.random() * data.level.length)];
+    let randomLevelName = data.level[randomLevel].trim();
+
+    let randomNameIndex = [
+      Math.floor(Math.random() * data[randomLevelName].length),
+    ];
+
+    let randomNonogramName = data[randomLevelName][randomNameIndex].trim();
+    console.log(randomLevelName);
+    console.log(randomNameIndex);
+    console.log(randomNonogramName);
+    console.log(allGameData[randomLevelName][randomNonogramName]);
+    // console.log(allGameData["Hard  - 15x15"]["robot "]);
+    gameRestart();
+    createBoard(allGameData[randomLevelName][randomNonogramName]);
+    // console.log("data.level[randomLevel]", data.level[randomLevel]);
+    // console.log(
+    //   "data.level[randomLevel][nonogramNameIndex]",
+    //   data.level[randomLevel][nonogramNameIndex]
+    // );
+    // console.log("nonogramNameIndex", nonogramNameIndex);
+    // console.log("nonogramName=", data[randomLevelName]);
+  });
 });
