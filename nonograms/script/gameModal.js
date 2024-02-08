@@ -9,15 +9,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let gameData = {};
 
-  // select  -------------nonogram for game start
-  const selectNonogram = (data, level, selectNonogramInfo) => {
-    const selectNonogram = document.querySelector("#select-nonogram");
-    const gameTitle = document.querySelector(".game-title");
+  // ------------- select  nonogram for  start game
+  const selectNonogram = (level) => {
+    const selectNonogram = document.querySelector("#select-nonogram"),
+      selectNonogramInfo = document.querySelector(".select-nonogram-info"),
+      gameTitle = document.querySelector(".game-title");
     // const gameDecr = document.querySelector(".game-decr");
+
+    selectNonogramInfo.textContent = "";
 
     selectNonogram.innerHTML =
       '<option value="" disabled="" selected>Select nonogram</option>';
 
+    const data = allGameData[level];
     Object.keys(data).forEach((el, i) => {
       const selectOptions = document.createElement("option");
       selectOptions.classList.add("select-options");
@@ -39,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const gameStart = () => {
     const gameModal = document.querySelector(".modal_container"),
       modalContent = document.querySelector(".modal_content"),
-      selectNonogramInfo = document.querySelector(".select-nonogram-info"),
       selectLevel = document.querySelector(".select-level");
 
     gameModal.classList.add("show");
@@ -51,16 +54,12 @@ document.addEventListener("DOMContentLoaded", () => {
       selectOptions.text = el;
       selectOptions.value = el;
       selectLevel.appendChild(selectOptions);
+      // console.log("create options");
     });
 
-    selectLevel.addEventListener("change", (e) => {
-      selectNonogramInfo.textContent = "";
-      selectNonogram(
-        allGameData[`${e.target.value}`],
-        e.target.value,
-        selectNonogramInfo
-      );
-    });
+    selectLevel.addEventListener("change", (e) =>
+      selectNonogram(e.target.value)
+    );
   };
 
   //   close modal and start game
@@ -86,11 +85,10 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector(".modal_container").classList.remove("show");
     document.querySelector(".modal_content").classList.remove("show");
     const gameTitle = document.querySelector(".game-title");
-    gameData = allGameData["Easy - 5x5"].tower;
     gameTitle.textContent = "Level Easy - 5x5 Nonogram - tower ";
+
+    gameData = allGameData["Easy - 5x5"].tower;
     createBoard(allGameData["Easy - 5x5"].tower);
     firstStart = !firstStart;
   }
 });
-
-// export {nonogramData};

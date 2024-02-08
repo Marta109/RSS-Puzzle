@@ -92,14 +92,14 @@ body.dark {
 /* table */
 
 .score-table {
-  margin-top: 15px;
+  margin: 15px 0;
   background-color: var(--nonogram-item-bg-color);
 }
 
 .table {
   border-collapse: collapse;
   width: 100%;
-  color: var(--text-color);
+  color: black;
 }
 
 td,
