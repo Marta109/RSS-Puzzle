@@ -87,6 +87,39 @@ body.dark {
   /* justify-content: center; */
 }
 
+/* main section */
+
+/* table */
+
+.score-table {
+  margin-top: 15px;
+  background-color: var(--nonogram-item-bg-color);
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  color: var(--text-color);
+}
+
+td,
+th {
+  border: 5px solid var(--game-border);
+  padding: 8px;
+}
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: var(--nav-bg-color);
+  color: white;
+}
+
+tr:nth-child(2n) {
+  background-color: gray;
+}
+
+/*  game section */
 .nonogram-item {
   background-color: var(--nonogram-item-bg-color);
   cursor: pointer;

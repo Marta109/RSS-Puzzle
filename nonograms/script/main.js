@@ -116,9 +116,32 @@ const saveGame = () => {
 
     localStorage.setItem("savedGameData", gameDataString);
     localStorage.setItem("savedPlayerData", playerDataString);
+
     continueGameBtn.classList.remove("btn-disabled");
     isSaveGame = true;
     continueGame();
+  });
+};
+
+const updateTable = (data) => {
+  let sortedData = data.flat();
+
+  sortedData.sort((a, b) => {
+    let timeA = parseInt(a.time.replace(/\D/g, ""));
+    let timeB = parseInt(b.time.replace(/\D/g, ""));
+    return timeA - timeB;
+  });
+
+  const table = document.querySelectorAll("tr");
+  // console.log(table);
+
+  sortedData.forEach((obj, i) => {
+    // console.log(el[0]);
+    const tableItem = table[i + 1].querySelectorAll("td");
+    Object.values(obj).forEach((el, i) => {
+      tableItem[i].textContent = el;
+      // console.log(el);
+    });
   });
 };
 
@@ -134,11 +157,41 @@ const checkGameStatus = (playerData, solution) => {
     const gameModal = document.querySelector(".modal_container"),
       modalContent = document.querySelector(".modal_content"),
       modalTitle = document.querySelector(".modal-title"),
-      timerTime = document.querySelector(".timer");
+      timerTime = document.querySelector(".timer").textContent,
+      nonogramInfo = document.querySelector(".game-title").textContent;
+
+    const savedData = JSON.parse(localStorage.getItem("scoreTable"));
+
+    const newData = [
+      {
+        time: timerTime,
+        level: nonogramInfo
+          .substring(
+            nonogramInfo.indexOf("Level") + "Level".length,
+            nonogramInfo.indexOf("Nonogram")
+          )
+          .trim(),
+        name: nonogramInfo
+          .substring(nonogramInfo.lastIndexOf("-") + 1)
+          .trim(),
+      },
+    ];
+
+    if (savedData) {
+      if (savedData.length === 5) {
+        savedData.shift();
+      }
+      savedData.push(newData);
+      localStorage.setItem("scoreTable", JSON.stringify(savedData));
+      updateTable(savedData);
+    } else {
+      localStorage.setItem("scoreTable", JSON.stringify(newData));
+      updateTable(newData);
+    }
 
     gameModal.classList.add("show");
     modalContent.classList.add("show");
-    modalTitle.textContent = `Great! You have solved the nonogram in ${timerTime.textContent} seconds!`;
+    modalTitle.textContent = `Great! You have solved the nonogram in ${timerTime} seconds!`;
 
     gameRestart();
   }
@@ -278,7 +331,7 @@ const startGame = (gameData) => {
 const createBoard = (gameData) => {
   nonogramSize = Object.keys(gameData.top).length;
   gameDatas = gameData;
-  console.log(gameData);
+  // console.log(gameData);
   const gameBoardContainer = document.querySelector(
       ".game-board-container"
     ),

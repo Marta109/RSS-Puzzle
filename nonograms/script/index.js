@@ -130,10 +130,14 @@ document.addEventListener("DOMContentLoaded", () => {
   modalButton.textContent = "Play";
   modalContent.appendChild(modalButton);
 
+  const main = document.createElement("main");
+  main.classList.add("main");
+  wrapper.appendChild(main);
+
   // ------------- add game board-----------
   const gameContainer = document.createElement("div");
   gameContainer.classList.add("game-board-container");
-  wrapper.appendChild(gameContainer);
+  main.appendChild(gameContainer);
 
   const gameBoardItem = document.createElement("div");
   gameBoardItem.classList.add("game-board-empty-item");
@@ -154,4 +158,33 @@ document.addEventListener("DOMContentLoaded", () => {
   const gameGridPromptColumn = document.createElement("div");
   gameGridPromptColumn.classList.add("main-game-board");
   gameContainer.appendChild(gameGridPromptColumn);
+
+  // --------- add  high score table ----------
+  const scoreTable = document.createElement("div");
+  scoreTable.classList.add("score-table");
+  main.appendChild(scoreTable);
+
+  const table = document.createElement("table");
+  table.classList.add("table");
+  scoreTable.appendChild(table);
+
+  let tr = document.createElement("tr");
+  table.appendChild(tr);
+
+  ["Time to solve", "Level", "Nonogram name"].forEach((el) => {
+    const th = document.createElement("th");
+    th.classList.add("table-title");
+    th.textContent = el;
+    tr.appendChild(th);
+  });
+  for (let i = 0; i < 5; i++) {
+    tr = document.createElement("tr");
+    table.appendChild(tr);
+    for (let j = 0; j < 3; j++) {
+      const td = document.createElement("td");
+      td.classList.add("table-item");
+      // td.textContent = el;
+      tr.appendChild(td);
+    }
+  }
 });

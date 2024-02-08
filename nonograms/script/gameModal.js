@@ -91,6 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
     createBoard(allGameData["Easy - 5x5"].tower);
     firstStart = !firstStart;
   }
-
- 
 });
+
+// export {nonogramData};
