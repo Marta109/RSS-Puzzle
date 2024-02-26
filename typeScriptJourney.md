@@ -9,3 +9,7 @@ Here is a collection of badges I earned from completing Microsoft Learn's TypeSc
 3. **Implement Interfaces in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/Marta109-2774/YV8FFHKR?sharingId=1CB56FB2C77C12BA)
 4. **Develop Typed Functions in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/Marta109-2774/EJZME7EP?sharingId=1CB56FB2C77C12BA)
 5. **Declare and Instantiate Classes in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/Marta109-2774/K5M4JVTB?sharingId=1CB56FB2C77C12BA)
+6. **Generics in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/Marta109-2774/CWS6H2U9?sharingId=1CB56FB2C77C12BA)
+7. **Work with External Libraries in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/Marta109-2774/8RCH7NUW?sharingId=1CB56FB2C77C12BA)
+8. **Organize Code with Namespaces in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/Marta109-2774/K5M4GUNB?sharingId=1CB56FB2C77C12BA)
+- **Build JavaScript applications using TypeScript**: [Badge](https://learn.microsoft.com/en-us/users/marta109-2774/achievements/dgebchyj)
