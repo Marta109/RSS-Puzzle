@@ -1,5 +1,6 @@
 import './login.css';
 import { validateName, validateSurname, capitalizeFirstLetter } from './loginValidation';
+// import { createWelcomePage } from '../welcome/welcomePage.ts';
 
 export const createForm = (): void => {
   const forma: HTMLFormElement = document.createElement('form');
@@ -41,7 +42,7 @@ export const createForm = (): void => {
     appDiv.appendChild(forma);
   }
   //  validation for login
-  forma.addEventListener('input', (event: Event) => {
+  forma.addEventListener('input', () => {
     const nameValue: string = inputName.value.trim();
     const surNameValue: string = inputSurName.value.trim();
 
@@ -79,6 +80,7 @@ export const createForm = (): void => {
   // Save name and surname
   forma.addEventListener('submit', () => {
     if (!button.disabled) {
+      // createWelcomePage();
       const nameValue: string = inputName.value.trim();
       const surNameValue: string = inputSurName.value.trim();
       localStorage.setItem('userName', nameValue);

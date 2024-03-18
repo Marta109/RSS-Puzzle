@@ -1,8 +1,6 @@
 import './mainPage.css';
 
 export const createMainPage = (): void => {
-  document.body.classList.add('light');
-
   // ----------- wrapper ------------------
   const wrapper: HTMLDivElement = document.createElement('div');
   wrapper.id = 'mainPage';
@@ -30,8 +28,10 @@ export const createMainPage = (): void => {
     localStorage.clear();
     const mainPage: HTMLElement | null = document.querySelector('#mainPage');
     const loginPage: HTMLFormElement | null = document.querySelector('#loginForm');
-    if (mainPage) {
+    const welcomePage: HTMLElement | null = document.querySelector('#welcomePage');
+    if (mainPage && welcomePage) {
       mainPage.style.display = 'none';
+      welcomePage.style.display = 'none';
     }
     if (loginPage) {
       loginPage.style.display = 'block';
