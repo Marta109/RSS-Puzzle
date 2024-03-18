@@ -4,6 +4,7 @@ import { validateName, validateSurname, capitalizeFirstLetter } from './loginVal
 export const createForm = (): void => {
   const forma: HTMLFormElement = document.createElement('form');
   forma.className = 'form';
+  forma.id = 'loginForm';
   const loginTitle: HTMLHeadingElement = document.createElement('h2');
   loginTitle.textContent = 'Login and start game';
   const inputName: HTMLInputElement = document.createElement('input');
@@ -43,43 +44,39 @@ export const createForm = (): void => {
   forma.addEventListener('input', (event: Event) => {
     const nameValue: string = inputName.value.trim();
     const surNameValue: string = inputSurName.value.trim();
+
     errorMessageName.innerHTML = '';
     errorMessageSurName.innerHTML = '';
+
+    let isValid: boolean = true;
+
     if (nameValue.length < 3) {
-      event.preventDefault();
       errorMessageName.textContent = 'Name should be at least 3 characters long.';
-      button.disabled = true;
-    } else {
-      button.disabled = false;
+      isValid = false;
+    } else if (!validateName(nameValue)) {
+      errorMessageName.textContent = "Name should contain only accept English letters and '-'. ";
+      isValid = false;
     }
-    if (!validateName(nameValue)) {
-      event.preventDefault();
-      errorMessageName.textContent += "Name should contain only accept English letters and '-'. ";
-      button.disabled = true;
-    } else {
-      button.disabled = false;
-    }
+
     if (surNameValue.length < 4) {
-      event.preventDefault();
-      errorMessageSurName.textContent = 'Surname should be at least 4 characters long. ';
-      button.disabled = true;
-    } else {
-      button.disabled = false;
-    }
-    if (!validateSurname(surNameValue)) {
-      button.disabled = true;
-      errorMessageSurName.textContent +=
+      errorMessageSurName.textContent = 'Surname should be at least 4 characters long.';
+      isValid = false;
+    } else if (!validateSurname(surNameValue)) {
+      errorMessageSurName.textContent =
         "Surname should contain only accept English letters and '-'. ";
-      event.preventDefault();
-    } else {
+      isValid = false;
+    }
+
+    if (isValid) {
       button.disabled = false;
+    } else {
+      button.disabled = true;
     }
     inputName.value = capitalizeFirstLetter(nameValue);
     inputSurName.value = capitalizeFirstLetter(surNameValue);
   });
 
   // Save name and surname
-
   forma.addEventListener('submit', () => {
     if (!button.disabled) {
       const nameValue: string = inputName.value.trim();
