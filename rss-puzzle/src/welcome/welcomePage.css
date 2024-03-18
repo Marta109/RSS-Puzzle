@@ -32,3 +32,43 @@
   text-transform: uppercase;
   margin: 0;
 }
+
+.welcome-message {
+  font-size: 25px;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.5s ease-in-out,
+    visibility 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    visibility: hidden;
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    visibility: visible;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.welcome-message.show {
+  animation: fadeIn 0.5s forwards;
+}
+
+.welcome-message.hide {
+  animation: fadeOut 0.5s forwards;
+}

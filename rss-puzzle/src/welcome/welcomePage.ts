@@ -1,4 +1,5 @@
 import './welcomePage.css';
+import { showWelcomeMessage } from './welcomeMessage.ts';
 
 export const createWelcomePage = (): void => {
   // const mainPage: HTMLElement | null = document.querySelector('#mainPage');
@@ -36,6 +37,9 @@ export const createWelcomePage = (): void => {
     const body: HTMLBodyElement = bodyElements[0];
     body.appendChild(wrapper);
   }
+  if (wrapper) {
+    showWelcomeMessage();
+  }
 
   // const loginPage: HTMLFormElement | null = document.querySelector('#loginForm');
   // if (wrapper && loginPage) {
@@ -49,6 +53,7 @@ export const createWelcomePage = (): void => {
     if (mainPage !== null) {
       mainPage.style.display = 'block';
       wrapper.style.display = 'none';
+      // showWelcomeMessage(false);
     }
   });
 };
