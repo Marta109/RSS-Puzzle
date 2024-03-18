@@ -39,12 +39,10 @@ export const createForm = () => {
   if (appDiv) {
     appDiv.appendChild(forma);
   }
-
   //  validation for login
   forma.addEventListener('input', (event) => {
     const nameValue = inputName.value.trim();
     const surNameValue = inputSurName.value.trim();
-
     errorMessageName.innerHTML = '';
     errorMessageSurName.innerHTML = '';
     if (nameValue.length < 3) {
@@ -54,7 +52,6 @@ export const createForm = () => {
     } else {
       button.disabled = false;
     }
-
     if (!validateName(nameValue)) {
       event.preventDefault();
       errorMessageName.textContent += "Name should contain only accept English letters and '-'. ";
@@ -69,7 +66,6 @@ export const createForm = () => {
     } else {
       button.disabled = false;
     }
-
     if (!validateSurname(surNameValue)) {
       button.disabled = true;
       errorMessageSurName.textContent +=
@@ -78,8 +74,18 @@ export const createForm = () => {
     } else {
       button.disabled = false;
     }
-
     inputName.value = capitalizeFirstLetter(nameValue);
     inputSurName.value = capitalizeFirstLetter(surNameValue);
+  });
+
+  // Save name and surname
+
+  forma.addEventListener('submit', () => {
+    if (!button.disabled) {
+      const nameValue = inputName.value.trim();
+      const surNameValue = inputSurName.value.trim();
+      localStorage.setItem('userName', nameValue);
+      localStorage.setItem('userSurName', surNameValue);
+    }
   });
 };
