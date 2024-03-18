@@ -51,3 +51,7 @@
   color: #fff;
   text-decoration: none;
 }
+
+.errorMessage {
+  color: red;
+}
