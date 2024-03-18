@@ -1,20 +1,20 @@
 import './login.css';
 import { validateName, validateSurname, capitalizeFirstLetter } from './loginValidation';
 
-export const createForm = () => {
-  const forma = document.createElement('form');
+export const createForm = (): void => {
+  const forma: HTMLFormElement = document.createElement('form');
   forma.className = 'form';
-  const loginTitle = document.createElement('h2');
+  const loginTitle: HTMLHeadingElement = document.createElement('h2');
   loginTitle.textContent = 'Login and start game';
-  const inputName = document.createElement('input');
+  const inputName: HTMLInputElement = document.createElement('input');
   inputName.className = 'input';
-  const inputSurName = document.createElement('input');
+  const inputSurName: HTMLInputElement = document.createElement('input');
   inputSurName.className = 'input';
-  const button = document.createElement('button');
+  const button: HTMLButtonElement = document.createElement('button');
   button.className = 'login-btn-grad';
-  const errorMessageName = document.createElement('div');
+  const errorMessageName: HTMLDivElement = document.createElement('div');
   errorMessageName.className = 'errorMessage';
-  const errorMessageSurName = document.createElement('div');
+  const errorMessageSurName: HTMLDivElement = document.createElement('div');
   errorMessageSurName.className = 'errorMessage';
 
   inputName.setAttribute('type', 'text');
@@ -35,14 +35,14 @@ export const createForm = () => {
   forma.appendChild(errorMessageSurName);
   forma.appendChild(button);
 
-  const appDiv = document.getElementById('app');
+  const appDiv: HTMLElement | null = document.getElementById('app');
   if (appDiv) {
     appDiv.appendChild(forma);
   }
   //  validation for login
-  forma.addEventListener('input', (event) => {
-    const nameValue = inputName.value.trim();
-    const surNameValue = inputSurName.value.trim();
+  forma.addEventListener('input', (event: Event) => {
+    const nameValue: string = inputName.value.trim();
+    const surNameValue: string = inputSurName.value.trim();
     errorMessageName.innerHTML = '';
     errorMessageSurName.innerHTML = '';
     if (nameValue.length < 3) {
@@ -82,8 +82,8 @@ export const createForm = () => {
 
   forma.addEventListener('submit', () => {
     if (!button.disabled) {
-      const nameValue = inputName.value.trim();
-      const surNameValue = inputSurName.value.trim();
+      const nameValue: string = inputName.value.trim();
+      const surNameValue: string = inputSurName.value.trim();
       localStorage.setItem('userName', nameValue);
       localStorage.setItem('userSurName', surNameValue);
     }
