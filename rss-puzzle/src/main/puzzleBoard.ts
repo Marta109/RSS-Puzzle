@@ -68,15 +68,43 @@ export function puzzlesBoardSetter(): void {
       return;
     }
 
-    let index = 0;
     puzzlesBoard.addEventListener('click', (e: MouseEvent) => {
+      let index = 0;
       const target = e.target as HTMLElement;
       if (target.classList.contains('puzzleItem')) {
         const puzzleItem = target;
-        puzzleItem.classList.add('hide');
+        // puzzleItem.classList.add('hide');
         const word = puzzleItem.textContent || '';
+        puzzleItem.textContent = '';
+        while (index < gameBoardWordArr.length && gameBoardWordArr[index].textContent) {
+          index++;
+        }
         (gameBoardWordArr[index] as HTMLDivElementWithNum).textContent = word;
-        index++;
+      }
+    });
+
+    // console.log(gameBoardItemArr[column]);
+    // console.log(gameBoardItem);
+
+    gameBoardItem.addEventListener('click', (e: MouseEvent) => {
+      let index = 0;
+      const target = e.target as HTMLElement;
+      if (target.classList.contains('gameBoardItemWord')) {
+        const gameBoardWord = target.textContent?.trim();
+        if (gameBoardWord) {
+          const puzzleItems = puzzlesBoard.querySelectorAll('.puzzleItem');
+
+          while (index < puzzleItems.length && puzzleItems[index].textContent) {
+            index++;
+          }
+          (puzzleItems[index] as HTMLDivElementWithNum).textContent = gameBoardWord;
+          target.textContent = '';
+          // puzzleItems.forEach((puzzleItem) => {
+          //   if (puzzleItem.textContent?.trim() === gameBoardWord) {
+          //     // puzzleItem.classList.remove('hide');
+          //   }
+          // });
+        }
       }
     });
   });
