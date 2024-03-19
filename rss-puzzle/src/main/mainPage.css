@@ -71,6 +71,9 @@
   border-radius: 5px;
   border-color: #646cff;
 }
+.noHover {
+  pointer-events: none;
+}
 
 .gameBoardItem {
   display: flex;
@@ -100,6 +103,8 @@
   align-items: center;
   height: 100%;
   width: 50%;
+  color: #535bf2;
+  font-weight: bolder;
   /* border-right: 5px solid #023047; */
 }
 
@@ -107,4 +112,9 @@
   /* display: none !important;
  */
   color: #1b263b;
+}
+
+.btnDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

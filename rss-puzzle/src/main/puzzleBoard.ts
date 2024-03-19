@@ -1,8 +1,5 @@
 import { getData } from '../data/getData';
-
-const mixingArr = (arr: string[]): string[] => {
-  return arr.sort(() => Math.random() - 0.5);
-};
+import { createGameBoardItems } from '../gameBoard/createGameBoardItems';
 
 interface PuzzleData {
   rounds: {
@@ -12,100 +9,113 @@ interface PuzzleData {
   }[];
 }
 
-interface HTMLDivElementWithNum extends HTMLDivElement {
-  textContent: string;
-}
-
 export function puzzlesBoardSetter(): void {
   getData().then((data: PuzzleData) => {
-    let column = 0;
-    let line = 0;
+    let column: number = 0;
+    let line: number = 9;
+
+    createGameBoardItems(data, column, line, true);
+
     const puzzlesBoard = document.querySelector<HTMLElement>('.puzzlesBoard');
     const gameBoard = document.querySelector<HTMLElement>('.gameBoard');
+    const checkBtn = document.querySelector<HTMLButtonElement>('.checkGame');
+    const nextPuzzleBtn = document.querySelector<HTMLButtonElement>('.nextPuzzle');
 
-    if (!puzzlesBoard || !gameBoard) {
-      console.error('Puzzles board or game board not found.');
-      return;
+    if (nextPuzzleBtn) {
+      nextPuzzleBtn.disabled = true;
     }
 
-    const puzzleArr = data.rounds[column].words[line].textExample.split(' ');
+    const gameBoardItem = gameBoard?.querySelectorAll<HTMLElement>('.gameBoardItem');
 
-    const gameBoardItems: HTMLDivElement[] = [];
-    const words = data.rounds[column].words;
-    for (let i = 0; i < words.length; i++) {
-      const gameBoardItem = document.createElement('div');
-      gameBoardItem.className = 'gameBoardItem';
-      gameBoard.appendChild(gameBoardItem);
-      gameBoardItems.push(gameBoardItem);
-    }
+    let gameBoardRow = document.querySelectorAll<HTMLElement>('.gameBoardItem')[line];
+    let gameBoardWordItems = gameBoardRow.querySelectorAll<HTMLElement>('.gameBoardItemWord');
+    let puzzleItems = document.querySelectorAll<HTMLElement>('.puzzleItem');
 
-    const gameBoardItem = gameBoardItems[column];
-    if (!gameBoardItem) {
-      console.error('Game board item not found.');
-      return;
-    }
-
-    const mixArr = mixingArr(puzzleArr);
-    for (let i = 0; i <= mixArr.length; i++) {
-      if (i < mixArr.length) {
-        const div = document.createElement('div');
-        div.className = 'puzzleItem';
-        div.textContent = mixArr[i];
-        puzzlesBoard.appendChild(div);
-      }
-
-      const gameBoardPuzzleItem = document.createElement('div') as HTMLDivElementWithNum;
-      gameBoardPuzzleItem.textContent = i == 0 ? `${i + 1}` : '';
-      gameBoardPuzzleItem.className = i == 0 ? 'gameBoardItemNum' : 'gameBoardItemWord';
-      gameBoardItem.appendChild(gameBoardPuzzleItem);
-    }
-
-    const gameBoardItemArr = gameBoard.querySelectorAll('.gameBoardItem');
-    const gameBoardWordArr = gameBoardItemArr[column]?.querySelectorAll('.gameBoardItemWord');
-
-    if (!gameBoardWordArr) {
-      console.error('Game board word array not found.');
-      return;
-    }
-
-    puzzlesBoard.addEventListener('click', (e: MouseEvent) => {
+    const puzzleBoardItemListener = function (this: HTMLElement, e: MouseEvent) {
       let index = 0;
       const target = e.target as HTMLElement;
-      if (target.classList.contains('puzzleItem')) {
+      if (target.classList.contains('puzzleItem') && target.textContent !== '') {
         const puzzleItem = target;
-        // puzzleItem.classList.add('hide');
         const word = puzzleItem.textContent || '';
         puzzleItem.textContent = '';
-        while (index < gameBoardWordArr.length && gameBoardWordArr[index].textContent) {
+        while (index < gameBoardWordItems.length && gameBoardWordItems[index].textContent) {
           index++;
         }
-        (gameBoardWordArr[index] as HTMLDivElementWithNum).textContent = word;
+        if (index < gameBoardWordItems.length) {
+          gameBoardWordItems[index].textContent = word;
+        }
       }
-    });
+    };
 
-    // console.log(gameBoardItemArr[column]);
-    // console.log(gameBoardItem);
-
-    gameBoardItem.addEventListener('click', (e: MouseEvent) => {
+    const gameBoardItemListener = function (this: HTMLElement, e: MouseEvent) {
       let index = 0;
       const target = e.target as HTMLElement;
       if (target.classList.contains('gameBoardItemWord')) {
         const gameBoardWord = target.textContent?.trim();
-        if (gameBoardWord) {
-          const puzzleItems = puzzlesBoard.querySelectorAll('.puzzleItem');
-
+        if (gameBoardWord && puzzlesBoard) {
           while (index < puzzleItems.length && puzzleItems[index].textContent) {
             index++;
           }
-          (puzzleItems[index] as HTMLDivElementWithNum).textContent = gameBoardWord;
+          puzzleItems[index].textContent = gameBoardWord;
           target.textContent = '';
-          // puzzleItems.forEach((puzzleItem) => {
-          //   if (puzzleItem.textContent?.trim() === gameBoardWord) {
-          //     // puzzleItem.classList.remove('hide');
-          //   }
-          // });
         }
       }
-    });
+    };
+
+    if (puzzlesBoard) {
+      gameBoardRow.removeEventListener('click', gameBoardItemListener);
+      puzzlesBoard.removeEventListener('click', puzzleBoardItemListener);
+
+      gameBoardRow.addEventListener('click', gameBoardItemListener);
+      puzzlesBoard.addEventListener('click', puzzleBoardItemListener);
+    }
+
+    if (checkBtn && gameBoardWordItems && puzzlesBoard && gameBoardItem) {
+      checkBtn.addEventListener('click', () => {
+        if (gameBoardWordItems !== null) {
+          checkBtn.disabled = true;
+          const string = data.rounds[column].words[line].textExample;
+          let result = '';
+          gameBoardWordItems.forEach((el) => (result += el.textContent + ' '));
+          if (result.trim() === string.trim()) {
+            if (nextPuzzleBtn) {
+              nextPuzzleBtn.classList.remove('btnDisabled');
+              checkBtn.classList.add('btnDisabled');
+              puzzlesBoard.classList.add('noHover');
+              gameBoardItem[line].classList.add('noHover');
+              nextPuzzleBtn.disabled = false;
+            }
+          } else {
+            checkBtn.disabled = false;
+          }
+          console.log("answer ", string);
+        }
+      });
+    }
+
+    if (nextPuzzleBtn && checkBtn && puzzlesBoard && gameBoardItem) {
+      nextPuzzleBtn.addEventListener('click', () => {
+        checkBtn.classList.remove('btnDisabled');
+        puzzlesBoard.classList.remove('noHover');
+        checkBtn.disabled = false;
+        gameBoardRow.removeEventListener('click', gameBoardItemListener);
+        puzzlesBoard.removeEventListener('click', puzzleBoardItemListener);
+        nextPuzzleBtn.classList.add('btnDisabled');
+        nextPuzzleBtn.disabled = true;
+        console.log(data);
+        line++;
+
+        if (line < data.rounds[column].words.length) {
+          createGameBoardItems(data, column, line, false);
+          
+          gameBoardRow = document.querySelectorAll<HTMLElement>('.gameBoardItem')[line];
+          gameBoardWordItems = gameBoardRow.querySelectorAll<HTMLElement>('.gameBoardItemWord');
+          puzzleItems = document.querySelectorAll<HTMLElement>('.puzzleItem');
+
+          gameBoardRow.addEventListener('click', gameBoardItemListener);
+          puzzlesBoard.addEventListener('click', puzzleBoardItemListener);
+        }
+      });
+    }
   });
 }

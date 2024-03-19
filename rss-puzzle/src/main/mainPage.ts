@@ -17,9 +17,9 @@ export const createMainPage = (): void => {
   gameTitle.classList.add('game-title');
   gameTitle.textContent = 'RSS - PUZZLE';
 
-  const LogOutBtn: HTMLButtonElement = document.createElement('button');
-  LogOutBtn.className = 'login-btn-grad logOut';
-  LogOutBtn.textContent = 'LogOut';
+  const logOutBtn: HTMLButtonElement = document.createElement('button');
+  logOutBtn.className = 'login-btn-grad logOut';
+  logOutBtn.textContent = 'LogOut';
 
   const gameBoard: HTMLDivElement = document.createElement('div');
   gameBoard.classList.add('gameBoard');
@@ -28,13 +28,27 @@ export const createMainPage = (): void => {
   puzzlesBoard.classList.add('puzzlesBoard');
   wrapper.appendChild(puzzlesBoard);
 
+  const puzzlesBoardBtns: HTMLDivElement = document.createElement('div');
+  puzzlesBoardBtns.classList.add('puzzlesBoardBtns');
+  wrapper.appendChild(puzzlesBoardBtns);
+
+  const checkBtn: HTMLButtonElement = document.createElement('button');
+  checkBtn.className = 'login-btn-grad checkGame';
+  checkBtn.textContent = 'Check';
+  puzzlesBoardBtns.appendChild(checkBtn);
+
+  const nextBtn: HTMLButtonElement = document.createElement('button');
+  nextBtn.className = 'login-btn-grad nextPuzzle btnDisabled';
+  nextBtn.textContent = 'Next Puzzle';
+  puzzlesBoardBtns.appendChild(nextBtn);
+
   menu.appendChild(gameTitle);
-  menu.appendChild(LogOutBtn);
+  menu.appendChild(logOutBtn);
   if (gameBoard) {
     puzzlesBoardSetter();
   }
 
-  LogOutBtn.addEventListener('click', () => {
+  logOutBtn.addEventListener('click', () => {
     localStorage.clear();
     const mainPage: HTMLElement | null = document.querySelector('#mainPage');
     const loginPage: HTMLFormElement | null = document.querySelector('#loginForm');
@@ -48,5 +62,3 @@ export const createMainPage = (): void => {
     }
   });
 };
-
-
