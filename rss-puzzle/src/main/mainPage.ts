@@ -1,7 +1,7 @@
 import './mainPage.css';
+import { puzzlesBoardSetter } from './puzzleBoard';
 
 export const createMainPage = (): void => {
-  // ----------- wrapper ------------------
   const wrapper: HTMLDivElement = document.createElement('div');
   wrapper.id = 'mainPage';
   wrapper.classList.add('wrapper');
@@ -21,8 +21,18 @@ export const createMainPage = (): void => {
   LogOutBtn.className = 'login-btn-grad logOut';
   LogOutBtn.textContent = 'LogOut';
 
+  const gameBoard: HTMLDivElement = document.createElement('div');
+  gameBoard.classList.add('gameBoard');
+  wrapper.appendChild(gameBoard);
+  const puzzlesBoard: HTMLDivElement = document.createElement('div');
+  puzzlesBoard.classList.add('puzzlesBoard');
+  wrapper.appendChild(puzzlesBoard);
+
   menu.appendChild(gameTitle);
   menu.appendChild(LogOutBtn);
+  if (gameBoard) {
+    puzzlesBoardSetter();
+  }
 
   LogOutBtn.addEventListener('click', () => {
     localStorage.clear();
@@ -38,3 +48,5 @@ export const createMainPage = (): void => {
     }
   });
 };
+
+
