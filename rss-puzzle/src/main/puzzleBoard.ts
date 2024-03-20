@@ -12,7 +12,7 @@ interface PuzzleData {
 export function puzzlesBoardSetter(): void {
   getData().then((data: PuzzleData) => {
     let column: number = 0;
-    let line: number = 9;
+    let line: number = 0;
 
     createGameBoardItems(data, column, line, true);
 
@@ -20,6 +20,7 @@ export function puzzlesBoardSetter(): void {
     const gameBoard = document.querySelector<HTMLElement>('.gameBoard');
     const checkBtn = document.querySelector<HTMLButtonElement>('.checkGame');
     const nextPuzzleBtn = document.querySelector<HTMLButtonElement>('.nextPuzzle');
+    const autoCompleteBtn = document.querySelector<HTMLButtonElement>('.autoCompleteBtn');
 
     if (nextPuzzleBtn) {
       nextPuzzleBtn.disabled = true;
@@ -88,7 +89,7 @@ export function puzzlesBoardSetter(): void {
           } else {
             checkBtn.disabled = false;
           }
-          console.log("answer ", string);
+          console.log('answer ', string);
         }
       });
     }
@@ -107,14 +108,33 @@ export function puzzlesBoardSetter(): void {
 
         if (line < data.rounds[column].words.length) {
           createGameBoardItems(data, column, line, false);
-          
+
           gameBoardRow = document.querySelectorAll<HTMLElement>('.gameBoardItem')[line];
           gameBoardWordItems = gameBoardRow.querySelectorAll<HTMLElement>('.gameBoardItemWord');
           puzzleItems = document.querySelectorAll<HTMLElement>('.puzzleItem');
 
           gameBoardRow.addEventListener('click', gameBoardItemListener);
           puzzlesBoard.addEventListener('click', puzzleBoardItemListener);
+
+          if (autoCompleteBtn) autoCompleteBtn.disabled = false;
+        } else {
+          if (autoCompleteBtn) {
+            autoCompleteBtn.disabled = true;
+            autoCompleteBtn.classList.add('btnDisabled');
+            checkBtn.disabled = true;
+            checkBtn.classList.add('btnDisabled');
+          }
         }
+      });
+    }
+
+    if (autoCompleteBtn && puzzlesBoard) {
+      autoCompleteBtn.addEventListener('click', () => {
+        const string = data.rounds[column].words[line].textExample.split(' ');
+        gameBoardRow
+          .querySelectorAll('.gameBoardItemWord')
+          .forEach((el, i) => (el.textContent = string[i]));
+        puzzlesBoard.querySelectorAll('.puzzleItem').forEach((el) => (el.textContent = ''));
       });
     }
   });

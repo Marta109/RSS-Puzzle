@@ -42,6 +42,11 @@ export const createMainPage = (): void => {
   nextBtn.textContent = 'Next Puzzle';
   puzzlesBoardBtns.appendChild(nextBtn);
 
+  const autoCompleteBtn: HTMLButtonElement = document.createElement('button');
+  autoCompleteBtn.className = 'login-btn-grad autoCompleteBtn ';
+  autoCompleteBtn.textContent = 'Auto-Complete';
+  puzzlesBoardBtns.appendChild(autoCompleteBtn);
+
   menu.appendChild(gameTitle);
   menu.appendChild(logOutBtn);
   if (gameBoard) {
