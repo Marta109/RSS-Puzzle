@@ -94,6 +94,64 @@ export function puzzlesBoardSetter(): void {
       });
     }
 
+    const dragstart = (event: DragEvent) => {
+      if (event.dataTransfer) {
+        const target = event.target as HTMLElement;
+        if (target.classList.contains('puzzleItem') && target.textContent?.trim() !== '') {
+          const itemId = target.id;
+          event.dataTransfer.setData('text/plain', itemId);
+        } else {
+          event.preventDefault();
+        }
+      }
+    };
+
+    const gameBoardPuzzleItemDragstart = (event: DragEvent) => {
+      const puzzle = event.target as HTMLElement;
+      if (
+        puzzle.classList.contains('gameBoardItemWord') &&
+        event.dataTransfer &&
+        puzzle.textContent?.trim() !== ''
+      ) {
+        event.dataTransfer.setData('text/plain', puzzle.id);
+      } else {
+        event.preventDefault();
+      }
+    };
+
+    const gameBoardPuzzleItemDrop = (event: DragEvent) => {
+      event.preventDefault();
+      if (event.dataTransfer) {
+        const draggedElementId = event.dataTransfer.getData('text/plain');
+        const draggedElement = document.getElementById(draggedElementId);
+        const puzzle = event.target as HTMLElement;
+
+        if (puzzle.textContent === '' && draggedElement) {
+          puzzle.textContent = draggedElement.textContent;
+          draggedElement.textContent = '';
+        } else if (draggedElement && puzzle && puzzle !== draggedElement) {
+          const nextText = puzzle.textContent;
+          const currentText = draggedElement.textContent;
+          puzzle.textContent = currentText;
+          draggedElement.textContent = nextText;
+        }
+      }
+    };
+
+    const gameBoardPuzzleItemDragover = (event: DragEvent) => {
+      event.preventDefault();
+    };
+
+    gameBoardWordItems.forEach((puzzleItem) => {
+      puzzleItem.addEventListener('dragstart', gameBoardPuzzleItemDragstart);
+      puzzleItem.addEventListener('dragover', gameBoardPuzzleItemDragover);
+      puzzleItem.addEventListener('drop', gameBoardPuzzleItemDrop);
+    });
+
+    if (puzzlesBoard) {
+      puzzlesBoard.addEventListener('dragstart', dragstart);
+    }
+
     if (nextPuzzleBtn && checkBtn && puzzlesBoard && gameBoardItem) {
       nextPuzzleBtn.addEventListener('click', () => {
         checkBtn.classList.remove('btnDisabled');
@@ -103,6 +161,12 @@ export function puzzlesBoardSetter(): void {
         puzzlesBoard.removeEventListener('click', puzzleBoardItemListener);
         nextPuzzleBtn.classList.add('btnDisabled');
         nextPuzzleBtn.disabled = true;
+
+        gameBoardWordItems.forEach((puzzleItem) => {
+          puzzleItem.removeEventListener('dragstart', gameBoardPuzzleItemDragstart);
+          puzzleItem.removeEventListener('dragover', gameBoardPuzzleItemDragover);
+          puzzleItem.removeEventListener('drop', gameBoardPuzzleItemDrop);
+        });
         console.log(data);
         line++;
 
@@ -115,6 +179,13 @@ export function puzzlesBoardSetter(): void {
 
           gameBoardRow.addEventListener('click', gameBoardItemListener);
           puzzlesBoard.addEventListener('click', puzzleBoardItemListener);
+
+          gameBoardWordItems.forEach((puzzleItem) => {
+            puzzleItem.addEventListener('dragstart', gameBoardPuzzleItemDragstart);
+            puzzleItem.addEventListener('dragover', gameBoardPuzzleItemDragover);
+            puzzleItem.addEventListener('drop', gameBoardPuzzleItemDrop);
+          });
+
 
           if (autoCompleteBtn) autoCompleteBtn.disabled = false;
         } else {

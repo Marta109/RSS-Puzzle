@@ -118,3 +118,11 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.draggable {
+  cursor: grab;
+
+  &.grabbing {
+    cursor: grabbing;
+  }
+}
