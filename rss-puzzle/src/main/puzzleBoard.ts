@@ -32,6 +32,7 @@ export function puzzlesBoardSetter(): void {
     const nextPuzzleBtn = document.querySelector<HTMLButtonElement>('.nextPuzzle');
     const autoCompleteBtn = document.querySelector<HTMLButtonElement>('.autoCompleteBtn');
     const audioHintBtnIcon = document.querySelector<HTMLButtonElement>('#audio-hint');
+    const audioHintToggleBtn = document.querySelector<HTMLButtonElement>('#audioHintToggleBtn');
     const audio = document.querySelector<HTMLButtonElement>('#audio');
     const showHint = document.querySelector<HTMLElement>('.showHint');
 
@@ -45,6 +46,7 @@ export function puzzlesBoardSetter(): void {
     let gameBoardWordItems = gameBoardRow.querySelectorAll<HTMLElement>('.gameBoardItemWord');
     let puzzleItems = document.querySelectorAll<HTMLElement>('.puzzleItem');
     let hint = document.querySelector<HTMLElement>('.hint');
+    let isHintAudio = false;
 
     showHint?.addEventListener('click', () => {
       if (hint) {
@@ -53,6 +55,18 @@ export function puzzlesBoardSetter(): void {
           hint.style.display = 'none';
         } else {
           hint.style.display = 'inline-block';
+        }
+      }
+    });
+
+    audioHintToggleBtn?.addEventListener('click', () => {
+      if (audioHintBtnIcon) {
+        if (audioHintBtnIcon.closest('.audioBtnShow')) {
+          isHintAudio = true;
+          audioHintBtnIcon.classList.remove('audioBtnShow');
+        } else {
+          isHintAudio = false;
+          audioHintBtnIcon.classList.add('audioBtnShow');
         }
       }
     });
@@ -221,7 +235,7 @@ export function puzzlesBoardSetter(): void {
             }
           });
           if (result.trim() === string.trim()) {
-            if (nextPuzzleBtn && hint && autoCompleteBtn) {
+            if (nextPuzzleBtn && hint && autoCompleteBtn && audioHintBtnIcon) {
               checkBtn.classList.add('btnDisabled');
               checkBtn.disabled = true;
 
@@ -232,6 +246,7 @@ export function puzzlesBoardSetter(): void {
               hint.style.display = 'inline-block';
               autoCompleteBtn.disabled = true;
               autoCompleteBtn.classList.add('btnDisabled');
+              audioHintBtnIcon.classList.remove('audioBtnShow');
             }
           } else {
             checkBtn.disabled = false;
@@ -245,12 +260,21 @@ export function puzzlesBoardSetter(): void {
       });
     }
 
-    if (nextPuzzleBtn && checkBtn && puzzlesBoard && gameBoardItem && autoCompleteBtn) {
+    if (
+      nextPuzzleBtn &&
+      checkBtn &&
+      puzzlesBoard &&
+      gameBoardItem &&
+      autoCompleteBtn &&
+      audioHintBtnIcon
+    ) {
       nextPuzzleBtn.addEventListener('click', () => {
-        // checkBtn.classList.remove('btnDisabled');
-        // checkBtn.disabled = false;
-        // autoCompleteBtn.disabled = false;
-        // autoCompleteBtn.classList.remove('noHover');
+        if (isHintAudio) {
+          audioHintBtnIcon.classList.remove('audioBtnShow');
+        } else {
+          audioHintBtnIcon.classList.add('audioBtnShow');
+        }
+     
         gameBoardRow.removeEventListener('click', gameBoardItemListener);
         puzzlesBoard.removeEventListener('click', puzzleBoardItemListener);
         nextPuzzleBtn.classList.add('btnDisabled');
@@ -308,7 +332,7 @@ export function puzzlesBoardSetter(): void {
       });
     }
 
-    if (autoCompleteBtn && puzzlesBoard && checkBtn && nextPuzzleBtn) {
+    if (autoCompleteBtn && puzzlesBoard && checkBtn && nextPuzzleBtn && audioHintBtnIcon) {
       autoCompleteBtn.addEventListener('click', () => {
         if (hint) {
           hint.textContent = data.rounds[column].words[line].textExampleTranslate;
@@ -316,6 +340,7 @@ export function puzzlesBoardSetter(): void {
         }
         checkBtn.disabled = true;
         checkBtn.classList.add('btnDisabled');
+        audioHintBtnIcon.classList.remove('audioBtnShow');
         nextPuzzleBtn.disabled = false;
         nextPuzzleBtn.classList.remove('btnDisabled');
         autoCompleteBtn.disabled = true;

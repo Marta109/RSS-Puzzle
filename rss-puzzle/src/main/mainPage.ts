@@ -25,10 +25,16 @@ export const createMainPage = (): void => {
   audio.id = 'audio';
 
   const audioToggleBtn: HTMLButtonElement = document.createElement('button');
-  audioToggleBtn.classList.add('login-btn-grad');
+  audioToggleBtn.classList.add('login-btn-grad', 'btns');
   audioToggleBtn.id = 'audio-toggle';
 
+  const audioHintToggleBtn: HTMLButtonElement = document.createElement('button');
+  audioHintToggleBtn.classList.add('login-btn-grad', 'btns');
+  audioHintToggleBtn.id = 'audioHintToggleBtn';
+  audioHintToggleBtn.textContent = 'Audio Hint';
+
   menu.appendChild(logOutBtn);
+  menu.appendChild(audioHintToggleBtn);
 
   menu.appendChild(audio);
   menu.appendChild(audioToggleBtn);
