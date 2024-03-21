@@ -20,8 +20,6 @@ export function createGameBoardItems(
   line: number,
   bool: boolean = false,
 ): void {
-  // console.log(data);
-
   const gameBoard = document.querySelector<HTMLElement>('.gameBoard');
   const puzzlesBoard = document.querySelector<HTMLElement>('.puzzlesBoard');
   const words = data.rounds[column].words;
@@ -32,7 +30,6 @@ export function createGameBoardItems(
   if (bool && gameBoard) {
     gameBoard.innerHTML = '';
     gameBoardRowItems = [];
-    // console.log(gameBoard);
 
     for (let i = 0; i < words.length; i++) {
       const gameBoardItem = document.createElement('div');
@@ -43,14 +40,11 @@ export function createGameBoardItems(
   }
 
   const gameBoardItem = gameBoardRowItems[line];
-  // console.log('5555555555555555');
-  // console.log(gameBoardItem);
 
   const mixArr = mixingArr(puzzleWordArr);
 
   if (puzzlesBoard) puzzlesBoard.innerHTML = '';
-  // console.log(stringArr);
-  // console.log(mixArr);
+
   for (let i = 0; i <= mixArr.length; i++) {
     if (i < mixArr.length && puzzlesBoard) {
       const div = document.createElement('div');
@@ -60,7 +54,7 @@ export function createGameBoardItems(
       div.className = 'puzzleItem draggable';
       div.draggable = true;
       div.id = `puzzleItem_${i}`;
-      // div.textContent = mixArr[i];
+
       const itemIndex = stringArr.findIndex((el) => el === mixArr[i]);
       if (itemIndex === 0) {
         span1.classList.add('shapeRight');
@@ -83,20 +77,9 @@ export function createGameBoardItems(
       gameBoardPuzzleItem.className = 'gameBoardItemWord draggable';
       gameBoardPuzzleItem.draggable = true;
       gameBoardPuzzleItem.id = `${line}-${i}`;
-      // const span1 = document.createElement('span');
-      // const span2 = document.createElement('span');
-      // const span3 = document.createElement('span');
-      // span3.classList.add('text');
-      // gameBoardPuzzleItem.appendChild(span3);
-      // gameBoardPuzzleItem.appendChild(span1);
-      // gameBoardPuzzleItem.appendChild(span2);
     } else {
       gameBoardPuzzleItem.className = 'gameBoardItemNum';
     }
-    // if (column > 0) {
-    //   console.log('ncsnk');
-    //   console.log(gameBoardItem);
-    // }
 
     gameBoardItem.appendChild(gameBoardPuzzleItem);
   }

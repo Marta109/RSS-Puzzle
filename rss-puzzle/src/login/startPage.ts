@@ -41,7 +41,7 @@ export const createForm = (): void => {
   if (appDiv) {
     appDiv.appendChild(forma);
   }
-  //  validation for login
+
   forma.addEventListener('input', () => {
     const nameValue: string = inputName.value.trim();
     const surNameValue: string = inputSurName.value.trim();
@@ -78,7 +78,6 @@ export const createForm = (): void => {
     inputSurName.value = capitalizeFirstLetter(surNameValue);
   });
 
-  // Save name and surname
   forma.addEventListener('submit', (e) => {
     e.preventDefault();
     if (!button.disabled) {
@@ -86,7 +85,6 @@ export const createForm = (): void => {
       const surNameValue: string = inputSurName.value.trim();
       localStorage.setItem('userName', nameValue);
       localStorage.setItem('userSurName', surNameValue);
-      console.log(' i work');
       createWelcomePage();
     }
   });

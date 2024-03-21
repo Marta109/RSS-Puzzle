@@ -1,5 +1,6 @@
 import { getData } from '../data/getData';
 import { createGameBoardItems } from '../gameBoard/createGameBoardItems';
+import { changePuzzle } from '../gameBoard/changePuzzle';
 
 interface PuzzleData {
   rounds: {
@@ -279,232 +280,157 @@ export function puzzlesBoardSetter(): void {
     ) {
       nextPuzzleBtn.addEventListener('click', () => {
         if (nextPuzzleBtn.textContent === 'Next Round') {
-          // console.log('i work');
-          const resultsBtn = document.getElementById('resultsBtn');
-          if (resultsBtn) {
-            resultsBtn.style.display = 'none';
-          }
-          nextPuzzleBtn.disabled = true;
-          nextPuzzleBtn.classList.add('btnDisabled');
-          nextPuzzleBtn.textContent = 'Next Puzzle';
-          autoCompleteBtn.disabled = false;
-          autoCompleteBtn.classList.remove('btnDisabled');
+          changePuzzle(
+            column,
+            line,
+            data,
+            gameBoardItemListener,
+            puzzleBoardItemListener,
+            gameBoardPuzzleItemDragstart,
+            gameBoardPuzzleItemDragover,
+            gameBoardPuzzleItemDrop,
+          );
           autoCompleteCounter = 0;
-          const imgData = document.getElementById('imgData');
-          if (imgData && gameBoard) {
-            gameBoard.innerHTML = '';
-            gameBoard.style.backgroundImage = '';
-            imgData.remove();
-            // gameBoard.remove();
-          }
-          if (audioHintToggleBtn && showHint) {
-            audioHintBtnIcon.classList.remove('audioBtnShow');
-            audioHintToggleBtn.classList.remove('btnDisabled');
-            showHint.style.display = 'block';
-            audioHintToggleBtn.disabled = false;
-          }
-
           column++;
           line = 0;
-          createGameBoardItems(data, column, line, true);
+          return;
+        }
 
-          // console.log('i work0');
+        if (isHintAudio) {
+          audioHintBtnIcon.classList.remove('audioBtnShow');
+        } else {
+          audioHintBtnIcon.classList.add('audioBtnShow');
+        }
+
+        gameBoardRow.removeEventListener('click', gameBoardItemListener);
+        puzzlesBoard.removeEventListener('click', puzzleBoardItemListener);
+        nextPuzzleBtn.classList.add('btnDisabled');
+        nextPuzzleBtn.disabled = true;
+        allWordsFilled = false;
+        gameBoardWordItems.forEach((puzzleItem) => {
+          puzzleItem.removeEventListener('dragstart', gameBoardPuzzleItemDragstart);
+          puzzleItem.removeEventListener('dragover', gameBoardPuzzleItemDragover);
+          puzzleItem.removeEventListener('drop', gameBoardPuzzleItemDrop);
+        });
+        puzzlesBoard.classList.remove('noHover');
+        line++;
+
+        if (line == data.rounds[column].words.length - 1) {
+          nextPuzzleBtn.textContent = 'Show Puzzle';
+        }
+
+        if (!isHintText && hint) {
+          hint.style.display = 'none';
+        }
+
+        if (line < data.rounds[column].words.length) {
+          createGameBoardItems(data, column, line, false);
+
           gameBoardRow = document.querySelectorAll<HTMLElement>('.gameBoardItem')[line];
-          //  console.log(gameBoardRow);
-
           gameBoardWordItems = gameBoardRow.querySelectorAll<HTMLElement>('.gameBoardItemWord');
           puzzleItems = document.querySelectorAll<HTMLElement>('.puzzleItem');
 
-          // console.log('i work1');
           gameBoardRow.addEventListener('click', gameBoardItemListener);
           puzzlesBoard.addEventListener('click', puzzleBoardItemListener);
 
           gameBoardWordItems.forEach((puzzleItem) => {
-            // console.log('i work  foreach');
             puzzleItem.addEventListener('dragstart', gameBoardPuzzleItemDragstart);
             puzzleItem.addEventListener('dragover', gameBoardPuzzleItemDragover);
             puzzleItem.addEventListener('drop', gameBoardPuzzleItemDrop);
           });
+
+          if (autoCompleteBtn) {
+            autoCompleteBtn.disabled = false;
+            autoCompleteBtn.classList.remove('noHover');
+            autoCompleteBtn.classList.remove('btnDisabled');
+          }
         } else {
-          if (isHintAudio) {
-            audioHintBtnIcon.classList.remove('audioBtnShow');
-          } else {
-            audioHintBtnIcon.classList.add('audioBtnShow');
-          }
-
-          gameBoardRow.removeEventListener('click', gameBoardItemListener);
-          puzzlesBoard.removeEventListener('click', puzzleBoardItemListener);
-          nextPuzzleBtn.classList.add('btnDisabled');
-          nextPuzzleBtn.disabled = true;
-          allWordsFilled = false;
-          gameBoardWordItems.forEach((puzzleItem) => {
-            puzzleItem.removeEventListener('dragstart', gameBoardPuzzleItemDragstart);
-            puzzleItem.removeEventListener('dragover', gameBoardPuzzleItemDragover);
-            puzzleItem.removeEventListener('drop', gameBoardPuzzleItemDrop);
-          });
-          puzzlesBoard.classList.remove('noHover');
-          // console.log(data);
-          line++;
-
-          if (line == data.rounds[column].words.length - 1) {
-            nextPuzzleBtn.textContent = 'Show Puzzle';
-          }
-
-          if (!isHintText && hint) {
-            hint.style.display = 'none';
-          }
-
-          if (line < data.rounds[column].words.length) {
-            createGameBoardItems(data, column, line, false);
-
-            // console.log('i work0');
-            gameBoardRow = document.querySelectorAll<HTMLElement>('.gameBoardItem')[line];
-            gameBoardWordItems = gameBoardRow.querySelectorAll<HTMLElement>('.gameBoardItemWord');
-            puzzleItems = document.querySelectorAll<HTMLElement>('.puzzleItem');
-
-            // console.log('i work1');
-            gameBoardRow.addEventListener('click', gameBoardItemListener);
-            puzzlesBoard.addEventListener('click', puzzleBoardItemListener);
-
-            gameBoardWordItems.forEach((puzzleItem) => {
-              // console.log('i work  foreach');
-              puzzleItem.addEventListener('dragstart', gameBoardPuzzleItemDragstart);
-              puzzleItem.addEventListener('dragover', gameBoardPuzzleItemDragover);
-              puzzleItem.addEventListener('drop', gameBoardPuzzleItemDrop);
-            });
-
-            // console.log('sss1');
-            if (autoCompleteBtn) {
-              // console.log('sss');
-
-              autoCompleteBtn.disabled = false;
-              autoCompleteBtn.classList.remove('noHover');
-              autoCompleteBtn.classList.remove('btnDisabled');
+          if (autoCompleteBtn && gameBoard && audioHintToggleBtn && showHint && wrapper) {
+            const resultsBtn = document.getElementById('resultsBtn');
+            if (resultsBtn) {
+              resultsBtn.style.display = 'inline-block';
             }
-          } else {
-            if (autoCompleteBtn && gameBoard && audioHintToggleBtn && showHint && wrapper) {
-              const resultsBtn = document.getElementById('resultsBtn');
-              if (resultsBtn) {
-                resultsBtn.style.display = 'inline-block';
-              }
 
-              autoCompleteBtn.disabled = true;
-              autoCompleteBtn.classList.add('btnDisabled');
-              checkBtn.disabled = true;
-              checkBtn.classList.add('btnDisabled');
-              audioHintBtnIcon.classList.add('audioBtnShow');
-              audioHintToggleBtn.classList.add('btnDisabled');
-              audioHintToggleBtn.disabled = true;
+            autoCompleteBtn.disabled = true;
+            autoCompleteBtn.classList.add('btnDisabled');
+            checkBtn.disabled = true;
+            checkBtn.classList.add('btnDisabled');
+            audioHintBtnIcon.classList.add('audioBtnShow');
+            audioHintToggleBtn.classList.add('btnDisabled');
+            audioHintToggleBtn.disabled = true;
 
-              showHint.style.display = 'none';
+            showHint.style.display = 'none';
 
-              gameBoard.style.backgroundImage = `url(https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/${data.rounds[column].levelData.imageSrc})`;
+            gameBoard.style.backgroundImage = `url(https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/${data.rounds[column].levelData.imageSrc})`;
 
-              if (gameBoard) {
-                setTimeout(() => {
-                  const innerElements = gameBoard.querySelectorAll('.gameBoardItem');
-                  innerElements.forEach((item) => {
-                    item.classList.add('fadeOutOnGameBoard');
-                  });
-                }, 2000);
+            if (gameBoard) {
+              setTimeout(() => {
+                const innerElements = gameBoard.querySelectorAll('.gameBoardItem');
+                innerElements.forEach((item) => {
+                  item.classList.add('fadeOutOnGameBoard');
+                });
+              }, 2000);
 
-                const imgData: HTMLDivElement = document.createElement('div');
-                imgData.classList.add('hint');
-                imgData.id = 'imgData';
+              const imgData: HTMLDivElement = document.createElement('div');
+              imgData.classList.add('hint');
+              imgData.id = 'imgData';
 
-                imgData.innerHTML = `Author - ${data.rounds[column].levelData.author}<br>
+              imgData.innerHTML = `Author - ${data.rounds[column].levelData.author}<br>
                Image name - ${data.rounds[column].levelData.name}<br> 
                Year - ${data.rounds[column].levelData.year}<br> `;
 
-                const puzzlesBoardParent = puzzlesBoard.parentNode;
+              const puzzlesBoardParent = puzzlesBoard.parentNode;
 
-                puzzlesBoardParent?.insertBefore(imgData, puzzlesBoard);
+              puzzlesBoardParent?.insertBefore(imgData, puzzlesBoard);
+            }
+
+            resultsBtn?.addEventListener('click', () => {
+              const gameModal: HTMLElement | null = document.querySelector('.modal_container');
+              const modalContent: HTMLElement | null = document.querySelector('.modal_content');
+              const modalInfo = document.getElementById('modalInfo');
+              const nextPuzzleBtn = modalContent?.querySelector<HTMLButtonElement>('.nextPuzzle');
+
+              if (gameModal && modalContent) {
+                gameModal.classList.add('show');
+                modalContent.classList.add('show');
               }
 
-              resultsBtn?.addEventListener('click', () => {
-                const gameModal: HTMLElement | null = document.querySelector('.modal_container');
-                const modalContent: HTMLElement | null = document.querySelector('.modal_content');
-                const modalInfo = document.getElementById('modalInfo');
-                const nextPuzzleBtn = modalContent?.querySelector<HTMLButtonElement>('.nextPuzzle');
+              if (modalInfo) {
+                modalInfo.innerHTML = `Number of all settings - ${data.rounds[column].words.length}<br>Number of automatically compiled sentences - ${autoCompleteCounter}<br> Number of sentences you've completed - ${data.rounds[column].words.length - autoCompleteCounter}`;
+              }
+
+              if (nextPuzzleBtn) {
+                nextPuzzleBtn.textContent = 'Next Round';
+                nextPuzzleBtn.classList.remove('btnDisabled');
+                nextPuzzleBtn.disabled = false;
+              }
+              nextPuzzleBtn?.addEventListener('click', () => {
+            
+
+                changePuzzle(
+                  column,
+                  line,
+                  data,
+                  gameBoardItemListener,
+                  puzzleBoardItemListener,
+                  gameBoardPuzzleItemDragstart,
+                  gameBoardPuzzleItemDragover,
+                  gameBoardPuzzleItemDrop,
+                );
+                autoCompleteCounter = 0;
+                column++;
+                line = 0;
 
                 if (gameModal && modalContent) {
-                  gameModal.classList.add('show');
-                  modalContent.classList.add('show');
+                  gameModal.classList.remove('show');
+                  modalContent.classList.remove('show');
                 }
-
-                if (modalInfo) {
-                  modalInfo.innerHTML = `Number of all settings - ${data.rounds[column].words.length}<br>Number of automatically compiled sentences - ${autoCompleteCounter}<br> Number of sentences you've completed - ${data.rounds[column].words.length - autoCompleteCounter}`;
-                }
-
-                if (nextPuzzleBtn) {
-                  nextPuzzleBtn.textContent = 'Next Round';
-                  nextPuzzleBtn.classList.remove('btnDisabled');
-                  nextPuzzleBtn.disabled = false;
-                }
-                nextPuzzleBtn?.addEventListener('click', () => {
-                  const nextPuzzleBtnOuter =
-                    document?.querySelector<HTMLButtonElement>('.nextPuzzle');
-                  autoCompleteCounter = 0;
-                  if (nextPuzzleBtnOuter && nextPuzzleBtnOuter.textContent === 'Next Round') {
-                    // console.log('i work');
-                    const resultsBtn = document.getElementById('resultsBtn');
-                    if (resultsBtn) {
-                      resultsBtn.style.display = 'none';
-                    }
-                    nextPuzzleBtnOuter.disabled = true;
-                    nextPuzzleBtnOuter.classList.add('btnDisabled');
-                    nextPuzzleBtnOuter.textContent = 'Next Puzzle';
-                    autoCompleteBtn.disabled = false;
-                    autoCompleteBtn.classList.remove('btnDisabled');
-
-                    const imgData = document.getElementById('imgData');
-                    if (imgData && gameBoard) {
-                      gameBoard.innerHTML = '';
-                      gameBoard.style.backgroundImage = '';
-                      imgData.remove();
-                      // gameBoard.remove();
-                    }
-                    if (audioHintToggleBtn && showHint) {
-                      audioHintBtnIcon.classList.remove('audioBtnShow');
-                      audioHintToggleBtn.classList.remove('btnDisabled');
-                      showHint.style.display = 'block';
-                      audioHintToggleBtn.disabled = false;
-                    }
-
-                    column++;
-                    line = 0;
-                    createGameBoardItems(data, column, line, true);
-
-                    // console.log('i work0');
-                    gameBoardRow = document.querySelectorAll<HTMLElement>('.gameBoardItem')[line];
-                    //  console.log(gameBoardRow);
-
-                    gameBoardWordItems =
-                      gameBoardRow.querySelectorAll<HTMLElement>('.gameBoardItemWord');
-                    puzzleItems = document.querySelectorAll<HTMLElement>('.puzzleItem');
-
-                    // console.log('i work1');
-                    gameBoardRow.addEventListener('click', gameBoardItemListener);
-                    puzzlesBoard.addEventListener('click', puzzleBoardItemListener);
-
-                    gameBoardWordItems.forEach((puzzleItem) => {
-                      // console.log('i work  foreach');
-                      puzzleItem.addEventListener('dragstart', gameBoardPuzzleItemDragstart);
-                      puzzleItem.addEventListener('dragover', gameBoardPuzzleItemDragover);
-                      puzzleItem.addEventListener('drop', gameBoardPuzzleItemDrop);
-                    });
-                  }
-
-                  if (gameModal && modalContent) {
-                    gameModal.classList.remove('show');
-                    modalContent.classList.remove('show');
-                  }
-                });
               });
-              nextPuzzleBtn.textContent = 'Next Round';
-              nextPuzzleBtn.classList.remove('btnDisabled');
-              nextPuzzleBtn.disabled = false;
-            }
+            });
+
+            nextPuzzleBtn.textContent = 'Next Round';
+            nextPuzzleBtn.classList.remove('btnDisabled');
+            nextPuzzleBtn.disabled = false;
           }
         }
       });

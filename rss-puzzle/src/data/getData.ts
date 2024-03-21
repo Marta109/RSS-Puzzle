@@ -12,12 +12,3 @@ export function getData(
       console.error('There has been a problem with your fetch operation:', error);
     });
 }
-
-// const baseUrl =
-//   'https://github.com/rolling-scopes-school/rss-puzzle-data/blob/main/data/wordCollectionLevel1.json';
-
-// getData(baseUrl).then((data) => {
-//   console.log('ADDADADA');
-
-//   console.log(data);
-// });

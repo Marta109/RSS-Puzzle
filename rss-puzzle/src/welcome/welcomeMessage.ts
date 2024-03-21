@@ -16,8 +16,6 @@ export function showWelcomeMessage(): void {
     }, 100);
 
     setTimeout(() => {
-      // console.log('dbd');
-
       welcomeMessage.classList.remove('show');
       setTimeout(() => {
         welcomeMessage.remove();
