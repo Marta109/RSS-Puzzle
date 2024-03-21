@@ -12,7 +12,7 @@ interface PuzzleData {
   }[];
 }
 
-const gameBoardRowItems: HTMLDivElement[] = [];
+let gameBoardRowItems: HTMLDivElement[] = [];
 
 export function createGameBoardItems(
   data: PuzzleData,
@@ -30,6 +30,10 @@ export function createGameBoardItems(
   const puzzleWordArr = setting.split(' ');
 
   if (bool && gameBoard) {
+    gameBoard.innerHTML = '';
+    gameBoardRowItems = [];
+    // console.log(gameBoard);
+
     for (let i = 0; i < words.length; i++) {
       const gameBoardItem = document.createElement('div');
       gameBoardItem.className = 'gameBoardItem';
@@ -39,6 +43,9 @@ export function createGameBoardItems(
   }
 
   const gameBoardItem = gameBoardRowItems[line];
+  // console.log('5555555555555555');
+  // console.log(gameBoardItem);
+
   const mixArr = mixingArr(puzzleWordArr);
 
   if (puzzlesBoard) puzzlesBoard.innerHTML = '';
@@ -86,6 +93,10 @@ export function createGameBoardItems(
     } else {
       gameBoardPuzzleItem.className = 'gameBoardItemNum';
     }
+    // if (column > 0) {
+    //   console.log('ncsnk');
+    //   console.log(gameBoardItem);
+    // }
 
     gameBoardItem.appendChild(gameBoardPuzzleItem);
   }

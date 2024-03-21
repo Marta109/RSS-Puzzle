@@ -23,9 +23,11 @@ export function puzzlesBoardSetter(): void {
   getData().then((data: PuzzleData) => {
     let column: number = 0;
     let line: number = 0;
+    console.log(data);
 
     createGameBoardItems(data, column, line, true);
 
+    const wrapper = document.querySelector<HTMLElement>('.wrapper');
     const puzzlesBoard = document.querySelector<HTMLElement>('.puzzlesBoard');
     const gameBoard = document.querySelector<HTMLElement>('.gameBoard');
     const checkBtn = document.querySelector<HTMLButtonElement>('.checkGame');
@@ -269,34 +271,32 @@ export function puzzlesBoardSetter(): void {
       audioHintBtnIcon
     ) {
       nextPuzzleBtn.addEventListener('click', () => {
-        if (isHintAudio) {
-          audioHintBtnIcon.classList.remove('audioBtnShow');
-        } else {
-          audioHintBtnIcon.classList.add('audioBtnShow');
-        }
-     
-        gameBoardRow.removeEventListener('click', gameBoardItemListener);
-        puzzlesBoard.removeEventListener('click', puzzleBoardItemListener);
-        nextPuzzleBtn.classList.add('btnDisabled');
-        nextPuzzleBtn.disabled = true;
-        allWordsFilled = false;
-        gameBoardWordItems.forEach((puzzleItem) => {
-          puzzleItem.removeEventListener('dragstart', gameBoardPuzzleItemDragstart);
-          puzzleItem.removeEventListener('dragover', gameBoardPuzzleItemDragover);
-          puzzleItem.removeEventListener('drop', gameBoardPuzzleItemDrop);
-        });
-        puzzlesBoard.classList.remove('noHover');
-        // console.log(data);
-        line++;
-        if (hint) {
-          hint.style.display = 'none';
-        }
+        if (nextPuzzleBtn.textContent === 'Next Round') {
+          console.log('i work');
 
-        if (line < data.rounds[column].words.length) {
-          createGameBoardItems(data, column, line, false);
+          nextPuzzleBtn.disabled = true;
+          nextPuzzleBtn.classList.add('btnDisabled');
+          nextPuzzleBtn.textContent = 'Next Puzzle';
+          autoCompleteBtn.disabled = false;
+          autoCompleteBtn.classList.remove('btnDisabled');
+
+          const imgData = document.getElementById('imgData');
+          if (imgData && gameBoard) {
+            gameBoard.innerHTML = '';
+            gameBoard.style.backgroundImage = '';
+            imgData.remove();
+            // gameBoard.remove();
+          }
+      
+
+          column++;
+          line = 0;
+          createGameBoardItems(data, column, line, true);
 
           // console.log('i work0');
           gameBoardRow = document.querySelectorAll<HTMLElement>('.gameBoardItem')[line];
+          //  console.log(gameBoardRow);
+
           gameBoardWordItems = gameBoardRow.querySelectorAll<HTMLElement>('.gameBoardItemWord');
           puzzleItems = document.querySelectorAll<HTMLElement>('.puzzleItem');
 
@@ -310,23 +310,98 @@ export function puzzlesBoardSetter(): void {
             puzzleItem.addEventListener('dragover', gameBoardPuzzleItemDragover);
             puzzleItem.addEventListener('drop', gameBoardPuzzleItemDrop);
           });
-
-          // console.log('sss1');
-          if (autoCompleteBtn) {
-            // console.log('sss');
-
-            autoCompleteBtn.disabled = false;
-            autoCompleteBtn.classList.remove('noHover');
-            autoCompleteBtn.classList.remove('btnDisabled');
-          }
         } else {
-          if (autoCompleteBtn && gameBoard) {
-            autoCompleteBtn.disabled = true;
-            autoCompleteBtn.classList.add('btnDisabled');
-            checkBtn.disabled = true;
-            checkBtn.classList.add('btnDisabled');
+          if (isHintAudio) {
+            audioHintBtnIcon.classList.remove('audioBtnShow');
+          } else {
+            audioHintBtnIcon.classList.add('audioBtnShow');
+          }
 
-            gameBoard.style.backgroundImage = `url(https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/${data.rounds[column].levelData.imageSrc})`;
+          gameBoardRow.removeEventListener('click', gameBoardItemListener);
+          puzzlesBoard.removeEventListener('click', puzzleBoardItemListener);
+          nextPuzzleBtn.classList.add('btnDisabled');
+          nextPuzzleBtn.disabled = true;
+          allWordsFilled = false;
+          gameBoardWordItems.forEach((puzzleItem) => {
+            puzzleItem.removeEventListener('dragstart', gameBoardPuzzleItemDragstart);
+            puzzleItem.removeEventListener('dragover', gameBoardPuzzleItemDragover);
+            puzzleItem.removeEventListener('drop', gameBoardPuzzleItemDrop);
+          });
+          puzzlesBoard.classList.remove('noHover');
+          // console.log(data);
+          line++;
+
+          if (line == data.rounds[column].words.length - 1) {
+            nextPuzzleBtn.textContent = 'Show Puzzle';
+          }
+
+          if (hint) {
+            hint.style.display = 'none';
+          }
+
+          if (line < data.rounds[column].words.length) {
+            createGameBoardItems(data, column, line, false);
+
+            // console.log('i work0');
+            gameBoardRow = document.querySelectorAll<HTMLElement>('.gameBoardItem')[line];
+            gameBoardWordItems = gameBoardRow.querySelectorAll<HTMLElement>('.gameBoardItemWord');
+            puzzleItems = document.querySelectorAll<HTMLElement>('.puzzleItem');
+
+            // console.log('i work1');
+            gameBoardRow.addEventListener('click', gameBoardItemListener);
+            puzzlesBoard.addEventListener('click', puzzleBoardItemListener);
+
+            gameBoardWordItems.forEach((puzzleItem) => {
+              // console.log('i work  foreach');
+              puzzleItem.addEventListener('dragstart', gameBoardPuzzleItemDragstart);
+              puzzleItem.addEventListener('dragover', gameBoardPuzzleItemDragover);
+              puzzleItem.addEventListener('drop', gameBoardPuzzleItemDrop);
+            });
+
+            // console.log('sss1');
+            if (autoCompleteBtn) {
+              // console.log('sss');
+
+              autoCompleteBtn.disabled = false;
+              autoCompleteBtn.classList.remove('noHover');
+              autoCompleteBtn.classList.remove('btnDisabled');
+            }
+          } else {
+            if (autoCompleteBtn && gameBoard && audioHintToggleBtn && showHint && wrapper) {
+              autoCompleteBtn.disabled = true;
+              autoCompleteBtn.classList.add('btnDisabled');
+              checkBtn.disabled = true;
+              checkBtn.classList.add('btnDisabled');
+              audioHintBtnIcon.classList.add('audioBtnShow');
+              audioHintToggleBtn.classList.add('btnDisabled');
+              showHint.style.display = 'none';
+
+              gameBoard.style.backgroundImage = `url(https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/${data.rounds[column].levelData.imageSrc})`;
+
+              if (gameBoard) {
+                setTimeout(() => {
+                  const innerElements = gameBoard.querySelectorAll('.gameBoardItem');
+                  innerElements.forEach((item) => {
+                    item.classList.add('fadeOutOnGameBoard');
+                  });
+                }, 2000);
+
+                const imgData: HTMLDivElement = document.createElement('div');
+                imgData.classList.add('hint');
+                imgData.id = 'imgData';
+
+                imgData.innerHTML = `Author - ${data.rounds[column].levelData.author}<br>
+               Image name - ${data.rounds[column].levelData.name}<br> 
+               Year - ${data.rounds[column].levelData.year}<br> `;
+
+                const puzzlesBoardParent = puzzlesBoard.parentNode;
+
+                puzzlesBoardParent?.insertBefore(imgData, puzzlesBoard);
+              }
+              nextPuzzleBtn.textContent = 'Next Round';
+              nextPuzzleBtn.classList.remove('btnDisabled');
+              nextPuzzleBtn.disabled = false;
+            }
           }
         }
       });
