@@ -88,11 +88,35 @@ export const createMainPage = (): void => {
   puzzlesBoardBtns.classList.add('puzzlesBoardBtns');
   wrapper.appendChild(puzzlesBoardBtns);
 
+  const gameModal: HTMLDivElement = document.createElement('div');
+  gameModal.classList.add('modal_container');
+  wrapper.appendChild(gameModal);
+
+  const modalContent: HTMLDivElement = document.createElement('div');
+  modalContent.classList.add('modal_content');
+  gameModal.appendChild(modalContent);
+
+  const modalTitle: HTMLHeadingElement = document.createElement('h3');
+  modalTitle.classList.add('modal-title');
+  modalTitle.textContent = 'Results';
+  modalContent.appendChild(modalTitle);
+
+  const modalInfo: HTMLDivElement = document.createElement('div');
+  modalInfo.classList.add('modal-info', 'hint');
+  modalInfo.textContent = 'Results';
+  modalInfo.id = 'modalInfo';
+  modalContent.appendChild(modalInfo);
+  
+  const ModalNextBtn: HTMLButtonElement = document.createElement('button');
+  ModalNextBtn.className = 'login-btn-grad nextPuzzle btnDisabled';
+  ModalNextBtn.textContent = 'Next Puzzle';
+  modalContent.appendChild(ModalNextBtn);
+  
   const checkBtn: HTMLButtonElement = document.createElement('button');
   checkBtn.className = 'login-btn-grad checkGame';
   checkBtn.textContent = 'Check';
   puzzlesBoardBtns.appendChild(checkBtn);
-
+  
   const nextBtn: HTMLButtonElement = document.createElement('button');
   nextBtn.className = 'login-btn-grad nextPuzzle btnDisabled';
   nextBtn.textContent = 'Next Puzzle';
@@ -102,6 +126,13 @@ export const createMainPage = (): void => {
   autoCompleteBtn.className = 'login-btn-grad autoCompleteBtn ';
   autoCompleteBtn.textContent = 'Auto-Complete';
   puzzlesBoardBtns.appendChild(autoCompleteBtn);
+
+  const resultsBtn: HTMLButtonElement = document.createElement('button');
+  resultsBtn.className = 'login-btn-grad autoCompleteBtn ';
+  resultsBtn.textContent = 'Results';
+  resultsBtn.style.display = "none";
+  resultsBtn.id = "resultsBtn";
+  puzzlesBoardBtns.appendChild(resultsBtn);
 
   menu.appendChild(gameTitle);
   menu.appendChild(logOutBtn);
