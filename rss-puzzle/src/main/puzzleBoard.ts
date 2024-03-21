@@ -57,18 +57,18 @@ export function puzzlesBoardSetter(): void {
       }
     });
 
-    console.log(data);
-
     audioHintBtnIcon?.addEventListener('click', () => {
       if (audio instanceof HTMLAudioElement) {
+        const audioHintBtnIcon = document.querySelector('#audioHintBtnIcon');
         audio.src = `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/${data.rounds[column].words[line].audioExample}`;
         audio.addEventListener('loadeddata', () => {
           audio.play();
+          audioHintBtnIcon?.classList.add('fa-solid', 'fa-volume-high');
+        });
+        audio.addEventListener('ended', () => {
+          audioHintBtnIcon?.classList.remove('fa-solid', 'fa-volume-high');
         });
       }
-      console.log(
-        `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/${data.rounds[column].words[line].audioExample}`,
-      );
     });
 
     const puzzleBoardItemListener = function (this: HTMLElement, e: MouseEvent) {
@@ -269,6 +269,7 @@ export function puzzlesBoardSetter(): void {
     if (autoCompleteBtn && puzzlesBoard && checkBtn && nextPuzzleBtn) {
       autoCompleteBtn.addEventListener('click', () => {
         if (hint) {
+          hint.textContent = data.rounds[column].words[line].textExampleTranslate;
           hint.style.display = 'inline-block';
         }
         checkBtn.disabled = true;

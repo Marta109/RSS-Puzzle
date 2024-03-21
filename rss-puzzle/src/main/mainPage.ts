@@ -67,7 +67,8 @@ export const createMainPage = (): void => {
   wrapper.appendChild(audioHintBtn);
 
   const audioHintBtnIcon: HTMLSpanElement = document.createElement('span');
-  audioHintBtnIcon.classList.add('fa-solid', 'fa-volume-high');
+  audioHintBtnIcon.classList.add('fa', 'fa-volume-down');
+  audioHintBtnIcon.id = 'audioHintBtnIcon';
   audioHintBtn.appendChild(audioHintBtnIcon);
 
   const gameBoard: HTMLDivElement = document.createElement('div');
