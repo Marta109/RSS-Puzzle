@@ -2,10 +2,10 @@ import './mainPage.css';
 import { puzzlesBoardSetter } from './puzzleBoard';
 
 export const createMainPage = (): void => {
-  const wrapper: HTMLDivElement = document.createElement('div');
-  wrapper.id = 'mainPage';
-  wrapper.classList.add('wrapper');
   const appDiv: HTMLElement | null = document.getElementById('app');
+  const wrapper: HTMLDivElement = document.createElement('div');
+  wrapper.classList.add('wrapper');
+  wrapper.id = 'mainPage';
   if (appDiv) {
     appDiv.appendChild(wrapper);
   }
@@ -16,10 +16,34 @@ export const createMainPage = (): void => {
   const gameTitle: HTMLHeadingElement = document.createElement('h1');
   gameTitle.classList.add('game-title');
   gameTitle.textContent = 'RSS - PUZZLE';
-
+  menu.appendChild(gameTitle);
   const logOutBtn: HTMLButtonElement = document.createElement('button');
   logOutBtn.className = 'login-btn-grad logOut';
   logOutBtn.textContent = 'LogOut';
+
+  const audio = document.createElement('audio');
+  audio.id = 'audio';
+
+  const audioToggleBtn: HTMLButtonElement = document.createElement('button');
+  audioToggleBtn.classList.add('login-btn-grad');
+  audioToggleBtn.id = 'audio-toggle';
+
+  menu.appendChild(logOutBtn);
+
+  menu.appendChild(audio);
+  menu.appendChild(audioToggleBtn);
+
+  const icon: HTMLSpanElement = document.createElement('span');
+  icon.classList.add('fa-solid', 'fa-volume-high');
+  audioToggleBtn.appendChild(icon);
+
+  audioToggleBtn.addEventListener('click', () => {
+    const iconElement = audioToggleBtn.querySelector('span.fa-solid');
+    if (iconElement) {
+      iconElement.classList.toggle('fa-volume-off');
+    }
+    audio.muted = !audio.muted;
+  });
 
   const showHint: HTMLDivElement = document.createElement('div');
   showHint.classList.add('showHint');
@@ -36,6 +60,15 @@ export const createMainPage = (): void => {
   hint.classList.add('hint');
   hint.style.display = 'none';
   wrapper.appendChild(hint);
+
+  const audioHintBtn: HTMLButtonElement = document.createElement('button');
+  audioHintBtn.classList.add('login-btn-grad');
+  audioHintBtn.id = 'audio-hint';
+  wrapper.appendChild(audioHintBtn);
+
+  const audioHintBtnIcon: HTMLSpanElement = document.createElement('span');
+  audioHintBtnIcon.classList.add('fa-solid', 'fa-volume-high');
+  audioHintBtn.appendChild(audioHintBtnIcon);
 
   const gameBoard: HTMLDivElement = document.createElement('div');
   gameBoard.classList.add('gameBoard');

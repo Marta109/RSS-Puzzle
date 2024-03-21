@@ -31,6 +31,9 @@ export function puzzlesBoardSetter(): void {
     const checkBtn = document.querySelector<HTMLButtonElement>('.checkGame');
     const nextPuzzleBtn = document.querySelector<HTMLButtonElement>('.nextPuzzle');
     const autoCompleteBtn = document.querySelector<HTMLButtonElement>('.autoCompleteBtn');
+    const audioHintBtnIcon = document.querySelector<HTMLButtonElement>('#audio-hint');
+    const audio = document.querySelector<HTMLButtonElement>('#audio');
+    const showHint = document.querySelector<HTMLElement>('.showHint');
 
     if (nextPuzzleBtn) {
       nextPuzzleBtn.disabled = true;
@@ -42,18 +45,30 @@ export function puzzlesBoardSetter(): void {
     let gameBoardWordItems = gameBoardRow.querySelectorAll<HTMLElement>('.gameBoardItemWord');
     let puzzleItems = document.querySelectorAll<HTMLElement>('.puzzleItem');
     let hint = document.querySelector<HTMLElement>('.hint');
-    let showHint = document.querySelector<HTMLElement>('.showHint');
-    if (hint) {
-      hint.textContent = data.rounds[column].words[line].textExampleTranslate;
-    }
+
     showHint?.addEventListener('click', () => {
       if (hint) {
+        hint.textContent = data.rounds[column].words[line].textExampleTranslate;
         if (hint.style.display === 'inline-block') {
           hint.style.display = 'none';
         } else {
           hint.style.display = 'inline-block';
         }
       }
+    });
+
+    console.log(data);
+
+    audioHintBtnIcon?.addEventListener('click', () => {
+      if (audio instanceof HTMLAudioElement) {
+        audio.src = `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/${data.rounds[column].words[line].audioExample}`;
+        audio.addEventListener('loadeddata', () => {
+          audio.play();
+        });
+      }
+      console.log(
+        `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/${data.rounds[column].words[line].audioExample}`,
+      );
     });
 
     const puzzleBoardItemListener = function (this: HTMLElement, e: MouseEvent) {
