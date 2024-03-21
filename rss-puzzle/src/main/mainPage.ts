@@ -21,6 +21,22 @@ export const createMainPage = (): void => {
   logOutBtn.className = 'login-btn-grad logOut';
   logOutBtn.textContent = 'LogOut';
 
+  const showHint: HTMLDivElement = document.createElement('div');
+  showHint.classList.add('showHint');
+  let word = 'HINT';
+  for (let i = 0; i < 4; i++) {
+    const span = document.createElement('span');
+    span.textContent = word[i];
+    span.style.setProperty('--i', (i + 1).toString());
+    showHint.appendChild(span);
+  }
+  wrapper.appendChild(showHint);
+
+  const hint: HTMLDivElement = document.createElement('div');
+  hint.classList.add('hint');
+  hint.style.display = 'none';
+  wrapper.appendChild(hint);
+
   const gameBoard: HTMLDivElement = document.createElement('div');
   gameBoard.classList.add('gameBoard');
   wrapper.appendChild(gameBoard);

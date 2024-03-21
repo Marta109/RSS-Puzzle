@@ -14,6 +14,7 @@ interface PuzzleData {
     words: {
       audioExample: string;
       textExample: string;
+      textExampleTranslate: string;
     }[];
   }[];
 }
@@ -40,6 +41,19 @@ export function puzzlesBoardSetter(): void {
     let gameBoardRow = document.querySelectorAll<HTMLElement>('.gameBoardItem')[line];
     let gameBoardWordItems = gameBoardRow.querySelectorAll<HTMLElement>('.gameBoardItemWord');
     let puzzleItems = document.querySelectorAll<HTMLElement>('.puzzleItem');
+    let hint = document.querySelector<HTMLElement>('.hint');
+    let showHint = document.querySelector<HTMLElement>('.showHint');
+
+    showHint?.addEventListener('click', () => {
+      if (hint) {
+        hint.textContent = data.rounds[column].words[line].textExampleTranslate;
+        if (hint.style.display === 'inline-block') {
+          hint.style.display = 'none';
+        } else {
+          hint.style.display = 'inline-block';
+        }
+      }
+    });
 
     const puzzleBoardItemListener = function (this: HTMLElement, e: MouseEvent) {
       const target = e.target as HTMLElement;
@@ -201,6 +215,9 @@ export function puzzlesBoardSetter(): void {
         });
         // console.log(data);
         line++;
+        if (hint) {
+          hint.style.display = 'none';
+        }
 
         if (line < data.rounds[column].words.length) {
           createGameBoardItems(data, column, line, false);
