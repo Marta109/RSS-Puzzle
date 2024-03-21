@@ -43,10 +43,11 @@ export function puzzlesBoardSetter(): void {
     let puzzleItems = document.querySelectorAll<HTMLElement>('.puzzleItem');
     let hint = document.querySelector<HTMLElement>('.hint');
     let showHint = document.querySelector<HTMLElement>('.showHint');
-
+    if (hint) {
+      hint.textContent = data.rounds[column].words[line].textExampleTranslate;
+    }
     showHint?.addEventListener('click', () => {
       if (hint) {
-        hint.textContent = data.rounds[column].words[line].textExampleTranslate;
         if (hint.style.display === 'inline-block') {
           hint.style.display = 'none';
         } else {
@@ -179,12 +180,13 @@ export function puzzlesBoardSetter(): void {
             }
           });
           if (result.trim() === string.trim()) {
-            if (nextPuzzleBtn) {
+            if (nextPuzzleBtn && hint) {
               nextPuzzleBtn.classList.remove('btnDisabled');
               checkBtn.classList.add('btnDisabled');
               puzzlesBoard.classList.add('noHover');
               gameBoardItem[line].classList.add('noHover');
               nextPuzzleBtn.disabled = false;
+              hint.style.display = 'inline-block';
             }
           } else {
             checkBtn.disabled = false;
@@ -251,6 +253,9 @@ export function puzzlesBoardSetter(): void {
 
     if (autoCompleteBtn && puzzlesBoard && checkBtn && nextPuzzleBtn) {
       autoCompleteBtn.addEventListener('click', () => {
+        if (hint) {
+          hint.style.display = 'inline-block';
+        }
         checkBtn.disabled = true;
         checkBtn.classList.add('btnDisabled');
         nextPuzzleBtn.disabled = false;
