@@ -71,6 +71,29 @@ export function puzzlesBoardSetter(): void {
       }
     });
 
+    let allWordsFilled = false;
+
+    const isCheck = () => {
+      allWordsFilled = true;
+      gameBoardWordItems.forEach((word) => {
+        if (!word.querySelector('span')) {
+          allWordsFilled = false;
+          return;
+        }
+      });
+
+      if (checkBtn) {
+        if (allWordsFilled) {
+          checkBtn.disabled = false;
+          checkBtn.classList.remove('btnDisabled');
+        } else {
+          checkBtn.disabled = true;
+          checkBtn.classList.add('btnDisabled');
+        }
+      }
+    };
+
+    isCheck();
     const puzzleBoardItemListener = function (this: HTMLElement, e: MouseEvent) {
       const target = e.target as HTMLElement;
       const puzzleItem = target.closest('.puzzleItem');
@@ -86,6 +109,7 @@ export function puzzlesBoardSetter(): void {
           puzzleItem.innerHTML = '';
         }
       }
+      isCheck();
     };
 
     const gameBoardItemListener = function (this: HTMLElement, e: MouseEvent) {
@@ -103,6 +127,7 @@ export function puzzlesBoardSetter(): void {
           gameBoardItemWord.innerHTML = '';
         }
       }
+      isCheck();
     };
 
     const dragstart = (event: DragEvent) => {
@@ -163,6 +188,7 @@ export function puzzlesBoardSetter(): void {
           draggedElement.innerHTML = nextHTML;
         }
       }
+      isCheck();
     };
 
     gameBoardWordItems.forEach((puzzleItem) => {
@@ -195,13 +221,17 @@ export function puzzlesBoardSetter(): void {
             }
           });
           if (result.trim() === string.trim()) {
-            if (nextPuzzleBtn && hint) {
-              nextPuzzleBtn.classList.remove('btnDisabled');
+            if (nextPuzzleBtn && hint && autoCompleteBtn) {
               checkBtn.classList.add('btnDisabled');
+              checkBtn.disabled = true;
+
               puzzlesBoard.classList.add('noHover');
               gameBoardItem[line].classList.add('noHover');
+              nextPuzzleBtn.classList.remove('btnDisabled');
               nextPuzzleBtn.disabled = false;
               hint.style.display = 'inline-block';
+              autoCompleteBtn.disabled = true;
+              autoCompleteBtn.classList.add('btnDisabled');
             }
           } else {
             checkBtn.disabled = false;
@@ -215,21 +245,23 @@ export function puzzlesBoardSetter(): void {
       });
     }
 
-    if (nextPuzzleBtn && checkBtn && puzzlesBoard && gameBoardItem) {
+    if (nextPuzzleBtn && checkBtn && puzzlesBoard && gameBoardItem && autoCompleteBtn) {
       nextPuzzleBtn.addEventListener('click', () => {
-        checkBtn.classList.remove('btnDisabled');
-        puzzlesBoard.classList.remove('noHover');
-        checkBtn.disabled = false;
+        // checkBtn.classList.remove('btnDisabled');
+        // checkBtn.disabled = false;
+        // autoCompleteBtn.disabled = false;
+        // autoCompleteBtn.classList.remove('noHover');
         gameBoardRow.removeEventListener('click', gameBoardItemListener);
         puzzlesBoard.removeEventListener('click', puzzleBoardItemListener);
         nextPuzzleBtn.classList.add('btnDisabled');
         nextPuzzleBtn.disabled = true;
-
+        allWordsFilled = false;
         gameBoardWordItems.forEach((puzzleItem) => {
           puzzleItem.removeEventListener('dragstart', gameBoardPuzzleItemDragstart);
           puzzleItem.removeEventListener('dragover', gameBoardPuzzleItemDragover);
           puzzleItem.removeEventListener('drop', gameBoardPuzzleItemDrop);
         });
+        puzzlesBoard.classList.remove('noHover');
         // console.log(data);
         line++;
         if (hint) {
@@ -239,20 +271,30 @@ export function puzzlesBoardSetter(): void {
         if (line < data.rounds[column].words.length) {
           createGameBoardItems(data, column, line, false);
 
+          // console.log('i work0');
           gameBoardRow = document.querySelectorAll<HTMLElement>('.gameBoardItem')[line];
           gameBoardWordItems = gameBoardRow.querySelectorAll<HTMLElement>('.gameBoardItemWord');
           puzzleItems = document.querySelectorAll<HTMLElement>('.puzzleItem');
 
+          // console.log('i work1');
           gameBoardRow.addEventListener('click', gameBoardItemListener);
           puzzlesBoard.addEventListener('click', puzzleBoardItemListener);
 
           gameBoardWordItems.forEach((puzzleItem) => {
+            // console.log('i work  foreach');
             puzzleItem.addEventListener('dragstart', gameBoardPuzzleItemDragstart);
             puzzleItem.addEventListener('dragover', gameBoardPuzzleItemDragover);
             puzzleItem.addEventListener('drop', gameBoardPuzzleItemDrop);
           });
 
-          if (autoCompleteBtn) autoCompleteBtn.disabled = false;
+          // console.log('sss1');
+          if (autoCompleteBtn) {
+            // console.log('sss');
+
+            autoCompleteBtn.disabled = false;
+            autoCompleteBtn.classList.remove('noHover');
+            autoCompleteBtn.classList.remove('btnDisabled');
+          }
         } else {
           if (autoCompleteBtn && gameBoard) {
             autoCompleteBtn.disabled = true;

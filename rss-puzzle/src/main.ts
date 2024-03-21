@@ -21,9 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (userName && userSurName) {
     if (loginPage && welcomePage && mainPage) {
+      welcomePage.style.display = 'flex';
       loginPage.style.display = 'none';
       mainPage.style.display = 'none';
-      welcomePage.style.display = 'flex';
+      // createWelcomePage();
     } 
   } else {
     if (mainPage && welcomePage) {

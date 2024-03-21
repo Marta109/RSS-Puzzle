@@ -1,6 +1,6 @@
 import './login.css';
 import { validateName, validateSurname, capitalizeFirstLetter } from './loginValidation';
-// import { createWelcomePage } from '../welcome/welcomePage.ts';
+import { createWelcomePage } from '../welcome/welcomePage.ts';
 
 export const createForm = (): void => {
   const forma: HTMLFormElement = document.createElement('form');
@@ -55,7 +55,8 @@ export const createForm = (): void => {
       errorMessageName.textContent = 'Name should be at least 3 characters long.';
       isValid = false;
     } else if (!validateName(nameValue)) {
-      errorMessageName.textContent = "Name should contain only accept English letters and '-'. ";
+      errorMessageName.textContent =
+        "Name should contain only accept English letters and '-', and start with a letter.";
       isValid = false;
     }
 
@@ -64,7 +65,7 @@ export const createForm = (): void => {
       isValid = false;
     } else if (!validateSurname(surNameValue)) {
       errorMessageSurName.textContent =
-        "Surname should contain only accept English letters and '-'. ";
+        "Surname should contain only accept English letters and '-' and start with a letter. ";
       isValid = false;
     }
 
@@ -78,13 +79,15 @@ export const createForm = (): void => {
   });
 
   // Save name and surname
-  forma.addEventListener('submit', () => {
+  forma.addEventListener('submit', (e) => {
+    e.preventDefault();
     if (!button.disabled) {
-      // createWelcomePage();
       const nameValue: string = inputName.value.trim();
       const surNameValue: string = inputSurName.value.trim();
       localStorage.setItem('userName', nameValue);
       localStorage.setItem('userSurName', surNameValue);
+      console.log(' i work');
+      createWelcomePage();
     }
   });
 };

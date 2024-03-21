@@ -7,6 +7,13 @@ export const createWelcomePage = (): void => {
   //   mainPage.style.display = 'none';
   // }
 
+  const mainPage: HTMLElement | null = document.querySelector('#mainPage');
+  const loginPage: HTMLFormElement | null = document.querySelector('#loginForm');
+  if (mainPage && loginPage) {
+    mainPage.style.display = 'none';
+    loginPage.style.display = 'none';
+  }
+
   const wrapper: HTMLDivElement = document.createElement('div');
   wrapper.id = 'welcomePage';
   wrapper.classList.add('welcomePage');

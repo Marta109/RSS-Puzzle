@@ -1,10 +1,10 @@
 export const validateName = (name: string): boolean => {
-  const regex: RegExp = /^[A-Za-z-]{3,}$/;
+  const regex: RegExp = /^[A-Za-z][A-Za-z-]*$/;
   return regex.test(name.trim());
 };
 
 export const validateSurname = (surname: string): boolean => {
-  const regex: RegExp = /^[A-Za-z-]{4,}$/;
+  const regex: RegExp = /^[A-Za-z][A-Za-z-]*$/;
   return regex.test(surname.trim());
 };
 
