@@ -2,11 +2,6 @@ import './welcomePage.css';
 import { showWelcomeMessage } from './welcomeMessage.ts';
 
 export const createWelcomePage = (): void => {
-  // const mainPage: HTMLElement | null = document.querySelector('#mainPage');
-  // if (mainPage) {
-  //   mainPage.style.display = 'none';
-  // }
-
   const mainPage: HTMLElement | null = document.querySelector('#mainPage');
   const loginPage: HTMLFormElement | null = document.querySelector('#loginForm');
   if (mainPage && loginPage) {
@@ -23,13 +18,8 @@ export const createWelcomePage = (): void => {
 
   const gameDescr: HTMLDivElement = document.createElement('div');
   gameDescr.className = 'gameDescr';
-  gameDescr.textContent = `Welcome to Puzzle - an exciting game where you can not only learn English but also immerse yourself in the world of art through captivating puzzles.
-
-  Each level of Puzzle features a new painting or drawing that you piece together. As you progress, you'll learn new words and phrases in English related to the theme of the image.
-  
-  Not only do you learn the pronunciation of English words, but you also enjoy the beauty of art by assembling puzzles and learning more about each piece.
-  
-  Are you ready for an engaging journey into the world of language and beauty with Puzzle? Start playing now!`;
+  gameDescr.textContent =
+    "Welcome to Puzzle - an exciting game where you can not only learn English but also immerse yourself in the world of art through captivating puzzles. Each level of Puzzle features a new painting or drawing that you piece together. As you progress, you'll learn new words and phrases in English related to the theme of the image. Not only do you learn the pronunciation of English words, but you also enjoy the beauty of art by assembling puzzles and learning more about each piece.Are you ready for an engaging journey into the world of language and beauty with Puzzle? Start playing now";
 
   const startBtn: HTMLButtonElement = document.createElement('button');
   startBtn.className = 'login-btn-grad';
@@ -48,19 +38,11 @@ export const createWelcomePage = (): void => {
     showWelcomeMessage();
   }
 
-  // const loginPage: HTMLFormElement | null = document.querySelector('#loginForm');
-  // if (wrapper && loginPage) {
-  //   wrapper.style.display = 'none';
-  // } else if (wrapper !== null) {
-  //   wrapper.style.display = 'block';
-  // }
-
   startBtn.addEventListener('click', () => {
     const mainPage: HTMLElement | null = document.querySelector('#mainPage');
     if (mainPage !== null) {
       mainPage.style.display = 'block';
       wrapper.style.display = 'none';
-      // showWelcomeMessage(false);
     }
   });
 };

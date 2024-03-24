@@ -1,31 +1,24 @@
-import '../main/mainPage.css';
+import '../mainPage/mainPage.css';
+import { PuzzleData } from '../data/getData';
 
 const mixingArr = (arr: string[]): string[] => {
   return arr.sort(() => Math.random() - 0.5);
 };
 
-interface PuzzleData {
-  rounds: {
-    words: {
-      textExample: string;
-    }[];
-  }[];
-}
-
 let gameBoardRowItems: HTMLDivElement[] = [];
 
 export function createGameBoardItems(
   data: PuzzleData,
-  column: number,
-  line: number,
+  round: number,
+  level: number,
   bool: boolean = false,
 ): void {
   const gameBoard = document.querySelector<HTMLElement>('.gameBoard');
   const puzzlesBoard = document.querySelector<HTMLElement>('.puzzlesBoard');
-  const words = data.rounds[column].words;
-  const setting = words[line].textExample;
-  const stringArr = setting.split(' ');
-  const puzzleWordArr = setting.split(' ');
+  const words = data.rounds[round].words;
+  const sentence = words[level].textExample;
+  const stringArr = sentence.split(' ');
+  const puzzleWordArr = sentence.split(' ');
 
   if (bool && gameBoard) {
     gameBoard.innerHTML = '';
@@ -39,11 +32,12 @@ export function createGameBoardItems(
     }
   }
 
-  const gameBoardItem = gameBoardRowItems[line];
+  const gameBoardItem = gameBoardRowItems[level];
 
   const mixArr = mixingArr(puzzleWordArr);
 
   if (puzzlesBoard) puzzlesBoard.innerHTML = '';
+
 
   for (let i = 0; i <= mixArr.length; i++) {
     if (i < mixArr.length && puzzlesBoard) {
@@ -54,6 +48,7 @@ export function createGameBoardItems(
       div.className = 'puzzleItem draggable';
       div.draggable = true;
       div.id = `puzzleItem_${i}`;
+
 
       const itemIndex = stringArr.findIndex((el) => el === mixArr[i]);
       if (itemIndex === 0) {
@@ -72,11 +67,12 @@ export function createGameBoardItems(
       puzzlesBoard.appendChild(div);
     }
     const gameBoardPuzzleItem = document.createElement('div') as HTMLDivElement;
-    gameBoardPuzzleItem.textContent = i == 0 ? `${line + 1}` : '';
+    gameBoardPuzzleItem.textContent = i == 0 ? `${level + 1}` : '';
+
     if (i !== 0) {
       gameBoardPuzzleItem.className = 'gameBoardItemWord draggable';
       gameBoardPuzzleItem.draggable = true;
-      gameBoardPuzzleItem.id = `${line}-${i}`;
+      gameBoardPuzzleItem.id = `${level}-${i}`;
     } else {
       gameBoardPuzzleItem.className = 'gameBoardItemNum';
     }

@@ -1,6 +1,6 @@
 import './login.css';
-import { validateName, validateSurname, capitalizeFirstLetter } from './loginValidation';
-import { createWelcomePage } from '../welcome/welcomePage.ts';
+import { validateName, validateSurname, capitalizeFirstLetter } from './loginValidation.ts';
+import { createWelcomePage } from '../welcomePage/welcomePage.ts';
 
 export const createForm = (): void => {
   const forma: HTMLFormElement = document.createElement('form');

@@ -1,42 +1,22 @@
 import { createGameBoardItems } from './createGameBoardItems';
+import { PuzzleData } from '../data/getData';
+import { gameBoardItemListener, puzzleBoardItemListener } from './gameBoardListeners';
+import {
+  gameBoardPuzzleItemDragstart,
+  gameBoardPuzzleItemDragover,
+  gameBoardPuzzleItemDrop,
+} from './gameDragDrop';
 
-interface PuzzleData {
-  rounds: {
-    levelData: {
-      author: string;
-      cutSrc: string;
-      id: string;
-      imageSrc: string;
-      name: string;
-      year: string;
-    };
-    words: {
-      audioExample: string;
-      textExample: string;
-      textExampleTranslate: string;
-    }[];
-  }[];
-}
-
-export function changePuzzle(
-  column: number,
-  line: number,
-  data: PuzzleData,
-  gameBoardItemListener: (this: HTMLElement, e: MouseEvent) => void,
-  puzzleBoardItemListener: (this: HTMLElement, e: MouseEvent) => void,
-  gameBoardPuzzleItemDragstart: (event: DragEvent) => void,
-  gameBoardPuzzleItemDragover: (event: DragEvent) => void,
-  gameBoardPuzzleItemDrop: (event: DragEvent) => void,
-): void {
+export function changePuzzle(round: number, level: number, data: PuzzleData): void {
+  const gameBoard = document.querySelector<HTMLElement>('.gameBoard');
+  const puzzlesBoard = document.querySelector<HTMLElement>('.puzzlesBoard');
   const nextPuzzleBtn = document.querySelector<HTMLButtonElement>('.nextPuzzle');
   const autoCompleteBtn = document.querySelector<HTMLButtonElement>('.autoCompleteBtn');
-  const gameBoard = document.querySelector<HTMLElement>('.gameBoard');
-  const audioHintToggleBtn = document.querySelector<HTMLButtonElement>('#audioHintToggleBtn');
-  const showHint = document.querySelector<HTMLElement>('.showHint');
-  const audioHintBtnIcon = document.querySelector<HTMLButtonElement>('#audio-hint');
-  const puzzlesBoard = document.querySelector<HTMLElement>('.puzzlesBoard');
+  const showHintBtn = document.querySelector<HTMLElement>('.showHint');
+  const showAudioHintBtn = document.querySelector<HTMLButtonElement>('#audioHintToggleBtn');
+  const audioHintBtn = document.querySelector<HTMLButtonElement>('#audio-hint');
 
-  if (nextPuzzleBtn?.textContent === 'Next Round' && autoCompleteBtn) {
+  if (nextPuzzleBtn?.textContent === 'Next Round' && autoCompleteBtn && gameBoard) {
     const resultsBtn = document.getElementById('resultsBtn');
     if (resultsBtn) {
       resultsBtn.style.display = 'none';
@@ -44,6 +24,7 @@ export function changePuzzle(
     nextPuzzleBtn.disabled = true;
     nextPuzzleBtn.classList.add('btnDisabled');
     nextPuzzleBtn.textContent = 'Next Puzzle';
+
     autoCompleteBtn.disabled = false;
     autoCompleteBtn.classList.remove('btnDisabled');
 
@@ -53,23 +34,27 @@ export function changePuzzle(
       gameBoard.style.backgroundImage = '';
       imgData.remove();
     }
-    if (audioHintToggleBtn && showHint && audioHintBtnIcon) {
-      audioHintBtnIcon.classList.remove('audioBtnShow');
-      audioHintToggleBtn.classList.remove('btnDisabled');
-      showHint.style.display = 'block';
-      audioHintToggleBtn.disabled = false;
+    if (showAudioHintBtn && showHintBtn && audioHintBtn) {
+      audioHintBtn.classList.remove('audioBtnShow');
+      showAudioHintBtn.classList.remove('btnDisabled');
+      showHintBtn.style.display = 'block';
+      showAudioHintBtn.disabled = false;
     }
 
-    column++;
-    line = 0;
+    round++;
+    level = 0;
 
-    createGameBoardItems(data, column, line, true);
+    createGameBoardItems(data, round, level, true);
 
-    const gameBoardRow = document.querySelectorAll<HTMLElement>('.gameBoardItem')[line];
+    const gameBoardRow = document.querySelectorAll<HTMLElement>('.gameBoardItem')[level];
     const gameBoardWordItems = gameBoardRow.querySelectorAll<HTMLElement>('.gameBoardItemWord');
 
+    function puzzleBoardHandler(e: MouseEvent) {
+      puzzleBoardItemListener(e, gameBoardWordItems);
+    }
+
     gameBoardRow?.addEventListener('click', gameBoardItemListener);
-    puzzlesBoard?.addEventListener('click', puzzleBoardItemListener);
+    puzzlesBoard?.addEventListener('click', puzzleBoardHandler);
 
     gameBoardWordItems.forEach((puzzleItem) => {
       puzzleItem.addEventListener('dragstart', gameBoardPuzzleItemDragstart);

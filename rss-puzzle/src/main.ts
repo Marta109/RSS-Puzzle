@@ -1,7 +1,7 @@
 import './style.css';
-import { createForm } from './login/startPage.ts';
-import { createMainPage } from './main/mainPage.ts';
-import { createWelcomePage } from './welcome/welcomePage.ts';
+import { createForm } from './loginPage/loginPage.ts';
+import { createMainPage } from './mainPage/mainPage.ts';
+import { createWelcomePage } from './welcomePage/welcomePage.ts';
 
 document.querySelector<HTMLBodyElement>('body')!.innerHTML = `
 <div id="app">
@@ -24,8 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
       welcomePage.style.display = 'flex';
       loginPage.style.display = 'none';
       mainPage.style.display = 'none';
-      // createWelcomePage();
-    } 
+    }
   } else {
     if (mainPage && welcomePage) {
       mainPage.style.display = 'none';
