@@ -1,11 +1,11 @@
 import { PuzzleData } from '../data/getData';
 
-export function isCanCheck(allWordsFilled: boolean, gameBoardWordItems: NodeListOf<HTMLElement>) {
+export function isCanCheck(gameBoardWordItems: NodeListOf<HTMLElement>) {
   const checkSentenceBtn = document.querySelector<HTMLButtonElement>('.checkGame');
 
   if (checkSentenceBtn) {
     checkSentenceBtn.disabled = false;
-    allWordsFilled = true;
+    let allWordsFilled = true;
 
     gameBoardWordItems.forEach((word) => {
       if (!word.querySelector('span')) {

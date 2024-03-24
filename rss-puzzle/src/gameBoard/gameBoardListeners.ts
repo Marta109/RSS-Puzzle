@@ -1,3 +1,5 @@
+import { isCanCheck } from './checkSentence';
+
 export function puzzleBoardItemListener(
   e: MouseEvent,
   gameBoardWordItems: NodeListOf<HTMLElement>,
@@ -15,6 +17,7 @@ export function puzzleBoardItemListener(
       emptyGameBoardItemWord.innerHTML = puzzleItem.innerHTML;
       puzzleItem.innerHTML = '';
     }
+    isCanCheck(gameBoardWordItems);
   }
 }
 
@@ -31,5 +34,6 @@ export function gameBoardItemListener(this: HTMLElement, e: MouseEvent) {
       emptyPuzzleItems.innerHTML = gameBoardItemWord.innerHTML;
       gameBoardItemWord.innerHTML = '';
     }
+    isCanCheck(puzzleItems);
   }
 }

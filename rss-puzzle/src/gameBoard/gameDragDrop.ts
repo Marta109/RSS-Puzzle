@@ -1,3 +1,5 @@
+import { isCanCheck } from './checkSentence';
+
 export const puzzleBoarDragStart = (event: DragEvent) => {
   if (event.dataTransfer) {
     const target = event.target as HTMLElement;
@@ -54,6 +56,12 @@ export const gameBoardPuzzleItemDrop = (event: DragEvent) => {
       const currentHTML = draggedElement.innerHTML;
       puzzle.innerHTML = currentHTML;
       draggedElement.innerHTML = nextHTML;
+    }
+
+    const puzzleItems = puzzle.parentElement;
+    let gameBoardWordItems = puzzleItems?.querySelectorAll<HTMLElement>('.gameBoardItemWord');
+    if (gameBoardWordItems) {
+      isCanCheck(gameBoardWordItems);
     }
   }
 };

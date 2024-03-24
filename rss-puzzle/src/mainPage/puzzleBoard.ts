@@ -19,7 +19,7 @@ export function puzzlesBoardSetter(): void {
   getData().then((data: PuzzleData) => {
     let round: number = 0;
     let level: number = 0;
-    // console.log(data);
+    console.log(data);
 
     createGameBoardItems(data, round, level, true);
 
@@ -66,7 +66,7 @@ export function puzzlesBoardSetter(): void {
       audioHint(`${data.rounds[round].words[level].audioExample}`);
     });
 
-    // isCanCheck(allWordsFilled, gameBoardWordItems);
+    isCanCheck(gameBoardWordItems);
 
     gameBoardWordItems.forEach((puzzleItem) => {
       puzzleItem.addEventListener('dragstart', gameBoardPuzzleItemDragstart);
@@ -97,11 +97,7 @@ export function puzzlesBoardSetter(): void {
     ) {
       nextPuzzleBtn.addEventListener('click', () => {
         if (nextPuzzleBtn.textContent === 'Next Round') {
-          changePuzzle(
-            round,
-            level,
-            data
-          );
+          changePuzzle(round, level, data);
           autoCompleteCounter = 0;
           round++;
           level = 0;
@@ -155,12 +151,7 @@ export function puzzlesBoardSetter(): void {
             autoCompleteBtn.classList.remove('btnDisabled');
           }
         } else {
-          showResultBtn(
-            autoCompleteCounter,
-            round,
-            level,
-            data
-          );
+          showResultBtn(autoCompleteCounter, round, level, data);
           showPuzzle(
             `${data.rounds[round].levelData.imageSrc}`,
             `${data.rounds[round].levelData.author}`,
@@ -181,6 +172,5 @@ export function puzzlesBoardSetter(): void {
       gameBoardRow.removeEventListener('click', gameBoardItemListener);
       puzzlesBoard?.removeEventListener('click', puzzleBoardHandler);
     });
-    
   });
 }
