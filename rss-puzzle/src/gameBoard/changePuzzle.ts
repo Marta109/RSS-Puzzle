@@ -7,6 +7,7 @@ import {
   gameBoardPuzzleItemDrop,
 } from './gameDragDrop';
 
+
 export function changePuzzle(round: number, level: number, data: PuzzleData): void {
   const gameBoard = document.querySelector<HTMLElement>('.gameBoard');
   const puzzlesBoard = document.querySelector<HTMLElement>('.puzzlesBoard');

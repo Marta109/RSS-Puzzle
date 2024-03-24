@@ -1,4 +1,5 @@
 import { isCanCheck } from './checkSentence';
+import { clearBorders } from './showCorrectness';
 
 export const puzzleBoarDragStart = (event: DragEvent) => {
   if (event.dataTransfer) {
@@ -62,6 +63,7 @@ export const gameBoardPuzzleItemDrop = (event: DragEvent) => {
     let gameBoardWordItems = puzzleItems?.querySelectorAll<HTMLElement>('.gameBoardItemWord');
     if (gameBoardWordItems) {
       isCanCheck(gameBoardWordItems);
+      clearBorders(gameBoardWordItems);
     }
   }
 };

@@ -35,7 +35,6 @@ export const createMainPage = (): void => {
 
   menu.appendChild(logOutBtn);
   menu.appendChild(audioHintToggleBtn);
-
   menu.appendChild(audio);
   menu.appendChild(audioToggleBtn);
 

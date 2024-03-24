@@ -1,6 +1,7 @@
 import { PuzzleData } from '../data/getData';
+import { showCorrectness } from './showCorrectness';
 
-export function isCanCheck(gameBoardWordItems: NodeListOf<HTMLElement>) {
+export const isCanCheck = (gameBoardWordItems: NodeListOf<HTMLElement>) => {
   const checkSentenceBtn = document.querySelector<HTMLButtonElement>('.checkGame');
 
   if (checkSentenceBtn) {
@@ -22,7 +23,7 @@ export function isCanCheck(gameBoardWordItems: NodeListOf<HTMLElement>) {
       checkSentenceBtn.classList.add('btnDisabled');
     }
   }
-}
+};
 
 export const checkSentence = (
   e: MouseEvent,
@@ -39,42 +40,32 @@ export const checkSentence = (
   const textHint = document.querySelector<HTMLElement>('.hint');
   const autoCompleteBtn = document.querySelector<HTMLButtonElement>('.autoCompleteBtn');
   const audioHintBtn = document.querySelector<HTMLButtonElement>('#audio-hint');
+  const string = data.rounds[round].words[level].textExample;
 
-  if (gameBoardWordItems !== null && checkSentenceBtn) {
-    checkSentenceBtn.disabled = true;
-    const string = data.rounds[round].words[level].textExample;
-    let result = '';
-    gameBoardWordItems.forEach((el) => {
-      let word = el.querySelector('span');
-      if (word) {
-        result += word.textContent + ' ';
-      } else {
-        result += el.textContent + ' ';
-      }
-    });
-    if (result.trim() === string.trim()) {
-      if (nextPuzzleBtn && textHint && autoCompleteBtn && audioHintBtn) {
-        checkSentenceBtn.classList.add('btnDisabled');
-        checkSentenceBtn.disabled = true;
+  const result = showCorrectness(gameBoardWordItems, string);
 
-        puzzlesBoard?.classList.add('noHover');
-        gameBoardRow.classList.add('noHover');
-        nextPuzzleBtn.classList.remove('btnDisabled');
-        nextPuzzleBtn.disabled = false;
-        if (!isHintText) {
-          textHint.style.display = 'inline-block';
-        }
-        autoCompleteBtn.disabled = true;
-        autoCompleteBtn.classList.add('btnDisabled');
-        audioHintBtn.classList.remove('audioBtnShow');
+  if (result.trim() === string.trim()) {
+    if (nextPuzzleBtn && textHint && autoCompleteBtn && audioHintBtn && checkSentenceBtn) {
+      checkSentenceBtn.classList.add('btnDisabled');
+      checkSentenceBtn.disabled = true;
+
+      puzzlesBoard?.classList.add('noHover');
+      gameBoardRow.classList.add('noHover');
+      nextPuzzleBtn.classList.remove('btnDisabled');
+      nextPuzzleBtn.disabled = false;
+      if (!isHintText) {
+        textHint.style.display = 'inline-block';
       }
-    } else {
-      checkSentenceBtn.disabled = false;
-      if (autoCompleteBtn) {
-        autoCompleteBtn.disabled = false;
-        autoCompleteBtn.classList.remove('btnDisabled');
-      }
+      autoCompleteBtn.disabled = true;
+      autoCompleteBtn.classList.add('btnDisabled');
+      audioHintBtn.classList.remove('audioBtnShow');
     }
-    console.log('answer ', string);
+  } else {
+    if (autoCompleteBtn && checkSentenceBtn) {
+      checkSentenceBtn.disabled = false;
+      autoCompleteBtn.disabled = false;
+      autoCompleteBtn.classList.remove('btnDisabled');
+    }
   }
+  console.log('answer ', string);
 };

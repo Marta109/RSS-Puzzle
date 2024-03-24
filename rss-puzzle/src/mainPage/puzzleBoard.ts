@@ -14,6 +14,7 @@ import {
   gameBoardPuzzleItemDrop,
   puzzleBoarDragStart,
 } from '../gameBoard/gameDragDrop';
+import { clearBorders } from '../gameBoard/showCorrectness';
 
 export function puzzlesBoardSetter(): void {
   getData().then((data: PuzzleData) => {
@@ -40,11 +41,9 @@ export function puzzlesBoardSetter(): void {
 
     let gameBoardRow = document.querySelectorAll<HTMLElement>('.gameBoardItem')[level];
     let gameBoardWordItems = gameBoardRow.querySelectorAll<HTMLElement>('.gameBoardItemWord');
-    let puzzleItems = document.querySelectorAll<HTMLElement>('.puzzleItem');
     let hint = document.querySelector<HTMLElement>('.hint');
     let isHintAudio = true;
     let isHintText = false;
-    let allWordsFilled = false;
     let autoCompleteCounter = 0;
 
     function puzzleBoardHandler(e: MouseEvent) {
@@ -111,7 +110,6 @@ export function puzzlesBoardSetter(): void {
         }
         nextPuzzleBtn.classList.add('btnDisabled');
         nextPuzzleBtn.disabled = true;
-        allWordsFilled = false;
         gameBoardWordItems.forEach((puzzleItem) => {
           puzzleItem.removeEventListener('dragstart', gameBoardPuzzleItemDragstart);
           puzzleItem.removeEventListener('dragover', gameBoardPuzzleItemDragover);
@@ -119,6 +117,7 @@ export function puzzlesBoardSetter(): void {
         });
         puzzlesBoard.classList.remove('noHover');
         level++;
+        clearBorders(gameBoardWordItems);
 
         if (level == data.rounds[round].words.length - 1) {
           nextPuzzleBtn.textContent = 'Show Puzzle';
@@ -134,7 +133,7 @@ export function puzzlesBoardSetter(): void {
 
           gameBoardRow = document.querySelectorAll<HTMLElement>('.gameBoardItem')[level];
           gameBoardWordItems = gameBoardRow.querySelectorAll<HTMLElement>('.gameBoardItemWord');
-          puzzleItems = document.querySelectorAll<HTMLElement>('.puzzleItem');
+          // puzzleItems = document.querySelectorAll<HTMLElement>('.puzzleItem');
 
           gameBoardRow.addEventListener('click', gameBoardItemListener);
           puzzlesBoard?.addEventListener('click', puzzleBoardHandler);

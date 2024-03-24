@@ -1,4 +1,5 @@
 import { PuzzleData } from '../data/getData';
+import { clearBorders } from './showCorrectness';
 
 export function autoCompleteSentence(
   isHintText: boolean,
@@ -28,7 +29,12 @@ export function autoCompleteSentence(
     autoCompleteBtn.classList.add('btnDisabled');
     const string = data.rounds[round].words[level].textExample.split(' ');
 
-    gameBoardRow.querySelectorAll('.gameBoardItemWord').forEach((el, i) => {
+    const gameBoardItemWord: NodeListOf<HTMLElement> =
+      gameBoardRow.querySelectorAll('.gameBoardItemWord');
+
+    clearBorders(gameBoardItemWord);
+
+    gameBoardItemWord.forEach((el, i) => {
       el.textContent = string[i];
     });
 

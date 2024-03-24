@@ -1,4 +1,5 @@
 import { isCanCheck } from './checkSentence';
+import { clearBorders } from './showCorrectness';
 
 export function puzzleBoardItemListener(
   e: MouseEvent,
@@ -6,6 +7,7 @@ export function puzzleBoardItemListener(
 ) {
   const target = e.target as HTMLElement;
   const puzzleItem = target.closest('.puzzleItem');
+  if (puzzleItem?.innerHTML == '') return;
 
   if (puzzleItem) {
     const emptyGameBoardItemWord = Array.from(gameBoardWordItems).find(
@@ -19,6 +21,8 @@ export function puzzleBoardItemListener(
     }
     isCanCheck(gameBoardWordItems);
   }
+
+  clearBorders(gameBoardWordItems);
 }
 
 export function gameBoardItemListener(this: HTMLElement, e: MouseEvent) {
@@ -35,5 +39,12 @@ export function gameBoardItemListener(this: HTMLElement, e: MouseEvent) {
       gameBoardItemWord.innerHTML = '';
     }
     isCanCheck(puzzleItems);
+  }
+
+  const gameBoardItem = gameBoardItemWord?.parentElement;
+  if (gameBoardItem) {
+    const gameBoardItemWords: NodeListOf<HTMLElement> =
+      gameBoardItem?.querySelectorAll('.gameBoardItemWord');
+    clearBorders(gameBoardItemWords);
   }
 }
