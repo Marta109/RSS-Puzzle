@@ -1,6 +1,6 @@
 ## RSS Puzzle
 
-An interactive mini-game aimed at developing English language skill is an interactive mini-game aimed at developing English language skills. Players assemble sentences from jumbled words, inspired by Lingualeo's "Phrase Builder" training. The game includes different difficulty levels, pronunciation, hint options and a unique puzzle with artistic design. 
+An interactive mini-game aimed at developing English language skill is an interactive mini-game aimed at developing English language skills. Players assemble sentences from jumbled words, inspired by Lingualeo's "Phrase Builder" training. The game includes different difficulty levels, pronunciation, hint options and a unique puzzle with artistic design.  
 
 1. Task: https://github.com/rolling-scopes-school/tasks/tree/master/stage2/tasks/puzzle
 2. Deploy: https://rolling-scopes-school.github.io/marta109-JSFE2023Q4/rss-puzzle/index.html
